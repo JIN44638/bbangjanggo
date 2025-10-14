@@ -20,22 +20,22 @@
           :loop="true"
         >
           <swiper-slide>
-            <img src="/public/images/pjs/review1.png" alt="slide" />
+            <img src="/images/pjs/review1.png" alt="slide" />
           </swiper-slide>
           <swiper-slide>
-            <img src="/public/images/pjs/review2.png" alt="slide" />
+            <img src="/images/pjs/review2.png" alt="slide" />
           </swiper-slide>
           <swiper-slide>
-            <img src="/public/images/pjs/review3.png" alt="slide" />
+            <img src="/images/pjs/review3.png" alt="slide" />
           </swiper-slide>
           <swiper-slide>
-            <img src="/public/images/pjs/review4.png" alt="slide" />
+            <img src="/images/pjs/review4.png" alt="slide" />
           </swiper-slide>
           <swiper-slide>
-            <img src="/public/images/pjs/review5.png" alt="slide" />
+            <img src="/images/pjs/review5.png" alt="slide" />
           </swiper-slide>
           <swiper-slide>
-            <img src="/public/images/pjs/review6.png" alt="slide" />
+            <img src="/images/pjs/review6.png" alt="slide" />
           </swiper-slide>
         </swiper>
       </div>
@@ -47,7 +47,6 @@
     </div>
   </section>
 </template>
-
 
 <script setup>
 // Import Swiper Vue.js components
@@ -62,23 +61,22 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 </script>
 
 <style lang="scss" scoped>
+@use "/src/assets/variables" as * ;
 .review {
-  padding-top: 50px;
+  padding-top: 100px;
   padding-bottom: 100px;
-  background-color: rgba(255, 251, 242, 1);
-}
-
-.review h3 {
-  text-align: center;
-  font-size: 30px;
-  font-family: "Cafe24Surround";
-  color: rgba(163, 96, 49, 1);
-  padding-bottom: 50px;
-}
-
-.review img {
-  width: 100%;
-  display: block;
+  background-color: $bg-color;
+  h3 {
+    text-align: center;
+    font-size: $title-font;
+    font-family: "Cafe24Surround";
+    color: $point-color;
+    padding-bottom: 50px;
+  }
+  img {
+    width: 100%;
+    display: block;
+  }
 }
 
 .inner {
@@ -100,26 +98,38 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 .swiper-button-prev,
 .swiper-button-next {
-  background-color: #5a3a29; /* 진한 갈색 */
+  background-color: $font-color;
   color: white;
   border-radius: 50%;
-  padding: 10px;
+  padding: 6px;
   z-index: 10;
   cursor: pointer;
-  font-size: 18px; /* 화살표 크기 조정 */
-  display: block; /* 버튼이 보이도록 강제 설정 */
-  margin: 0 10px; /* 양쪽 화살표를 옆으로 붙이기 위한 간격 설정 */
+  display: block;
+  margin: 0 6px;
+  width: 30px; // 버튼 크기 제한
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* 화살표가 호버될 때 색상 변경 */
+/* 화살표 아이콘 크기 줄이기 */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 14px !important; // 기본은 44px라 매우 큼
+}
+
+/* 호버 시 색상 변경 */
 .swiper-button-prev:hover,
 .swiper-button-next:hover {
-  background-color: #4a2e1b; /* 버튼 호버시 진한 갈색 */
+  background-color: #4a2e1b;
 }
-
 .swiper-button-prev {
-    left: var(--swiper-navigation-sides-offset, 86%);
-    right: auto;}
-.swiper-button-prev, .swiper-button-next {
-    top: var(--swiper-navigation-top-offset, 8%);}
+  left: var(--swiper-navigation-sides-offset, 90%);
+  right: auto;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  top: var(--swiper-navigation-top-offset, 12%);
+}
 </style>

@@ -3,6 +3,7 @@
     <Header />
     <main>
       <RouterView></RouterView>
+      <Quick />
     </main>
     <Footer />
   </div>
@@ -10,6 +11,7 @@
 <script setup>
 import Footer from "./components/Footer.vue";
 import Header from "./components/Header.vue";
+import Quick from "./components/Quick.vue";
 </script>
 
 <style lang="scss" scoped></style>
