@@ -9,15 +9,7 @@
           <!-- 지도 선택 -->
           <div class="map_selection">
             <img src="/images/pje/daegu_map.png" alt="대구 지도" />
-            <div class="pins">
-              <img src="/images/pje/position.png" alt="핀" />
-              <div class="store_desc">
-                <h3>반월당역점</h3>
-                <p>대구 중구 달구벌대로 2100</p>
-                <p>운영시간 : 11:00 ~ 20:00</p>
-              </div>
-            </div>
-            <div class="pins">
+            <div class="pins pins--kyungdae">
               <img src="/images/pje/position.png" alt="핀" />
               <div class="store_desc">
                 <h3>경대병원역점</h3>
@@ -25,7 +17,15 @@
                 <p>운영시간 : 11:00 ~ 20:00</p>
               </div>
             </div>
-            <div class="pins">
+            <div class="pins pins--banwoldang">
+              <img src="/images/pje/position.png" alt="핀" />
+              <div class="store_desc">
+                <h3>반월당역점</h3>
+                <p>대구 중구 달구벌대로 2100</p>
+                <p>운영시간 : 11:00 ~ 20:00</p>
+              </div>
+            </div>
+            <div class="pins pins--dongdaegu">
               <img src="/images/pje/position.png" alt="핀" />
               <div class="store_desc">
                 <h3>동대구역점</h3>
@@ -33,7 +33,7 @@
                 <p>운영시간 : 11:00 ~ 20:00</p>
               </div>
             </div>
-            <div class="pins">
+            <div class="pins pins--seodaegu">
               <img src="/images/pje/position.png" alt="핀" />
               <div class="store_desc">
                 <h3>서대구역점</h3>
@@ -41,7 +41,7 @@
                 <p>운영시간 : 11:00 ~ 20:00</p>
               </div>
             </div>
-            <div class="pins">
+            <div class="pins pins--airport">
               <img src="/images/pje/position.png" alt="핀" />
               <div class="store_desc">
                 <h3>대구국제공항점</h3>
@@ -52,27 +52,13 @@
           </div>
           <!-- 텍스트 선택 -->
           <div class="text_selection">
-            <select id="store">
-              <option value="반월당역점">
-                <h3>반월당역점</h3>
-                <p>대구 중구 달구벌대로 2100</p>
-              </option>
-              <option value="경대병원역점">
-                <h3>경대병원역점</h3>
-                <p>대구 중구 달구벌대로 2190</p>
-              </option>
-              <option value="동대구역점">
-                <h3>동대구역점</h3>
-                <p>대구 동구 동대구로 550</p>
-              </option>
-              <option value="서대구역점">
-                <h3>서대구역점</h3>
-                <p>대구 서구 와룡로 527</p>
-              </option>
-              <option value="대구국제공항점">
-                <h3>대구국제공항점</h3>
-                <p>대구 동구 공항로 221</p>
-              </option>
+            <label for="store_selection" class="store">선택한 지점</label>
+            <select id="store_selection">
+              <option value="반월당역점">반월당역점 (대구 중구 달구벌대로 2100)</option>
+              <option value="경대병원역점">경대병원역점 (대구 중구 달구벌대로 2190)</option>
+              <option value="동대구역점">동대구역점 (대구 동구 동대구로 550)</option>
+              <option value="서대구역점">서대구역점 (대구 서구 와룡로 527)</option>
+              <option value="대구국제공항역점">대구국제공항점 (대구 동구 공항로 221)</option>
             </select>
           </div>
         </div>
@@ -460,99 +446,275 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.calendar {
-  width: 350px;
-  margin: 50px auto 0;
+@use "../assets/variables" as *;
+h2 {
+  font-size: $sub-font;
+  font-family: "SpokaHanSansNeo";
+  color: $font-color;
 }
+.reservation {
+  background-color: $bg-color;
+  h1 {
+    text-align: center;
+    color: $point-color;
+    font-family: "Cafe24Surround";
+    font-size: 35px;
+  }
+  // 지점 선택
+  .store_select {
+    .map_selection {
+      position: relative;
+      img {
+        width: 80%;
+      }
+      .pins {
+        position: absolute;
+        cursor: pointer;
+        img {
+          width: 27%;
+        }
+        .store_desc {
+          position: absolute;
+          background: white;
+          border-radius: 8px;
+          padding: 15px 20px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          white-space: nowrap;
+          z-index: 10;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          h3 {
+            font-size: $desc-text-font;
+            font-family: "Cafe24Surround";
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #000;
+          }
+          p {
+            font-size: $mobile-text-font;
+            color: #666;
+          }
+        }
+        &:hover .store_desc {
+          opacity: 1;
+        }
+        // 핀 위치 조정 (이미지 기준)
+        .pins--kyungdae {
+          top: 45%;
+          left: 39%;
+          .store_desc {
+            left: 40px;
+            top: -10px;
+          }
+        }
+        .pins--banwoldang {
+          top: 45%;
+          left: 54%;
+          transform: translateX(-50%);
+          .store_desc {
+            left: 40px;
+            top: -10px;
+          }
+        }
+        .pins--dongdaegu {
+          top: 45%;
+          left: 65%;
+          .store_desc {
+            right: 40px;
+            top: -10px;
+          }
+        }
 
-.calendar__month {
-  font-size: 20px;
-  font-weight: 800;
-  padding: 10px 0;
-  width: 100%;
-  position: relative;
-}
+        .pins--seodaegu {
+          top: 58%;
+          left: 58%;
+          .store_desc {
+            right: 40px;
+            top: -10px;
+          }
+        }
 
-.cal-month__previous,
-.cal-month__next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  color: #777;
+        .pins--airport {
+          top: 75%;
+          left: 48%;
+          transform: translateX(-50%);
+          .store_desc {
+            left: 40px;
+            top: -10px;
+          }
+        }
+      }
+    }
+    .text_selection {
+      width: 100%;
+      label {
+        font-size: $desc-text-font;
+        color: $font-color;
+      }
+      select,
+      ::picker(select) {
+        appearance: base-select;
+        font: -webkit-small-control;
+      }
 
-  &:hover {
-    background-color: #42a5f5;
-    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.75);
-    border-radius: 50%;
+      /* hide checkmark */
+      option::checkmark {
+        display: none;
+      }
+
+      /* change from button to select itelf to style the button */
+      select {
+        width: 100%;
+        border: 2px solid $font-color;
+        border-radius: 8px;
+        padding: 15px 20px;
+        transition-duration: 0.25s;
+        font-family: "SpokaHanSansNeo";
+        font-size: $desc-text-font;
+        align-items: center;
+        background: #fff url(/images/pje/arrow.png) no-repeat 97% center/12px;
+        &:focus {
+          outline: none;
+        }
+      }
+
+      option {
+        font-size: $desc-text-font;
+        display: grid;
+        grid-template-columns: 2rem auto;
+        gap: 0.5rem;
+        padding: 15px 20px;
+        transition-duration: 0.25s;
+        /*  reset UA styles, can remove these two lines with patch landing soon  */
+        place-items: initial;
+        align-items: center;
+      }
+
+      select::picker-icon {
+        display: none;
+      }
+
+      ::picker(select) {
+        border: none;
+        padding: 0.5rem 0;
+        overflow-x: hidden;
+        border-radius: 8px;
+        width: 94.8%;
+        max-width: 900px;
+        transition: width 0.5s;
+        /*  resets from UA  */
+        min-inline-size: 0;
+        box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      select:has(:popover-open) button {
+        background: lightgray;
+      }
+    }
+  }
+  .calendar {
+    // width: 350px;
+    width: 100%;
+    margin: 50px auto 0;
+  }
+
+  .calendar__month {
+    font-size: 20px;
     font-weight: 800;
-    color: #111;
+    padding: 10px 0;
+    width: 100%;
+    position: relative;
   }
-}
 
-.cal-month__next {
-  right: 0;
-}
-
-.cal-month__current {
-  text-align: center;
-  color: #e1e1e1;
-}
-
-.cal-head__day,
-.cal-body__day {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  float: left;
-  text-align: center;
-}
-
-.cal-body__week,
-.calendar__head {
-  display: block;
-  height: 50px;
-  width: 350px;
-}
-
-.calendar__head {
-  line-height: 50px;
-  position: relative;
-
-  &:after {
-    content: " ";
+  .cal-month__previous,
+  .cal-month__next {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background-color: #90caf9;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    color: $sub-color;
   }
-}
 
-.cal-body__day {
-  color: #777;
-  line-height: 50px;
-  text-align: center;
-  cursor: pointer;
-}
+  .cal-month__next {
+    right: 0;
+  }
 
-.cal-day__month--current {
-  color: #e1e1e1;
-}
+  .cal-month__current {
+    text-align: center;
+    color: $font-color;
+  }
 
-.cal-day__day--today {
-  font-weight: 800;
-  color: #2196f3;
-}
+  .cal-head__day,
+  .cal-body__day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    text-align: center;
+    color: $font-color;
+    font-family: "SpokaHanSansNeo";
+    font-weight: 600;
+  }
 
-.cal-day__day--selected {
-  background-color: #2196f3;
-  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.75);
-  border-radius: 50%;
-  color: #111;
+  .cal-body__week,
+  .calendar__head {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    height: 50px;
+    width: 100%;
+    column-gap: 0;
+  }
+
+  .calendar__head {
+    line-height: 50px;
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+
+    &:after {
+      content: " ";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      // background-color: #90caf9;
+    }
+  }
+  .calendar__body {
+    width: 100%;
+  }
+
+  .cal-body__day {
+    color: transparent;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .cal-day__month--current {
+    color: $sub-color;
+  }
+
+  .cal-day__day--today {
+    font-weight: 800;
+    color: $point-color;
+  }
+
+  .cal-day__day--selected {
+    background-color: $font-color;
+    box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.75);
+    border-radius: 50%;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    margin: 5px auto 0; // 셀 중앙 정렬
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>
