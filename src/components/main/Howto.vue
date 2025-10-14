@@ -1,5 +1,7 @@
 <template>
-  <div class="howto">이용방법!!!!</div>
+  <div class="howto">
+    
+  </div>
 </template>
 <script setup></script>
 
