@@ -8,58 +8,71 @@
           <h2>지점 선택</h2>
           <!-- 지도 선택 -->
           <div class="map_selection">
-            <img src="/images/pje/daegu_map.png" alt="대구 지도" />
-            <div class="pins pins--kyungdae">
-              <img src="/images/pje/position.png" alt="핀" />
-              <div class="store_desc">
-                <h3>경대병원역점</h3>
-                <p>대구 중구 달구벌대로 2190</p>
-                <p>운영시간 : 11:00 ~ 20:00</p>
-              </div>
+            <img v-if="selectStore" :src="selectedImage" alt="대구 지도" />
+            <div class="pins pins--kyeongdae">
+              <h3>경대병원역점</h3>
+              <p>대구 중구 달구벌대로 2190</p>
+              <p>운영시간 : 11:00 ~ 20:00</p>
             </div>
             <div class="pins pins--banwoldang">
-              <img src="/images/pje/position.png" alt="핀" />
-              <div class="store_desc">
-                <h3>반월당역점</h3>
-                <p>대구 중구 달구벌대로 2100</p>
-                <p>운영시간 : 11:00 ~ 20:00</p>
-              </div>
+              <h3>반월당역점</h3>
+              <p>대구 중구 달구벌대로 2100</p>
+              <p>운영시간 : 11:00 ~ 20:00</p>
             </div>
             <div class="pins pins--dongdaegu">
-              <img src="/images/pje/position.png" alt="핀" />
-              <div class="store_desc">
-                <h3>동대구역점</h3>
-                <p>대구 동구 동대구로 550</p>
-                <p>운영시간 : 11:00 ~ 20:00</p>
-              </div>
+              <h3>동대구역점</h3>
+              <p>대구 동구 동대구로 550</p>
+              <p>운영시간 : 11:00 ~ 20:00</p>
             </div>
             <div class="pins pins--seodaegu">
-              <img src="/images/pje/position.png" alt="핀" />
-              <div class="store_desc">
-                <h3>서대구역점</h3>
-                <p>대구 서구 와룡로 527</p>
-                <p>운영시간 : 11:00 ~ 20:00</p>
-              </div>
+              <h3>서대구역점</h3>
+              <p>대구 서구 와룡로 527</p>
+              <p>운영시간 : 11:00 ~ 20:00</p>
             </div>
             <div class="pins pins--airport">
-              <img src="/images/pje/position.png" alt="핀" />
-              <div class="store_desc">
-                <h3>대구국제공항점</h3>
-                <p>대구 동구 공항로 221</p>
-                <p>운영시간 : 11:00 ~ 20:00</p>
-              </div>
+              <h3>대구국제공항점</h3>
+              <p>대구 동구 공항로 221</p>
+              <p>운영시간 : 11:00 ~ 20:00</p>
             </div>
           </div>
           <!-- 텍스트 선택 -->
           <div class="text_selection">
             <label for="store_selection" class="store">선택한 지점</label>
-            <select id="store_selection">
-              <option value="반월당역점">반월당역점 (대구 중구 달구벌대로 2100)</option>
-              <option value="경대병원역점">경대병원역점 (대구 중구 달구벌대로 2190)</option>
-              <option value="동대구역점">동대구역점 (대구 동구 동대구로 550)</option>
-              <option value="서대구역점">서대구역점 (대구 서구 와룡로 527)</option>
-              <option value="대구국제공항역점">대구국제공항점 (대구 동구 공항로 221)</option>
-            </select>
+            <div class="custom-select" @click="toggleStoreDropdown">
+              <div class="select-trigger" :class="{ open: isStoreDropdownOpen }">
+                <template v-if="selectedStoreName">
+                  <div class="label">
+                    <p>{{ selectedStoreName }}</p>
+                    <span>{{ selectedStoreAddress }}</span>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="label placeholder">지점을 선택해주세요</div>
+                </template>
+              </div>
+              <div class="select-options" :class="{ open: isStoreDropdownOpen }">
+                <div class="option" @click="selectStore('반월당역점', '반월당역점 (대구 중구 달구벌대로 2100)')">
+                  <p>반월당역점</p>
+                  <span>대구 중구 달구벌대로 2100</span>
+                </div>
+                <div class="option" @click="selectStore('경대병원역점', '경대병원역점 (대구 중구 달구벌대로 2190)')">
+                  <p>경대병원역점</p>
+                  <span>대구 중구 달구벌대로 2190</span>
+                </div>
+                <div class="option" @click="selectStore('동대구역점', '동대구역점 (대구 동구 동대구로 550)')">
+                  <p>동대구역점</p>
+                  <span>대구 동구 동대구로 550</span>
+                </div>
+                <div class="option" @click="selectStore('서대구역점', '서대구역점 (대구 서구 와룡로 527)')">
+                  <p>서대구역점</p>
+                  <span>대구 서구 와룡로 527</span>
+                </div>
+                <div class="option" @click="selectStore('대구국제공항역점', '대구국제공항점 (대구 동구 공항로 221)')">
+                  <p>대구국제공항점</p>
+                  <span>대구 동구 공항로 221</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!-- 날짜 선택 -->
@@ -170,49 +183,70 @@
         <div class="delivery">
           <h2>기사님께 맡길게요</h2>
           <div class="bakery_selection">
-            <p>방문 베이커리</p>
-            <select id="bakery">
-              <option value="소베">
-                <h3>소베</h3>
-                <p>대구 중구 중앙대로79길 6 1층</p>
-              </option>
-              <option value="따끈따끈베이커리">
-                <h3>따끈따끈베이커리</h3>
-                <p>대구 중구 중앙대로 395 1F 따끈따끈베이커리</p>
-              </option>
-              <option value="공주당">
-                <h3>공주당</h3>
-                <p>대구 중구 동성로 6-2</p>
-              </option>
-              <option value="네쥬">
-                <h3>네쥬</h3>
-                <p>대구 중구 남성로 55 neige 네쥬</p>
-              </option>
-              <option value="윈드윈">
-                <h3>윈드윈</h3>
-                <p>대구 중구 달구벌대로405길 42 1층</p>
-              </option>
-              <option value="따따따">
-                <h3>따따따</h3>
-                <p>대구 중구 동덕로36길 127 1층</p>
-              </option>
-              <option value="고려베이커리">
-                <h3>고려베이커리</h3>
-                <p>대구 남구 자유6길 45-2</p>
-              </option>
-              <option value="르배">
-                <h3>르배</h3>
-                <p>대구 수성구 화랑로8길 11-11 1층</p>
-              </option>
-              <option value="화이트리에 성서점">
-                <h3>화이트리에 성서점</h3>
-                <p>대구 달서구 성서로 420 1층 106호</p>
-              </option>
-              <option value="보밀당">
-                <h3>보밀당</h3>
-                <p>대구 달서구 상화로7길 38 1층</p>
-              </option>
-            </select>
+            <label for="bakery">방문 베이커리</label>
+            <div class="custom-select" @click="toggleBakeryDropdown">
+              <div class="select-trigger" :class="{ open: isBakeryDropdownOpen }">
+                <template v-if="selectedBakeryName">
+                  <div class="label">
+                    <p>{{ selectedBakeryName }}</p>
+                    <span>{{ selectedBakeryAddress }}</span>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="label placeholder">방문할 빵집을 선택해 주세요</div>
+                </template>
+              </div>
+              <div class="select-options" :class="{ open: isBakeryDropdownOpen }">
+                <div class="option" @click="selectBakery('소베', '소베 (대구 중구 중앙대로79길 6 1층)')">
+                  <p>소베</p>
+                  <span>대구 중구 중앙대로79길 6 1층</span>
+                </div>
+                <div
+                  class="option"
+                  @click="
+                    selectBakery('따끈따끈베이커리', '따끈따끈베이커리 (대구 중구 중앙대로 395 1F 따끈따끈베이커리)')
+                  "
+                >
+                  <p>따끈따끈베이커리</p>
+                  <span>대구 중구 중앙대로 395 1F 따끈따끈베이커리</span>
+                </div>
+                <div class="option" @click="selectBakery('공주당', '공주당 (대구 중구 동성로 6-2)')">
+                  <p>공주당</p>
+                  <span>대구 중구 동성로 6-2</span>
+                </div>
+                <div class="option" @click="selectBakery('네쥬', '네쥬 (대구 중구 남성로 55 neige 네쥬)')">
+                  <p>네쥬</p>
+                  <span>대구 중구 남성로 55 neige 네쥬</span>
+                </div>
+                <div class="option" @click="selectBakery('윈드윈', '윈드윈 (대구 중구 달구벌대로405길 42 1층)')">
+                  <p>윈드윈</p>
+                  <span>대구 중구 달구벌대로405길 42 1층</span>
+                </div>
+                <div class="option" @click="selectBakery('따따따', '따따따 (대구 중구 동덕로36길 127 1층)')">
+                  <p>따따따</p>
+                  <span>대구 중구 동덕로36길 127 1층</span>
+                </div>
+                <div class="option" @click="selectBakery('고려베이커리', '고려베이커리 (대구 남구 자유6길 45-2)')">
+                  <p>고려베이커리</p>
+                  <span>대구 남구 자유6길 45-2</span>
+                </div>
+                <div class="option" @click="selectBakery('르배', '르배 (대구 수성구 화랑로8길 11-11 1층)')">
+                  <p>르배</p>
+                  <span>대구 수성구 화랑로8길 11-11 1층</span>
+                </div>
+                <div
+                  class="option"
+                  @click="selectBakery('화이트리에 성서점', '화이트리에 성서점 (대구 달서구 성서로 420 1층 106호)')"
+                >
+                  <p>화이트리에 성서점</p>
+                  <span>대구 달서구 성서로 420 1층 106호</span>
+                </div>
+                <div class="option" @click="selectBakery('보밀당', '보밀당 (대구 달서구 상화로7길 38 1층)')">
+                  <p>보밀당</p>
+                  <span>대구 달서구 상화로7길 38 1층</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="time_selection">
             <p>방문 시간 (기본 4시간 적용)</p>
@@ -303,9 +337,65 @@
   </div>
 </template>
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import moment from "moment";
 import "moment/locale/ko";
+
+// 커스텀 드롭다운 상태
+const isStoreDropdownOpen = ref(false);
+const selectedStoreName = ref("");
+const selectedStoreAddress = ref("");
+const selectedImage = ref("/images/pje/pin_all.png");
+
+const isBakeryDropdownOpen = ref(false);
+const selectedBakeryName = ref("");
+const selectedBakeryAddress = ref("");
+
+// 드롭다운 토글
+const toggleStoreDropdown = () => {
+  isStoreDropdownOpen.value = !isStoreDropdownOpen.value;
+};
+
+const toggleBakeryDropdown = () => {
+  isBakeryDropdownOpen.value = !isBakeryDropdownOpen.value;
+};
+// 지점별 이미지 매핑
+const storeImages = {
+  반월당역점: "/images/pje/pin_banwoldang.png",
+  경대병원역점: "/images/pje/pin_kyeongdae.png",
+  동대구역점: "/images/pje/pin_dongdaegu.png",
+  서대구역점: "/images/pje/pin_seodaegu.png",
+  // 대구국제공항점: "/images/pje/pin_airport.png",
+};
+// 지점 선택
+const selectStore = (value, text) => {
+  // text 는 "매장명 (주소)" 형태이므로 분리
+  const match = text.match(/^(.*) \((.*)\)$/);
+  if (match) {
+    selectedStoreName.value = match[1];
+    selectedStoreAddress.value = match[2];
+  } else {
+    selectedStoreName.value = text;
+    selectedStoreAddress.value = "";
+  }
+  // 지점 선택시 이미지 변경
+  selectedImage.value = storeImages[value] || "/images/pje/pin_airport.png";
+  isStoreDropdownOpen.value = false;
+};
+
+// 베이커리 선택
+const selectBakery = (value, text) => {
+  // text 는 "매장명 (주소)" 형태이므로 분리
+  const match = text.match(/^(.*) \((.*)\)$/);
+  if (match) {
+    selectedBakeryName.value = match[1];
+    selectedBakeryAddress.value = match[2];
+  } else {
+    selectedBakeryName.value = text;
+    selectedBakeryAddress.value = "";
+  }
+  isBakeryDropdownOpen.value = false;
+};
 
 moment.locale("ko");
 class Calendar {
@@ -337,16 +427,24 @@ class Calendar {
 
     this.bodyDivs.forEach((day) => {
       day.addEventListener("click", (e) => {
-        const date = +e.target.innerHTML < 10 ? `0${e.target.innerHTML}` : e.target.innerHTML;
+        const clickedDay = parseInt(e.target.innerText, 10);
+        if (Number.isNaN(clickedDay)) return;
 
+        let baseMonth = this.month.clone();
         if (e.target.classList.contains("cal-day__month--next")) {
-          this.selected = moment(`${this.month.add(1, "month").format("YYYY-MM")}-${date}`);
+          baseMonth = baseMonth.add(1, "month");
         } else if (e.target.classList.contains("cal-day__month--previous")) {
-          this.selected = moment(`${this.month.subtract(1, "month").format("YYYY-MM")}-${date}`);
-        } else {
-          this.selected = moment(`${this.month.format("YYYY-MM")}-${date}`);
+          baseMonth = baseMonth.subtract(1, "month");
         }
 
+        const clickedDate = baseMonth.clone().date(clickedDay);
+
+        // 오늘 이전 날짜는 선택 불가
+        if (clickedDate.isBefore(moment().startOf("day"))) {
+          return;
+        }
+
+        this.selected = clickedDate;
         this.update();
       });
     });
@@ -416,8 +514,20 @@ class Calendar {
         }
 
         this.bodyDivs[index].classList.add("cal-day__month--current");
+
+        // 비활성화: 오늘 이전 날짜
+        const currentDate = this.month.clone().date(day);
+        if (currentDate.isBefore(moment().startOf("day"))) {
+          this.bodyDivs[index].classList.add("cal-day__day--disabled");
+        }
       } else {
         this.bodyDivs[index].classList.add("cal-day__month--next");
+
+        // 비활성화: 과거 날짜
+        const nextMonthDate = this.month.clone().add(1, "month").date(day);
+        if (nextMonthDate.isBefore(moment().startOf("day"))) {
+          this.bodyDivs[index].classList.add("cal-day__day--disabled");
+        }
       }
 
       this.bodyDivs[index].innerText = day++;
@@ -433,6 +543,8 @@ class Calendar {
       this.bodyDivs[index].classList.remove("cal-day__month--current");
     this.bodyDivs[index].classList.contains("cal-day__day--today") &&
       this.bodyDivs[index].classList.remove("cal-day__day--today");
+    this.bodyDivs[index].classList.contains("cal-day__day--disabled") &&
+      this.bodyDivs[index].classList.remove("cal-day__day--disabled");
     if (selected) {
       this.bodyDivs[index].classList.contains("cal-day__day--selected") &&
         this.bodyDivs[index].classList.remove("cal-day__day--selected");
@@ -452,6 +564,180 @@ h2 {
   font-family: "SpokaHanSansNeo";
   color: $font-color;
 }
+// 지점 선택
+.store_select {
+  .map_selection {
+    position: relative;
+    img {
+      width: 80%;
+      // height: 422.88px;
+      display: block;
+      margin: auto;
+    }
+    .pins {
+      position: absolute;
+      background: white;
+      border-radius: 8px;
+      padding: 15px 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      white-space: nowrap;
+      z-index: 10;
+      // opacity: 0;
+      transition: opacity 0.3s ease;
+      h3 {
+        font-size: $desc-text-font;
+        font-family: "Cafe24Surround";
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #000;
+      }
+      p {
+        font-size: $mobile-text-font;
+        color: #666;
+      }
+      &--kyeongdae {
+        top: 46%;
+        left: 60%;
+      }
+      &--banwoldang {
+        top: 46%;
+        left: 62%;
+      }
+      &--dongdaegu {
+        top: 24%;
+        left: 78%;
+      }
+      &--seodaegu {
+        top: 43%;
+        left: 51%;
+      }
+      &--airport {
+        top: 7%;
+        left: 82%;
+      }
+      // &:hover {
+      //   opacity: 1;
+      // }
+    }
+  }
+  .text_selection {
+    width: 100%;
+    label {
+      font-size: $desc-text-font;
+      color: $font-color;
+    }
+  }
+}
+
+// 커스텀 드롭다운 스타일
+.custom-select {
+  position: relative;
+  width: 100%;
+
+  .select-trigger {
+    width: 100%;
+    border: 2px solid $font-color;
+    border-radius: 8px;
+    padding: 15px 20px;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "SpokaHanSansNeo";
+    font-size: $desc-text-font;
+    transition: all 0.25s ease;
+    position: relative;
+    // color: #111;
+
+    .label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+      p {
+        font-size: $notice-text-font;
+        line-height: 1.2;
+        color: #111;
+      }
+      span {
+        font-size: $mobile-notice-font;
+        color: #949494;
+        line-height: 1.2;
+      }
+      &.placeholder {
+        color: #9fa3a7;
+        font-size: $desc-text-font;
+      }
+    }
+
+    // 화살표를 ::after로 만들기
+    &::after {
+      content: "";
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      margin-top: -6px; // 화살표 높이의 절반만큼 위로 이동
+      width: 12px;
+      height: 12px;
+      background: url(/images/pje/arrow.png) no-repeat center/12px;
+      transition: transform 0.25s ease;
+    }
+
+    // 드롭다운이 열릴 때 화살표만 회전 (위치는 고정)
+    &.open::after {
+      transform: rotate(180deg);
+    }
+  }
+
+  .select-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    // border: 2px solid $font-color;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+    border-top: none;
+    // border-radius: 0 0 8px 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 5;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.25s ease;
+
+    &.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .option {
+      padding: 15px 20px;
+      cursor: pointer;
+      font-family: "SpokaHanSansNeo";
+      font-size: $notice-text-font;
+      color: #111;
+      transition: background-color 0.25s;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+
+      &:last-child {
+        border-radius: 0 0 6px 6px;
+      }
+
+      // 모든 옵션의 span에 적용
+      span {
+        font-size: $mobile-notice-font;
+        color: #949494;
+      }
+    }
+  }
+}
 .reservation {
   background-color: $bg-color;
   h1 {
@@ -460,158 +746,7 @@ h2 {
     font-family: "Cafe24Surround";
     font-size: 35px;
   }
-  // 지점 선택
-  .store_select {
-    .map_selection {
-      position: relative;
-      img {
-        width: 80%;
-      }
-      .pins {
-        position: absolute;
-        cursor: pointer;
-        img {
-          width: 27%;
-        }
-        .store_desc {
-          position: absolute;
-          background: white;
-          border-radius: 8px;
-          padding: 15px 20px;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-          white-space: nowrap;
-          z-index: 10;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          h3 {
-            font-size: $desc-text-font;
-            font-family: "Cafe24Surround";
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #000;
-          }
-          p {
-            font-size: $mobile-text-font;
-            color: #666;
-          }
-        }
-        &:hover .store_desc {
-          opacity: 1;
-        }
-        // 핀 위치 조정 (이미지 기준)
-        .pins--kyungdae {
-          top: 45%;
-          left: 39%;
-          .store_desc {
-            left: 40px;
-            top: -10px;
-          }
-        }
-        .pins--banwoldang {
-          top: 45%;
-          left: 54%;
-          transform: translateX(-50%);
-          .store_desc {
-            left: 40px;
-            top: -10px;
-          }
-        }
-        .pins--dongdaegu {
-          top: 45%;
-          left: 65%;
-          .store_desc {
-            right: 40px;
-            top: -10px;
-          }
-        }
 
-        .pins--seodaegu {
-          top: 58%;
-          left: 58%;
-          .store_desc {
-            right: 40px;
-            top: -10px;
-          }
-        }
-
-        .pins--airport {
-          top: 75%;
-          left: 48%;
-          transform: translateX(-50%);
-          .store_desc {
-            left: 40px;
-            top: -10px;
-          }
-        }
-      }
-    }
-    .text_selection {
-      width: 100%;
-      label {
-        font-size: $desc-text-font;
-        color: $font-color;
-      }
-      select,
-      ::picker(select) {
-        appearance: base-select;
-        font: -webkit-small-control;
-      }
-
-      /* hide checkmark */
-      option::checkmark {
-        display: none;
-      }
-
-      /* change from button to select itelf to style the button */
-      select {
-        width: 100%;
-        border: 2px solid $font-color;
-        border-radius: 8px;
-        padding: 15px 20px;
-        transition-duration: 0.25s;
-        font-family: "SpokaHanSansNeo";
-        font-size: $desc-text-font;
-        align-items: center;
-        background: #fff url(/images/pje/arrow.png) no-repeat 97% center/12px;
-        &:focus {
-          outline: none;
-        }
-      }
-
-      option {
-        font-size: $desc-text-font;
-        display: grid;
-        grid-template-columns: 2rem auto;
-        gap: 0.5rem;
-        padding: 15px 20px;
-        transition-duration: 0.25s;
-        /*  reset UA styles, can remove these two lines with patch landing soon  */
-        place-items: initial;
-        align-items: center;
-      }
-
-      select::picker-icon {
-        display: none;
-      }
-
-      ::picker(select) {
-        border: none;
-        padding: 0.5rem 0;
-        overflow-x: hidden;
-        border-radius: 8px;
-        width: 94.8%;
-        max-width: 900px;
-        transition: width 0.5s;
-        /*  resets from UA  */
-        min-inline-size: 0;
-        box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      select:has(:popover-open) button {
-        background: lightgray;
-      }
-    }
-  }
   .calendar {
     // width: 350px;
     width: 100%;
@@ -637,9 +772,11 @@ h2 {
     text-align: center;
     color: $sub-color;
   }
-
+  .cal-month__previous {
+    left: 20%;
+  }
   .cal-month__next {
-    right: 0;
+    right: 20%;
   }
 
   .cal-month__current {
@@ -699,9 +836,18 @@ h2 {
     color: $sub-color;
   }
 
+  // 오늘 날짜 테두리 원 스타일
   .cal-day__day--today {
-    font-weight: 800;
-    color: $point-color;
+    border: 2px solid $font-color;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: $font-color;
   }
 
   .cal-day__day--selected {
@@ -709,12 +855,18 @@ h2 {
     box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.75);
     border-radius: 50%;
     color: #fff;
-    width: 40px;
-    height: 40px;
-    margin: 5px auto 0; // 셀 중앙 정렬
+    width: 45px;
+    height: 45px;
+    margin: auto; // 셀 중앙 정렬
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  // 과거 날짜 비활성화
+  .cal-day__day--disabled {
+    color: #c5c5c5;
+    pointer-events: none;
   }
 }
 </style>
