@@ -1,5 +1,5 @@
 <template>
-     <div class="location"> 지점안내!!!</div>
+     <div class="location"> </div>
 </template>
 <script setup></script>
 

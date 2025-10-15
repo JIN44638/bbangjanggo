@@ -45,24 +45,40 @@
           </div>
         </div>
       </div>
+      <span>보냉백 (+1000) / 아이스팩 (+1,000) 추가시 요금이 부과됩니다.</span>
     </div>
   </div>
 </template>
+
 <script setup></script>
 <style lang="scss" scoped>
+@use "/src/assets/variables" as * ;
 .price {
-  padding: 100px 0;
+  position: relative;
+  background-color: #ffebc2;
+  padding-bottom: 100px;
+  padding-top: 50px;
   h2 {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    color: #a36031;
   }
   .inner {
     display: flex;
     gap: 40px;
 
+    span {
+      position: absolute;
+      color: #50311D;
+      font-weight: bold;
+      padding-top: 30px;
+      bottom: 20px;
+      left: 760px;
+      margin-left: 109px;
+      font-size: 16px;
+    }
     h3 {
       width: 100%;
-
       border: solid #ba8e5f;
       border-radius: 15px 15px 0 0;
       background-color: #ba8e5f;
@@ -70,27 +86,31 @@
       padding: 10px 0;
       color: #fff8f8;
     }
+
     .box {
+      padding-bottom: 21px;
       display: flex;
+      font-size: $desc-text-font ;
+      font-weight: bold;
       justify-content: space-between;
     }
     .notice {
       width: calc(100% / 2);
       /* height: 170px; */
-      background-color: #646161;
+      background-color: #ffffff;
 
       border-radius: 15px;
     }
     .notice h3 p {
       height: 398px;
       width: 610px;
-      font-size: 24px;
+      font-size:16px;
       margin-top: 75px;
       margin-left: 75px;
     }
 
     .info {
-      padding: 5%;
+      padding: 15%;
     }
   }
 }
