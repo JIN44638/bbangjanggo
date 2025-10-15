@@ -27,7 +27,7 @@
       </div>
       <div class="chat">
         <div class="img-cht">
-          <img src="/images/pjs/chat_icon.png" alt="chaticon" />
+          <a href="#"><img src="/images/pjs/chat_icon.png" alt="chaticon" /></a>
         </div>
         <div class="chat-text">
           <a href="#">
