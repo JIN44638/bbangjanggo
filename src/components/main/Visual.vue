@@ -52,7 +52,7 @@ import { RouterLink } from "vue-router";
       width: 100%;
       display: flex;
       gap: 20px;
-      margin-top: 20%;
+      margin-top: 180px;
       margin-bottom: 18%;
 
       .btn {

@@ -5,15 +5,19 @@
         <!-- <img src="/images/pje/favicon_square.png" alt="빵장고 로고" /> -->
         <img src="/images/pje/logo_white.png" alt="빵장고 로고" class="logo" />
       </RouterLink>
-      <button
-        class="hamburger"
-        :class="{ active: isMenuOpen }"
-        @click="toggleMenu"
-        aria-label="모바일 메뉴 토글"
-        aria-expanded="isMenuOpen.toString()"
-      >
-        <div class="line" v-for="n in 3" :key="n"></div>
-      </button>
+      <div class="user-buttons">
+        <router-link to="/mypage" class="loginIcon"><img src="/images/kms/login-icon.png" alt="" /></router-link>
+        <router-link to="/mypage" class="mypageIcon"><img src="/images/kms/mypage-icon.png" alt="" /></router-link>
+        <button
+          class="hamburger"
+          :class="{ active: isMenuOpen }"
+          @click="toggleMenu"
+          aria-label="모바일 메뉴 토글"
+          aria-expanded="isMenuOpen.toString()"
+        >
+          <div class="line" v-for="n in 3" :key="n"></div>
+        </button>
+      </div>
       <nav class="header-menu">
         <RouterLink to="/reservation">예약하기</RouterLink>
         <a href="#">지점안내</a>
@@ -115,7 +119,7 @@ header {
 
   // 스크롤하면
   &.scrolled {
-    background-color: $font-color;
+    background-color: $point-color;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
     a {
@@ -170,6 +174,34 @@ header {
   }
 
   // 모바일 레이아웃
+  .user-buttons {
+    display: none; // 기본적으로 숨김
+    gap: 8px;
+    align-items: center;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 25px;
+      height: 25px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .mypageIcon,
+    .loginIcon {
+      width: 25px;
+      margin: 10px 8px;
+      img {
+        width: 100%;
+      }
+    }
+  }
   .hamburger {
     display: none;
     background: transparent;
@@ -178,20 +210,20 @@ header {
     cursor: pointer;
     .line {
       width: 25px;
-      height: 3px;
+      height: 2px;
       background-color: $bg-color;
-      margin: 4px 0;
+      margin: 8px 0;
       border-radius: 2px;
       transition: all 0.3s;
     }
     &.active .line:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
+      transform: translateY(9px) rotate(45deg);
     }
     &.active .line:nth-child(2) {
       opacity: 0;
     }
     &.active .line:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
+      transform: translateY(-11px) rotate(-45deg);
     }
   }
 
@@ -203,6 +235,7 @@ header {
     width: 300px;
     background: #fff;
     color: $font-color;
+    font-size: $notice-text-font;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     z-index: 9;
@@ -212,11 +245,19 @@ header {
     gap: 24px;
     justify-content: space-between;
 
-    .mobile-nav,
-    .mobile-login {
+    .mobile-nav {
       display: flex;
       flex-direction: column;
       gap: 25px;
+      a {
+        color: $font-color;
+        text-decoration: none;
+        padding: 14px 8px;
+      }
+    }
+    .mobile-login{
+      display: flex;
+      gap: 16px;
       a {
         color: $font-color;
         text-decoration: none;
@@ -243,6 +284,10 @@ header {
   }
 
   @media (max-width: 1000px) {
+    .user-buttons {
+      display: flex;
+    }
+
     .hamburger {
       display: block;
     }
