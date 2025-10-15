@@ -1,47 +1,56 @@
 <template>
   <section class="review">
-    <div class="inner">
+    <div class="reviewinner">
       <h3>리뷰</h3>
-      <div class="review-swiper">
-        <!-- Swiper 컴포넌트 -->
-        <swiper
-          class="reviewSwiper"
-          :modules="[Autoplay, Pagination, Navigation]"
-          :slides-per-view="5.5"
-          :space-between="10"
-          :autoplay="{
-            delay: 2500,
-            disableOnInteraction: false,
-          }"
-          :navigation="{
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          }"
-          :loop="true"
-        >
-          <swiper-slide>
-            <img src="/images/pjs/review1.png" alt="slide" />
-          </swiper-slide>
-          <swiper-slide>
-            <img src="/images/pjs/review2.png" alt="slide" />
-          </swiper-slide>
-          <swiper-slide>
-            <img src="/images/pjs/review3.png" alt="slide" />
-          </swiper-slide>
-          <swiper-slide>
-            <img src="/images/pjs/review4.png" alt="slide" />
-          </swiper-slide>
-          <swiper-slide>
-            <img src="/images/pjs/review5.png" alt="slide" />
-          </swiper-slide>
-          <swiper-slide>
-            <img src="/images/pjs/review6.png" alt="slide" />
-          </swiper-slide>
-        </swiper>
-      </div>
-      <!-- 네비게이션 버튼을 스와이퍼 아래로 배치 -->
-      <div class="swiper-navigation">
+      <div class="review-container">
+        <!-- 왼쪽 화살표 -->
         <div class="swiper-button-prev"></div>
+        
+        <div class="review-swiper">
+          <!-- Swiper 컴포넌트 -->
+          <swiper
+            class="reviewSwiper"
+            :modules="[Autoplay, Navigation]"
+            :slides-per-view="2.3"
+            :space-between="10"
+            :autoplay="{
+              delay: 2500,
+              disableOnInteraction: false,
+            }"
+            :navigation="{
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            }"
+            :loop="true"
+            :breakpoints="{
+              768: {
+                slidesPerView: 3.3,
+                spaceBetween: 10,
+              },
+              1024: {
+                slidesPerView: 5,
+                spaceBetween: 10,
+              },
+            }"
+          >
+            <swiper-slide v-for="review in reviews" :key="review.id">
+              <div class="review-card">
+                <div class="review-image">
+                  <img :src="review.image" :alt="review.alt" loading="lazy" />
+                </div>
+                <div class="review-content">
+                  <div class="review-rating">
+                    <span v-for="star in review.rating" :key="star" class="star">★</span>
+                  </div>
+                  <p class="review-text">{{ review.text }}</p>
+                  <p class="review-author">{{ review.author }}</p>
+                </div>
+              </div>
+            </swiper-slide>
+          </swiper>
+        </div>
+
+        <!-- 오른쪽 화살표 -->
         <div class="swiper-button-next"></div>
       </div>
     </div>
@@ -49,19 +58,71 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
 // import required modules
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
+
+// 리뷰 데이터
+const reviews = ref([
+  {
+    id: 1,
+    image: '/images/pjs/review1.png',
+    alt: '리뷰 이미지 1',
+    rating: 5,
+    text: '빵이 정말 맛있어요! 매일 사먹고 싶어요.',
+    author: 'apo****'
+  },
+  {
+    id: 2,
+    image: '/images/pjs/review2.png',
+    alt: '리뷰 이미지 2',
+    rating: 4,
+    text: '아침마다 빵냄새가 5분도 안 걸려 다 퍼지더라구요. 맛이 너무 좋았어요.',
+    author: 'ros****'
+  },
+  {
+    id: 3,
+    image: '/images/pjs/review3.png',
+    alt: '리뷰 이미지 3',
+    rating: 5,
+    text: '갓 구워진 수제빵이라 맛과 향이 일품입니다. 좋아요!',
+    author: 'liy****'
+  },
+  {
+    id: 4,
+    image: '/images/pjs/review4.png',
+    alt: '리뷰 이미지 4',
+    rating: 5,
+    text: '빵이 부드럽고 맛있어서 자주 이용합니다.',
+    author: 'kim****'
+  },
+  {
+    id: 5,
+    image: '/images/pjs/review5.png',
+    alt: '리뷰 이미지 5',
+    rating: 4,
+    text: '가격 대비 퀄리티가 훌륭합니다.',
+    author: 'lee****'
+  },
+  {
+    id: 6,
+    image: '/images/pjs/review6.png',
+    alt: '리뷰 이미지 6',
+    rating: 5,
+    text: '동네 최고의 베이커리입니다!',
+    author: 'park****'
+  }
+]);
 </script>
 
 <style lang="scss" scoped>
-@use "/src/assets/variables" as * ;
+@use "/src/assets/variables" as *;
 .review {
   padding-top: 100px;
   padding-bottom: 100px;
@@ -73,63 +134,169 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
     color: $point-color;
     padding-bottom: 50px;
   }
+}
+
+.reviewinner {
+  position: relative;
+  margin: auto;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 60px;
+  
+  @media (max-width: 1023px) {
+    padding: 0 20px;
+  }
+}
+
+.review-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  
+  @media (max-width: 1023px) {
+    gap: 10px;
+  }
+}
+
+.review-swiper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  padding: 10px 5px 20px 5px;
+}
+
+.reviewSwiper {
+  overflow: visible;
+}
+
+.swiper-slide {
+  height: auto;
+}
+
+.review-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.review-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  flex-shrink: 0;
+  
   img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
   }
 }
 
-.inner {
-  position: relative;
-  margin: auto;
-}
-
-.review-swiper {
-  position: relative;
-}
-
-/* 네비게이션 버튼들을 스와이퍼 아래에 배치 */
-.swiper-navigation {
+.review-content {
+  padding: 15px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px; /* 스와이퍼와 버튼 사이의 간격 */
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  justify-content: space-between;
 }
 
+.review-rating {
+  display: flex;
+  gap: 2px;
+  
+  .star {
+    color: #FFD700;
+    font-size: 18px;
+  }
+}
+
+.review-text {
+  font-size: 13px;
+  color: #333;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.review-author {
+  font-size: 12px;
+  color: #666;
+  text-align: right;
+  margin: 0;
+  margin-top: auto;
+  font-weight: 500;
+}
+
+/* 네비게이션 버튼을 슬라이드 양쪽에 배치 */
 .swiper-button-prev,
 .swiper-button-next {
-  background-color: $font-color;
-  color: white;
+  position: static;
+  color: $font-color;
   border-radius: 50%;
-  padding: 6px;
-  z-index: 10;
   cursor: pointer;
-  display: block;
-  margin: 0 6px;
-  width: 30px; // 버튼 크기 제한
-  height: 30px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
+  transition: background-color 0.3s ease;
 }
 
-/* 화살표 아이콘 크기 줄이기 */
+/* 화살표 아이콘 크기 */
 .swiper-button-prev::after,
 .swiper-button-next::after {
-  font-size: 14px !important; // 기본은 44px라 매우 큼
+  font-size: 16px !important;
 }
 
-/* 호버 시 색상 변경 */
-.swiper-button-prev:hover,
-.swiper-button-next:hover {
-  background-color: #4a2e1b;
+/* 비활성화 상태 */
+.swiper-button-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
-.swiper-button-prev {
-  left: var(--swiper-navigation-sides-offset, 90%);
-  right: auto;
-}
-.swiper-button-prev,
-.swiper-button-next {
-  top: var(--swiper-navigation-top-offset, 12%);
+
+/* 모바일에서 화살표 숨기기 */
+@media (max-width: 767px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
+  }
+  
+  .review-container {
+    gap: 0;
+  }
+  
+  .review-card {
+    height: 300px;
+  }
+  
+  .review-image {
+    height: 170px;
+  }
+  
+  .review-content {
+    padding: 12px;
+    gap: 6px;
+  }
+  
+  .review-text {
+    font-size: 12px;
+  }
+  
+  .review-rating .star {
+    font-size: 16px;
+  }
 }
 </style>
