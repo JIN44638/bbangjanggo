@@ -1,14 +1,13 @@
 <template>
-  <div class="signup">
-    <h2>회원가입</h2>
+<div class="searchId">
+    <h2>아이디 찾기</h2>
   </div>
 </template>
 <script setup></script>
-
-<style lang="scss" scoped>
+<style scoped lang="scss">
 @use "/src/assets/variables" as *;
 
-.signup {
+.searchId {
   h2 {
     font-family: "Cafe24Surround";
     color: $point-color;

@@ -6,7 +6,7 @@
         <img src="/images/pje/logo_white.png" alt="빵장고 로고" class="logo" />
       </RouterLink>
       <div class="user-buttons">
-        <router-link to="/mypage" class="loginIcon"><img src="/images/kms/login-icon.png" alt="" /></router-link>
+        <router-link to="/login" class="loginIcon"><img src="/images/kms/login-icon.png" alt="" /></router-link>
         <router-link to="/mypage" class="mypageIcon"><img src="/images/kms/mypage-icon.png" alt="" /></router-link>
         <button
           class="hamburger"
@@ -102,11 +102,12 @@ header {
   padding: 15px 20px;
   background-color: transparent;
   transition: all 0.3s;
-  z-index: 10;
+  z-index: 999999;
 
-  // Home.vue 외의 페이지에서는 기본적으로 $font-color 배경색 적용
+  // 홈페이지 외 헤더 색상 지정하기
   &.not-home {
-    background-color: $font-color;
+    position: relative;
+    background-color: $point-color;
 
     a {
       color: #fff;
@@ -255,7 +256,7 @@ header {
         padding: 14px 8px;
       }
     }
-    .mobile-login{
+    .mobile-login {
       display: flex;
       gap: 16px;
       a {
