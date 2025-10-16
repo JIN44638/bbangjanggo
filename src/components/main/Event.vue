@@ -50,7 +50,6 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 </script>
 
 <style lang="scss" scoped>
-
 @use "/src/assets/variables" as *;
 .event {
   padding-top: 50px;
