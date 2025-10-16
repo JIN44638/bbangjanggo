@@ -6,6 +6,8 @@ import Mypage from '@/views/Mypage.vue';
 import Payment from '@/views/Payment.vue';
 import Reservation from '@/views/Reservation.vue';
 import Signup from '@/views/Signup.vue';
+import SearchId from '@/views/loginHelp/SearchId.vue';
+import SearchPassword from '@/views/loginHelp/SearchPassword.vue';
 const routes = [
   { path: "/", component: Home  },
   { path: "/complete", component: Complete },
@@ -14,6 +16,8 @@ const routes = [
   { path: "/payment", component: Payment },
   { path: "/reservation", component: Reservation },
   { path: "/signup", component: Signup },
+  { path: "/searchid", component: SearchId },
+  { path: "/searchPass", component: SearchPassword },
 ];
 
 const router = createRouter({
