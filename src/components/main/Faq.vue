@@ -70,7 +70,7 @@ const faqs = [
   {
     question: "어떻게 예약을 변경하고 취소하나요?",
     answer: `마이페이지 → 예약 내역에서 변경 및 취소가 가능합니다.
-변경 가능한 시간은 ‘입장전’까지만 가능합니다.`,
+변경 가능한 시간은 '입장전'까지만 가능합니다.`,
   },
   {
     question: "짐 이외의 물품도 보관이 가능한가요?",
@@ -95,21 +95,21 @@ function toggle(index) {
 // 트랜지션 함수들
 
 function beforeEnter(el) {
-  el.style.display = "block"; // v-show에 대응
+  el.style.display = "block";
   el.style.height = "0";
   el.style.opacity = "0";
   el.style.paddingTop = "0";
   el.style.paddingBottom = "0";
   el.style.marginTop = "0";
   el.style.marginBottom = "0";
-  el.style.transition = "none"; // transition 초기화
+  el.style.transition = "none";
+  el.style.willChange = "height, opacity";
 }
 
 function enter(el) {
-  // 강제 리플로우(브라우저에 스타일 적용 강제)
   void el.offsetHeight;
 
-  el.style.transition = "all 0.3s ease";
+  el.style.transition = "height 0.28s ease, opacity 0.2s ease";
   el.style.height = el.scrollHeight + "px";
   el.style.opacity = "1";
   el.style.paddingTop = "";
@@ -121,6 +121,7 @@ function enter(el) {
 function afterEnter(el) {
   el.style.height = "auto";
   el.style.transition = "";
+  el.style.willChange = "";
 }
 
 function beforeLeave(el) {
@@ -131,7 +132,7 @@ function beforeLeave(el) {
 function leave(el) {
   void el.offsetHeight;
 
-  el.style.transition = "all 0.3s ease";
+  el.style.transition = "height 0.28s ease, opacity 0.2s ease";
   el.style.height = "0";
   el.style.opacity = "0";
   el.style.paddingTop = "0";
@@ -145,6 +146,7 @@ function afterLeave(el) {
   el.style.height = "";
   el.style.opacity = "";
   el.style.transition = "";
+  el.style.willChange = "";
   el.style.paddingTop = "";
   el.style.paddingBottom = "";
   el.style.marginTop = "";
@@ -160,26 +162,39 @@ function afterLeave(el) {
   background-color: $bg-color;
 
   h3 {
+    position: sticky;
+    top: 60px;
+    z-index: 5;
+    background: linear-gradient(180deg, $bg-color 70%, transparent 100%);
     text-align: center;
-    font-size: $title-font;
+    font-size: clamp(20px, 4.5vw, $title-font);
     font-family: "Cafe24Surround";
     color: $point-color;
-    padding-bottom: 50px;
+    padding: 10px 0 40px;
+    margin: 0;
   }
 
   .faqinner {
     display: flex;
     justify-content: center;
-    // align-items: flex-start;
-    align-items: center;
+    align-items: flex-start;
     gap: 5%;
     max-width: 1200px;
     margin: auto;
-    height: 600px;
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 50px;
+    }
     .question {
-      width: 100%;
-      max-width: 450px;
+      width: 50%;
+      max-width: none;
       cursor: pointer;
+      @media screen and (max-width: 768px) {
+        width: 70%;
+        align-items: center;
+        align-self: center;
+      }
       .faq-list {
         list-style: none;
         padding: 0;
@@ -189,7 +204,7 @@ function afterLeave(el) {
       .faq-item {
         width: 100%;
         min-width: 250px;
-        margin-bottom: 20px;
+        margin-bottom: 12px;
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 2px 2px rgba(80, 49, 29, 0.1);
@@ -223,15 +238,16 @@ function afterLeave(el) {
     }
 
     .chat {
-      width: 40%;
-      // max-width: 330px;
-      // min-width: 200px;
+      width: 50%;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
+      align-self: center;
+
       .img-cht {
         max-width: 210px;
+
         img {
           width: 100%;
         }
@@ -260,20 +276,27 @@ function afterLeave(el) {
 }
 
 /* 반응형 */
-@media screen and (max-width: 768px) {
-  .inner {
-    flex-direction: column;
-    align-items: stretch;
+// @media screen and (max-width: 768px) {
+//   .faqinner {
+//     flex-direction: column;
+//     align-items: stretch;
 
-    .question,
-    .chat {
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .chat {
-      margin-top: 30px;
-    }
-  }
-}
+//     .question,
+//     .chat {
+//       width: 100%;
+//       max-width: 100%;
+//     }
+//     .question {
+//       text-align: left;
+//       display: flex;
+//       flex-direction: column;
+//       align-items: center;
+//       align-self: center;
+//     }
+//     .chat {
+//       margin-top: 30px;
+//       align-self: stretch;
+//     }
+//   }
+// }
 </style>

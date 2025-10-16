@@ -8,7 +8,7 @@
         <p class="footer-text-title">주식회사 빵장고</p>
         <p>대구 중구 중앙대로 394 TEL.053-568-5857</p>
         <p>사업자등록번호 : 504-85-25999</p>
-        <p class="copy">&copy; 빵장고 2025 All Rights Reserved. Created by PJS, PJE, KMS, and KMJ.</p>
+        <p class="copy">&copy; 빵장고 2025 All Rights Reserved. Created by PJS PJE KMS and KMJ.</p>
       </div>
       <div class="footer-icon">
         <img src="/images/pjs/android.png" alt="android" />
@@ -46,14 +46,14 @@ footer {
       font-family: "SpokaHanSansNeo";
       font-size: $notice-text-font;
       font-weight: 300;
-      p{
+      p {
         padding-bottom: 5px;
       }
-      .footer-text-title{
+      .footer-text-title {
         font-weight: 500;
         padding-bottom: 5px;
       }
-      .copy{
+      .copy {
         padding-top: 5px;
         font-size: small;
       }
@@ -66,18 +66,25 @@ footer {
       .sns {
         width: 100%;
         display: flex;
-        gap: 10px;
+        gap: 3%;
         align-items: center;
         justify-content: flex-end;
-        padding: 1% 5%;
+        padding: 3% 5%;
         img {
-          max-width: 100%;
-          height: 24px;
+          width: 100%;
+          height: clamp(16px, 2.6vw, 24px);
           width: auto;
-          flex: 0 0 auto;
+          flex: 0 1 auto;
         }
       }
     }
   }
 }
+/* 반응형 */
+@media screen and (max-width: 768px) {
+  .footer-text{
+  font-size: $mobile-notice-font;
+  }
+}
+
 </style>
