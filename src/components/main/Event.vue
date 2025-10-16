@@ -75,5 +75,9 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 }
 .event-swiper {
   position: relative;
+  .swiper-slide{
+  border-radius: 20px;
+  overflow: hidden;
+  }
 }
 </style>
