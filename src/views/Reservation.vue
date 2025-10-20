@@ -2,13 +2,19 @@
   <div class="reservation">
     <div class="inner">
       <h1>예약하기</h1>
-      <div>
+      <div class="components_wrap">
         <!-- 지점 선택 -->
-        <h2>지점 선택</h2>
-        <Location />
+        <div class="location">
+          <h2>지점 선택</h2>
+          <Location ref="locationRef" @location-selected="handleLocationSelect" />
+        </div>
         <!-- 날짜 선택 -->
-        <h2>날짜 선택</h2>
-        <Calender />
+        <div class="calendar">
+          <h2>날짜 선택</h2>
+          <Calender ref="calendarRef" @date-selected="handleDateSelect" />
+        </div>
+      </div>
+      <div class="storage_extra">
         <!-- 보관 방법 -->
         <div class="storage_method">
           <div class="method_title">
@@ -20,16 +26,40 @@
             <div class="temp">
               <p>온도</p>
               <div class="temp_option">
-                <p class="opt_btn">냉보관</p>
-                <p class="opt_btn">상온보관</p>
+                <p
+                  class="opt_btn"
+                  :class="{ clicked: isSelected('temp', '냉보관') }"
+                  @click="toggleOption('temp', '냉보관')"
+                >
+                  냉보관
+                </p>
+                <p
+                  class="opt_btn"
+                  :class="{ clicked: isSelected('temp', '상온보관') }"
+                  @click="toggleOption('temp', '상온보관')"
+                >
+                  상온보관
+                </p>
               </div>
             </div>
             <!-- 접수 방법 -->
             <div class="method">
               <p>접수 방법</p>
               <div class="method_option">
-                <p class="opt_btn">직접 맡길게요</p>
-                <p class="opt_btn">기사님께 맡길게요</p>
+                <p
+                  class="opt_btn"
+                  :class="{ clicked: isSelected('method', '직접 맡길게요') }"
+                  @click="toggleOption('method', '직접 맡길게요')"
+                >
+                  직접 맡길게요
+                </p>
+                <p
+                  class="opt_btn"
+                  :class="{ clicked: isSelected('method', '기사님께 맡길게요') }"
+                  @click="toggleOption('method', '기사님께 맡길게요')"
+                >
+                  기사님께 맡길게요
+                </p>
               </div>
             </div>
           </div>
@@ -37,154 +67,376 @@
         <!-- 부가 서비스 -->
         <div class="extra_service">
           <h2>부가서비스</h2>
+          <p>접수 방법</p>
           <div class="service_option">
-            <p class="opt_btn">선택 안함</p>
-            <p class="opt_btn">아이스팩 +1,000</p>
-            <p class="opt_btn">보냉백 +5,000</p>
+            <p
+              class="opt_btn"
+              :class="{ clicked: isSelected('service', '선택 안함') }"
+              @click="toggleOption('service', '선택 안함')"
+            >
+              선택 안함
+            </p>
+            <p
+              class="opt_btn"
+              :class="{ clicked: isSelected('service', '아이스팩 +1,000') }"
+              @click="toggleOption('service', '아이스팩 +1,000')"
+            >
+              아이스팩 +1,000
+            </p>
+            <p
+              class="opt_btn"
+              :class="{ clicked: isSelected('service', '보냉백 +5,000') }"
+              @click="toggleOption('service', '보냉백 +5,000')"
+            >
+              보냉백 +5,000
+            </p>
           </div>
         </div>
-        <!-- 기사 보관 -->
-        <div class="delivery">
-          <h2>기사님께 맡길게요</h2>
-          <div class="bakery_selection">
-            <p class="store">방문 베이커리</p>
-            <div class="custom-select" @click="toggleBakeryDropdown">
-              <div class="select-trigger" :class="{ open: isBakeryDropdownOpen }">
-                <div v-if="selectedBakeryName">
-                  <div class="label">
-                    <p>{{ selectedBakeryName }}</p>
-                    <span>{{ selectedBakeryAddress }}</span>
-                  </div>
-                </div>
-                <div v-else>
-                  <div class="label placeholder">방문할 빵집을 선택해 주세요</div>
+      </div>
+
+      <!-- 기사 보관 (기사님께 맡길게요 선택시만 표시) -->
+      <div class="delivery" v-if="selectedMethod === '기사님께 맡길게요'">
+        <h2>기사님께 맡길게요</h2>
+        <div class="bakery_selection">
+          <p class="store">방문 베이커리</p>
+          <div class="custom-select" @click="toggleBakeryDropdown">
+            <div class="select-trigger" :class="{ open: isBakeryDropdownOpen }">
+              <div v-if="selectedBakeryName">
+                <div class="label">
+                  <p>{{ selectedBakeryName }}</p>
+                  <span>{{ selectedBakeryAddress }}</span>
                 </div>
               </div>
-              <div class="select-options" :class="{ open: isBakeryDropdownOpen }">
-                <div class="option" @click="selectBakery('소베', '소베 (대구 중구 중앙대로79길 6 1층)')">
-                  <p>소베</p>
-                  <span>대구 중구 중앙대로79길 6 1층</span>
-                </div>
-                <div
-                  class="option"
-                  @click="
-                    selectBakery('따끈따끈베이커리', '따끈따끈베이커리 (대구 중구 중앙대로 395 1F 따끈따끈베이커리)')
-                  "
-                >
-                  <p>따끈따끈베이커리</p>
-                  <span>대구 중구 중앙대로 395 1F 따끈따끈베이커리</span>
-                </div>
-                <div class="option" @click="selectBakery('공주당', '공주당 (대구 중구 동성로 6-2)')">
-                  <p>공주당</p>
-                  <span>대구 중구 동성로 6-2</span>
-                </div>
-                <div class="option" @click="selectBakery('네쥬', '네쥬 (대구 중구 남성로 55 neige 네쥬)')">
-                  <p>네쥬</p>
-                  <span>대구 중구 남성로 55 neige 네쥬</span>
-                </div>
-                <div class="option" @click="selectBakery('윈드윈', '윈드윈 (대구 중구 달구벌대로405길 42 1층)')">
-                  <p>윈드윈</p>
-                  <span>대구 중구 달구벌대로405길 42 1층</span>
-                </div>
-                <div class="option" @click="selectBakery('따따따', '따따따 (대구 중구 동덕로36길 127 1층)')">
-                  <p>따따따</p>
-                  <span>대구 중구 동덕로36길 127 1층</span>
-                </div>
-                <div class="option" @click="selectBakery('고려베이커리', '고려베이커리 (대구 남구 자유6길 45-2)')">
-                  <p>고려베이커리</p>
-                  <span>대구 남구 자유6길 45-2</span>
-                </div>
-                <div class="option" @click="selectBakery('르배', '르배 (대구 수성구 화랑로8길 11-11 1층)')">
-                  <p>르배</p>
-                  <span>대구 수성구 화랑로8길 11-11 1층</span>
-                </div>
-                <div
-                  class="option"
-                  @click="selectBakery('화이트리에 성서점', '화이트리에 성서점 (대구 달서구 성서로 420 1층 106호)')"
-                >
-                  <p>화이트리에 성서점</p>
-                  <span>대구 달서구 성서로 420 1층 106호</span>
-                </div>
-                <div class="option" @click="selectBakery('보밀당', '보밀당 (대구 달서구 상화로7길 38 1층)')">
-                  <p>보밀당</p>
-                  <span>대구 달서구 상화로7길 38 1층</span>
-                </div>
+              <div v-else>
+                <div class="label placeholder">방문할 베이커리를 선택해 주세요</div>
+              </div>
+            </div>
+            <div class="select-options" :class="{ open: isBakeryDropdownOpen }">
+              <div class="option" @click.stop="selectBakery('소베', '소베 (대구 중구 중앙대로79길 6 1층)')">
+                <p>소베</p>
+                <span>대구 중구 중앙대로79길 6 1층</span>
+              </div>
+              <div
+                class="option"
+                @click.stop="
+                  selectBakery('따끈따끈베이커리', '따끈따끈베이커리 (대구 중구 중앙대로 395 1F 따끈따끈베이커리)')
+                "
+              >
+                <p>따끈따끈베이커리</p>
+                <span>대구 중구 중앙대로 395 1F 따끈따끈베이커리</span>
+              </div>
+              <div class="option" @click.stop="selectBakery('공주당', '공주당 (대구 중구 동성로 6-2)')">
+                <p>공주당</p>
+                <span>대구 중구 동성로 6-2</span>
+              </div>
+              <div class="option" @click.stop="selectBakery('네쥬', '네쥬 (대구 중구 남성로 55 neige 네쥬)')">
+                <p>네쥬</p>
+                <span>대구 중구 남성로 55 neige 네쥬</span>
+              </div>
+              <div class="option" @click.stop="selectBakery('윈드윈', '윈드윈 (대구 중구 달구벌대로405길 42 1층)')">
+                <p>윈드윈</p>
+                <span>대구 중구 달구벌대로405길 42 1층</span>
+              </div>
+              <div class="option" @click.stop="selectBakery('따따따', '따따따 (대구 중구 동덕로36길 127 1층)')">
+                <p>따따따</p>
+                <span>대구 중구 동덕로36길 127 1층</span>
+              </div>
+              <div class="option" @click.stop="selectBakery('고려베이커리', '고려베이커리 (대구 남구 자유6길 45-2)')">
+                <p>고려베이커리</p>
+                <span>대구 남구 자유6길 45-2</span>
+              </div>
+              <div class="option" @click.stop="selectBakery('르배', '르배 (대구 수성구 화랑로8길 11-11 1층)')">
+                <p>르배</p>
+                <span>대구 수성구 화랑로8길 11-11 1층</span>
+              </div>
+              <div
+                class="option"
+                @click.stop="selectBakery('화이트리에 성서점', '화이트리에 성서점 (대구 달서구 성서로 420 1층 106호)')"
+              >
+                <p>화이트리에 성서점</p>
+                <span>대구 달서구 성서로 420 1층 106호</span>
+              </div>
+              <div class="option" @click.stop="selectBakery('보밀당', '보밀당 (대구 달서구 상화로7길 38 1층)')">
+                <p>보밀당</p>
+                <span>대구 달서구 상화로7길 38 1층</span>
               </div>
             </div>
           </div>
-          <div class="time_selection">
-            <p class="store">방문 시간 (기본 4시간 적용)</p>
-            <swiper
-              class="timeSwiper"
-              :slides-per-view="6.7"
-              :space-between="10"
-              :breakpoints="{
-                320: { slidesPerView: 2.3, spaceBetween: 8 },
-                390: { slidesPerView: 3.3, spaceBetween: 8 },
-                768: { slidesPerView: 5.3, spaceBetween: 10 },
-                1020: { slidesPerView: 6.7, spaceBetween: 10 },
-              }"
+        </div>
+        <div class="time_selection">
+          <p class="store">방문 시간 (기본 4시간 적용)</p>
+          <swiper
+            class="timeSwiper"
+            :slides-per-view="6.7"
+            :space-between="10"
+            :breakpoints="{
+              320: { slidesPerView: 2.3, spaceBetween: 8 },
+              // 380: { slidesPerView: 3.3, spaceBetween: 8 },
+              650: { slidesPerView: 3.3, spaceBetween: 8 },
+              768: { slidesPerView: 4.3, spaceBetween: 8 },
+              795: { slidesPerView: 5.3, spaceBetween: 10 },
+              1020: { slidesPerView: 6.7, spaceBetween: 10 },
+            }"
+          >
+            <swiper-slide
+              v-for="time in timeSlots"
+              :key="time"
+              class="opt_btn"
+              :class="{ clicked: isSelected('time', time) }"
+              @click="toggleOption('time', time)"
             >
-              <swiper-slide class="opt_btn">11:00 ~ 11:30</swiper-slide>
-              <swiper-slide class="opt_btn">11:30 ~ 12:00</swiper-slide>
-              <swiper-slide class="opt_btn">12:00 ~ 12:30</swiper-slide>
-              <swiper-slide class="opt_btn">12:30 ~ 13:00</swiper-slide>
-              <swiper-slide class="opt_btn">13:00 ~ 13:30</swiper-slide>
-              <swiper-slide class="opt_btn">13:30 ~ 14:00</swiper-slide>
-              <swiper-slide class="opt_btn">14:00 ~ 14:30</swiper-slide>
-              <swiper-slide class="opt_btn">14:30 ~ 15:00</swiper-slide>
-              <swiper-slide class="opt_btn">15:00 ~ 15:30</swiper-slide>
-              <swiper-slide class="opt_btn">15:30 ~ 16:00</swiper-slide>
-              <swiper-slide class="opt_btn">16:00 ~ 16:30</swiper-slide>
-              <swiper-slide class="opt_btn">16:30 ~ 17:00</swiper-slide>
-              <swiper-slide class="opt_btn">17:00 ~ 17:30</swiper-slide>
-              <swiper-slide class="opt_btn">17:30 ~ 18:00</swiper-slide>
-              <swiper-slide class="opt_btn">18:00 ~ 18:30</swiper-slide>
-              <swiper-slide class="opt_btn">18:30 ~ 19:00</swiper-slide>
-              <swiper-slide class="opt_btn">19:00 ~ 19:30</swiper-slide>
-              <swiper-slide class="opt_btn">19:30 ~ 20:00</swiper-slide>
-            </swiper>
-          </div>
+              {{ time }}
+            </swiper-slide>
+          </swiper>
         </div>
-        <!-- 직접 보관 -->
-        <div class="in_person">
-          <h2>직접 맡길게요</h2>
-          <p class="store">이용 가능 락커 (기본 4시간 적용)</p>
-          <div class="locker_selection opt_btn">
-            <p>락커 256<span>/300</span></p>
-          </div>
-          <p>락커 사이즈 : 35*35*55cm (종이백 2개 / 케이크(1단) 1박스 보관 가능)</p>
+      </div>
+
+      <!-- 직접 보관 (직접 맡길게요 선택시만 표시) -->
+      <div class="in_person" v-if="selectedMethod === '직접 맡길게요'">
+        <h2>직접 맡길게요</h2>
+        <p class="store">이용 가능 락커 (기본 4시간 적용)</p>
+        <div class="locker_selection opt_btn clicked">
+          <p>락커 256<span>/300</span></p>
         </div>
-        <!-- 선택한 옵션 띄우기 -->
-        <div class="selected_option">
-          <h3>[{{}}] {{}} / {{}}</h3>
-          <p>방문 빵집 : {{}}</p>
-          <p>방문 일시 : {{}} [{{}}]</p>
-          <p>부가서비스 : {{}}</p>
-          <div class="quantity">
-            <button @click="changeQuantity(-1)">-</button>
-            <input v-model="quantity" />
-            <button @click="changeQuantity(1)">+</button>
-          </div>
-          <div class="price">
-            <p>{{}}<span>/4시간</span></p>
-          </div>
+        <p class="store locker_notice">락커 사이즈 : 35*35*55cm (종이백 2개 / 케이크(1단) 1박스 보관 가능)</p>
+        <div class="time_selection">
+          <p class="store">방문 시간 (기본 4시간 적용)</p>
+          <swiper
+            class="timeSwiper"
+            :slides-per-view="6.7"
+            :space-between="10"
+            :breakpoints="{
+              320: { slidesPerView: 2.3, spaceBetween: 8 },
+              390: { slidesPerView: 3.3, spaceBetween: 8 },
+              768: { slidesPerView: 5.3, spaceBetween: 10 },
+              1020: { slidesPerView: 6.7, spaceBetween: 10 },
+            }"
+          >
+            <swiper-slide
+              v-for="time in timeSlots"
+              :key="time"
+              class="opt_btn"
+              :class="{ clicked: isSelected('time', time) }"
+              @click="toggleOption('time', time)"
+            >
+              {{ time }}
+            </swiper-slide>
+          </swiper>
         </div>
-        <button class="reserve_btn">예약하기</button>
+      </div>
+
+      <!-- 선택한 옵션 목록 (옵션이 있을 때만 표시) -->
+      <div class="reserved_options_list" v-if="reservedOptions.length > 0">
+        <h2>선택한 옵션</h2>
+        <div v-for="(option, index) in reservedOptions" :key="index" class="reserved_option">
+          <button class="remove_btn" @click="removeOption(index)">✕</button>
+          <div class="selected_options">
+            <h3>[{{ option.location }}] {{ option.temp }} / {{ option.method }}</h3>
+            <p v-if="option.bakery">방문 빵집 : {{ option.bakery }}</p>
+            <p>방문 일시 : {{ option.date }} [{{ option.time }}]</p>
+            <p>부가서비스 : {{ option.service }}</p>
+          </div>
+
+          <div class="total_price">
+            <div class="quantity">
+              <button @click="changeQuantity(index, -1)">-</button>
+              <input v-model="option.quantity" readonly />
+              <button @click="changeQuantity(index, 1)">+</button>
+            </div>
+            <div class="price">
+              <p>{{ calculatePrice(option).toLocaleString() }}원 <span>/4시간</span></p>
+            </div>
+          </div>
+          <button class="remove_btn" @click="removeOption(index)">✕</button>
+        </div>
+        <button class="reserve_btn" v-if="reservedOptions.length > 0" @click="goPayment">예약하기</button>
       </div>
     </div>
   </div>
 </template>
+
 <script setup>
-import { onMounted, ref, computed } from "vue";
-import Location from "@/components/main/Location.vue";
-// Import Swiper Vue.js components
+import { onMounted, ref, computed, watch } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
+import { useRouter } from "vue-router";
+import Location from "@/components/main/Location.vue";
 import Calender from "@/components/Calender.vue";
+
+const router = useRouter();
+
+// ref로 자식 컴포넌트 접근
+const locationRef = ref(null);
+const calendarRef = ref(null);
+
+// 시간대 목록
+const timeSlots = ref([
+  "11:00 ~ 11:30",
+  "11:30 ~ 12:00",
+  "12:00 ~ 12:30",
+  "12:30 ~ 13:00",
+  "13:00 ~ 13:30",
+  "13:30 ~ 14:00",
+  "14:00 ~ 14:30",
+  "14:30 ~ 15:00",
+  "15:00 ~ 15:30",
+  "15:30 ~ 16:00",
+  "16:00 ~ 16:30",
+  "16:30 ~ 17:00",
+  "17:00 ~ 17:30",
+  "17:30 ~ 18:00",
+  "18:00 ~ 18:30",
+  "18:30 ~ 19:00",
+  "19:00 ~ 19:30",
+  "19:30 ~ 20:00",
+]);
+
+// 현재 선택 중인 옵션 (임시)
+const selectedTemp = ref("");
+const selectedMethod = ref("");
+const selectedService = ref("");
+const selectedTime = ref("");
+const selectedLocation = ref({ name: "", address: "" });
+const selectedDate = ref("");
+const selectedBakeryName = ref("");
+const selectedBakeryAddress = ref("");
+
+// 확정된 옵션 목록
+const reservedOptions = ref([]);
+
+// 옵션 토글 함수
+const toggleOption = (category, value) => {
+  if (category === "temp") {
+    selectedTemp.value = value;
+  } else if (category === "method") {
+    selectedMethod.value = value;
+    // 접수 방법 변경시 관련 선택 초기화
+    selectedTime.value = "";
+    if (value === "기사님께 맡길게요") {
+      selectedBakeryName.value = "";
+      selectedBakeryAddress.value = "";
+    }
+  } else if (category === "service") {
+    selectedService.value = value;
+  } else if (category === "time") {
+    selectedTime.value = value;
+  }
+};
+
+// 선택 여부 확인 함수
+const isSelected = (category, value) => {
+  if (category === "temp") return selectedTemp.value === value;
+  if (category === "method") return selectedMethod.value === value;
+  if (category === "service") return selectedService.value === value;
+  if (category === "time") return selectedTime.value === value;
+  return false;
+};
+
+// 모든 필수 항목이 선택되었는지 확인
+const isAllRequiredSelected = computed(() => {
+  const basicRequired =
+    selectedLocation.value.name &&
+    selectedDate.value &&
+    selectedTemp.value &&
+    selectedMethod.value &&
+    selectedService.value &&
+    selectedTime.value;
+
+  // 기사님께 맡길게요를 선택한 경우 베이커리도 필수
+  if (selectedMethod.value === "기사님께 맡길게요") {
+    return basicRequired && selectedBakeryName.value;
+  }
+
+  return basicRequired;
+});
+
+// 모든 필수 항목 선택 시 자동으로 옵션 추가
+watch(selectedTime, (newTime) => {
+  if (newTime && isAllRequiredSelected.value) {
+    addOption();
+  }
+});
+
+// 기사 선택 시 베이커리 선택 후에도 체크
+watch(selectedBakeryName, (newBakery) => {
+  if (newBakery && selectedMethod.value === "기사님께 맡길게요" && isAllRequiredSelected.value) {
+    addOption();
+  }
+});
+
+// 옵션 추가 함수
+const addOption = () => {
+  const newOption = {
+    location: selectedLocation.value.name,
+    temp: selectedTemp.value,
+    method: selectedMethod.value,
+    date: selectedDate.value,
+    time: selectedTime.value,
+    bakery: selectedBakeryName.value || "",
+    service: selectedService.value,
+    quantity: 1,
+  };
+
+  reservedOptions.value.push(newOption);
+
+  // ✅ 기존 로컬 데이터 불러와 누적 저장
+  const saved = localStorage.getItem("reservedOptions");
+  const existing = saved ? JSON.parse(saved) : [];
+  existing.push(newOption);
+
+  // ✅ 로컬스토리지에 누적 저장
+  localStorage.setItem("reservedOptions", JSON.stringify(existing));
+
+  // ✅ 화면에서도 즉시 반영
+  reservedOptions.value = existing;
+
+  // 선택 초기화
+  resetCurrentSelection();
+
+  console.log("✅ 예약 목록:", reservedOptions.value);
+
+  // 선택 초기화
+  resetCurrentSelection();
+};
+
+// 현재 선택 초기화
+const resetCurrentSelection = () => {
+  // console.log('초기화 시작');
+
+  selectedTemp.value = "";
+  selectedMethod.value = "";
+  selectedService.value = "";
+  selectedTime.value = "";
+  selectedLocation.value = { name: "", address: "" };
+  selectedDate.value = "";
+  selectedBakeryName.value = "";
+  selectedBakeryAddress.value = "";
+
+  // 자식 컴포넌트 초기화
+  if (locationRef.value) {
+    locationRef.value.reset();
+  }
+  if (calendarRef.value) {
+    calendarRef.value.reset();
+  }
+};
+
+// 옵션 삭제
+const removeOption = (index) => {
+  reservedOptions.value.splice(index, 1);
+  localStorage.setItem("reservedOptions", JSON.stringify(reservedOptions.value));
+};
+
+// 수량 변경
+const changeQuantity = (index, amount) => {
+  const newQuantity = reservedOptions.value[index].quantity + amount;
+  if (newQuantity > 0 && newQuantity <= 5) {
+    reservedOptions.value[index].quantity = newQuantity;
+    localStorage.setItem("reservedOptions", JSON.stringify(reservedOptions.value));
+  }
+};
 
 // 베이커리 선택
 const selectBakery = (value, text) => {
-  // text 는 "매장명 (주소)" 형태이므로 분리
   const match = text.match(/^(.*) \((.*)\)$/);
   if (match) {
     selectedBakeryName.value = match[1];
@@ -197,25 +449,86 @@ const selectBakery = (value, text) => {
 };
 
 const isBakeryDropdownOpen = ref(false);
-const selectedBakeryName = ref("");
-const selectedBakeryAddress = ref("");
 
-// 드롭다운 토글
 const toggleBakeryDropdown = () => {
   isBakeryDropdownOpen.value = !isBakeryDropdownOpen.value;
 };
-// 수량 상태
-const quantity = ref(1);
-// 수량 변경 함수
-const changeQuantity = (amount) => {
-  //   console.log(amount);
-  if (quantity.value + amount > 0 && quantity.value + amount <= 5) {
-    quantity.value += amount;
+
+// 지점 선택 핸들러
+const handleLocationSelect = (location) => {
+  selectedLocation.value = { ...location };
+};
+
+// 날짜 선택 핸들러
+const handleDateSelect = (date) => {
+  selectedDate.value = date;
+};
+
+// 가격 정보
+const prices = {
+  무인: {
+    냉보관: 3000,
+    상온보관: 2500,
+  },
+  기사: {
+    냉보관: 4000,
+    상온보관: 3000,
+  },
+  부가서비스: {
+    "아이스팩 +1,000": 1000,
+    "보냉백 +5,000": 5000,
+    "선택 안함": 0,
+  },
+};
+
+// 개별 옵션 가격 계산
+const calculatePrice = (option) => {
+  let price = 0;
+
+  if (option.method === "직접 맡길게요") {
+    if (option.temp === "냉보관") {
+      price = prices.무인.냉보관;
+    } else if (option.temp === "상온보관") {
+      price = prices.무인.상온보관;
+    }
+  } else if (option.method === "기사님께 맡길게요") {
+    if (option.temp === "냉보관") {
+      price = prices.기사.냉보관;
+    } else if (option.temp === "상온보관") {
+      price = prices.기사.상온보관;
+    }
+  }
+
+  price += prices.부가서비스[option.service] || 0;
+  price *= option.quantity;
+
+  return price;
+};
+
+// ✅ 결제 페이지로 이동 + 데이터 전달
+const goToPayment = () => {
+  // ✅ 결제 전에 로컬스토리지에 저장
+  localStorage.setItem("reservedOptions", JSON.stringify(reservedOptions.value));
+
+  // ✅ 결제 페이지로 이동
+  router.push({ name: "payment" });
+};
+onMounted(() => {
+  // 결제 완료 후 돌아온 경우 → 예약 초기화
+  localStorage.removeItem("paymentDone");
+  localStorage.removeItem("reservedOptions");
+  reservedOptions.value = [];
+  return;
+});
+
+// 예약하기 클릭시
+const goPayment = () => {
+  if (confirm("이대로 예약을 진행하시겠습니까?")) {
+    router.push("/payment");
+  } else {
+    router.push("/reservation");
   }
 };
-// const totalPrice = computed(() => {
-//   return product.value.price * quantity.value;
-// });
 </script>
 
 <style lang="scss" scoped>
@@ -226,29 +539,57 @@ h2 {
   font-size: $sub-font;
   font-family: "SpokaHanSansNeo";
   color: $font-color;
+  padding: 0 0 20px;
+  // margin-bottom: 15px;
 }
 p {
   font-family: "SpokaHanSansNeo";
-  // color: $font-color;
 }
 
+// 전체 레이아웃
 .reservation {
   background-color: $bg-color;
+  padding-bottom: 50px;
   h1 {
     text-align: center;
     color: $point-color;
     font-family: "Cafe24Surround";
     font-size: 35px;
+    padding: 50px 0;
   }
 }
 
+// h1을 제외한 내용
+.components_wrap {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  // 지도, 달력
+  .location,
+  .calendar {
+    flex: 1 1 45%; /* basis를 45%로 주면 여유 생김 */
+    min-width: 300px; /* 이 폭 이하로 줄어들면 wrap 작동 */
+  }
+}
+
+// 예약하기 버튼
 .reserve_btn {
   @include btn-style;
+  display: block;
+  text-align: center;
+  width: 100%;
+  margin-top: 50px;
+  font-size: $desc-text-font;
 }
-// 옵션 선택 공통 스타일
+
+// 옵션 버튼
 .opt_btn {
   @include option-btn;
 }
+
+.storage_extra,
 .option_list,
 .temp_option,
 .method_option,
@@ -256,29 +597,41 @@ p {
   display: flex;
   gap: 10px;
 }
-// 보관 방법
+
+// 보관 방법, 부가서비스
+.storage_extra {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+// 보관 방법 제목
 .method_title {
   display: flex;
   align-items: end;
   gap: 10px;
-  margin-bottom: 15px;
   p {
     font-size: $desc-text-font;
     color: $font-color;
+    padding: 20px 0;
+    font-weight: 600;
   }
 }
+
+// 보관 방법 옵션 - 온도 / 접수 방법
 .option_list {
-  gap: 50px;
-  .temp {
-    p {
-      margin-bottom: 15px;
-      font-size: $desc-text-font;
-      color: $font-color;
-    }
-  }
+  gap: 40px;
+  flex-wrap: wrap;
+  // justify-content: space-between;
+  .temp,
   .method {
-    p {
-      margin-bottom: 15px;
+    > p {
+      color: $font-color;
+      padding-bottom: 20px;
+      font-weight: 500;
+    }
+    .opt_btn {
+      // margin-bottom: 15px;
       font-size: $desc-text-font;
       color: $font-color;
     }
@@ -286,16 +639,106 @@ p {
 }
 
 // 부가서비스
-// 기사 보관
-.bakery_selection {
-  .store {
-    color: $font-color;
+.extra_service {
+  h2 {
+    // margin-bottom: 15px;
+  }
+  > p {
+    color: transparent;
+    padding-bottom: 20px;
   }
 }
-// 커스텀 드롭다운 스타일
-.store {
-  margin-bottom: 15px;
+@media (max-width: 875px) {
+  .extra_service {
+    > p {
+      display: none;
+      visibility: hidden;
+    }
+  }
 }
+@media (max-width: 614px) {
+  .components_wrap {
+    gap: 40px;
+  }
+}
+@media (max-width: 537px) {
+  .storage_extra {
+    flex-direction: column;
+  }
+  .option_list {
+    width: 100%;
+    flex-direction: column;
+    // gap: 20px;
+
+    .temp_option,
+    .method_option {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+
+      .opt_btn {
+        flex: 1 1 45%;
+        text-align: center;
+        padding: 12px 0;
+        border-radius: 10px;
+        font-size: $mobile-notice-font;
+        min-width: 130px;
+        // max-width: 160px;
+      }
+    }
+  }
+
+  .extra_service {
+    width: 100%;
+    justify-content: center;
+    > p {
+      display: none;
+      visibility: hidden;
+    }
+    .service_option {
+      display: flex;
+      // flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+
+      .opt_btn {
+        flex: 1;
+        text-align: center;
+        padding: 12px 0;
+        border-radius: 10px;
+        font-size: $mobile-notice-font;
+        min-width: 130px;
+        // max-width: 160px;
+      }
+    }
+  }
+}
+
+// 기사님께 맡길게요 / 직접 맡길게요
+.delivery,
+.in_person {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-top: 20px;
+  .store {
+    color: $font-color;
+    font-size: $desc-text-font;
+    padding: 0 0 20px;
+    font-weight: 500;
+  }
+  .time_selection {
+    margin-top: 20px;
+    .timeSwiper {
+      text-align: center;
+    }
+  }
+}
+
+// 방문 베이커리
 .custom-select {
   position: relative;
   width: 100%;
@@ -314,7 +757,6 @@ p {
     font-size: $desc-text-font;
     transition: all 0.25s ease;
     position: relative;
-    // color: #111;
 
     .label {
       display: flex;
@@ -337,20 +779,18 @@ p {
       }
     }
 
-    // 화살표를 ::after로 만들기
     &::after {
       content: "";
       position: absolute;
       right: 20px;
       top: 50%;
-      margin-top: -6px; // 화살표 높이의 절반만큼 위로 이동
+      margin-top: -6px;
       width: 12px;
       height: 12px;
       background: url(/images/pje/arrow.png) no-repeat center/12px;
       transition: transform 0.25s ease;
     }
 
-    // 드롭다운이 열릴 때 화살표만 회전 (위치는 고정)
     &.open::after {
       transform: rotate(180deg);
     }
@@ -362,10 +802,8 @@ p {
     left: 0;
     right: 0;
     background: white;
-    // border: 2px solid $font-color;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
     border-top: none;
-    // border-radius: 0 0 8px 8px;
     max-height: 200px;
     overflow-y: auto;
     z-index: 5;
@@ -373,6 +811,13 @@ p {
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.25s ease;
+
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE, Edge */
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
 
     &.open {
       opacity: 1;
@@ -396,7 +841,6 @@ p {
         border-radius: 0 0 6px 6px;
       }
 
-      // 모든 옵션의 span에 적용
       span {
         font-size: $mobile-notice-font;
         color: #949494;
@@ -404,33 +848,137 @@ p {
     }
   }
 }
-.time_selection {
-  .store {
-    color: $font-color;
-  }
-}
-.timeSwiper {
-  text-align: center;
-  .opt_btn {
-    // white-space: nowrap;
-  }
-}
-// 직접 보관
+
 .in_person {
-  .store {
-    color: $font-color;
-  }
   .locker_selection {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 153.85px;
+    // margin: 20px 0;
     p {
       span {
         color: #949494;
       }
     }
   }
+  .locker_notice {
+    padding-top: 20px;
+    font-size: $notice-text-font;
+  }
 }
-// 선택한 옵션
+
+.reserved_options_list {
+  margin-top: 40px;
+
+  // 선택한 옵션
+  .reserved_option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    position: relative;
+    margin-bottom: 20px;
+
+    .remove_btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      font-size: $mobile-notice-font;
+      color: #949494;
+      cursor: pointer;
+      padding: 5px;
+      line-height: 1;
+
+      &:hover {
+        color: $font-color;
+      }
+    }
+
+    .selected_options {
+      margin-bottom: 15px;
+      h3 {
+        font-size: $desc-text-font;
+        margin-bottom: 5px;
+        color: $font-color;
+      }
+
+      p {
+        font-size: $mobile-notice-font;
+        color: #666;
+      }
+    }
+
+    .total_price {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 50px;
+
+      .quantity {
+        display: flex;
+        gap: 20px;
+        button {
+          border: none;
+          background-color: transparent;
+          cursor: pointer;
+          font-size: 18px;
+          color: $font-color;
+        }
+        input {
+          width: 40px;
+          padding: 8px 12px;
+          text-align: center;
+          border: none;
+          border-radius: 8px;
+          background-color: $main-color;
+        }
+      }
+
+      .price {
+        p {
+          font-size: $f-a-q-text-font;
+          font-weight: bold;
+          color: $font-color;
+
+          span {
+            font-size: $notice-text-font;
+            font-weight: normal;
+            color: #949494;
+          }
+        }
+      }
+    }
+  }
+
+  // .total_summary {
+  //   background-color: $font-color;
+  //   color: white;
+  //   padding: 20px;
+  //   border-radius: 10px;
+  //   display: flex;
+  //   justify-content: space-between;
+  //   align-items: center;
+  //   margin-top: 20px;
+
+  //   h3 {
+  //     font-size: $sub-font;
+  //     font-family: "SpokaHanSansNeo";
+  //   }
+
+  //   .total_amount {
+  //     font-size: 28px;
+  //     font-weight: bold;
+  //     font-family: "SpokaHanSansNeo";
+  //   }
+  // }
+}
 </style>

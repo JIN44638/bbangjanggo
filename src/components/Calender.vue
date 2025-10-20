@@ -1,7 +1,6 @@
 <template>
   <!-- 날짜 선택 -->
   <div class="calendar">
-
     <div class="calendar__month">
       <div class="cal-month__previous">〈</div>
       <div class="cal-month__current"></div>
@@ -76,13 +75,20 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref } from "vue";
 import moment from "moment";
 import "moment/locale/ko";
 
+// emit 정의
+const emit = defineEmits(["date-selected"]);
+
 moment.locale("ko");
+
+let calendarInstance = null; // Calendar 인스턴스 저장
+
 class Calendar {
-  constructor() {
+  constructor(emitFn) {
+    this.emitFn = emitFn; // emit 함수 저장
     this.monthDiv = document.querySelector(".cal-month__current");
     this.headDivs = document.querySelectorAll(".cal-head__day");
     this.bodyDivs = document.querySelectorAll(".cal-body__day");
@@ -129,9 +135,19 @@ class Calendar {
 
         this.selected = clickedDate;
         this.update();
+
+        // 부모에게 선택된 날짜 전달
+        this.emitFn("date-selected", this.selected.format("MM/DD"));
       });
     });
 
+    this.update();
+  }
+
+  // 초기화 메서드 추가
+  reset() {
+    this.selected = this.today.clone();
+    this.month = moment();
     this.update();
   }
 
@@ -227,8 +243,19 @@ class Calendar {
   }
 }
 onMounted(() => {
-  const cal = new Calendar();
-  cal.init();
+  calendarInstance = new Calendar(emit);
+  calendarInstance.init();
+});
+// 초기화 함수
+const reset = () => {
+  if (calendarInstance) {
+    calendarInstance.reset();
+  }
+};
+
+// 부모 컴포넌트에서 접근 가능하도록 expose
+defineExpose({
+  reset,
 });
 </script>
 
@@ -238,7 +265,7 @@ onMounted(() => {
 .calendar {
   // width: 350px;
   width: 100%;
-  margin: 50px auto 0;
+  margin: 23px auto 0;
 }
 
 .calendar__month {
@@ -288,9 +315,10 @@ onMounted(() => {
 .calendar__head {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  height: 100px;
+  height: 50px;
   width: 100%;
   column-gap: 0;
+  // background-color: #fff;
 }
 
 .calendar__head {
