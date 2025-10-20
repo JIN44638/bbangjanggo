@@ -60,13 +60,14 @@ a {
   color: #333;
 }
 .inner {
-  width: 90%;
+  width: 100%;
   max-width: 1000px;
   min-width: 320px;
   margin: auto;
 }
 // 커스텀 드롭다운 스타일
 .text_selection {
+  width: 100%;
   .store {
     color: $font-color;
     font-size: $desc-text-font;
@@ -81,7 +82,7 @@ a {
     width: 100%;
     border: 2px solid $font-color;
     border-radius: 8px;
-    padding: 15px 20px;
+    padding: 10px 15px;
     background: #fff;
     cursor: pointer;
     display: flex;
@@ -150,6 +151,13 @@ a {
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.25s ease;
+
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE, Edge */
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
 
     &.open {
       opacity: 1;
