@@ -7,7 +7,7 @@
         <swiper
           class="eventSwiper"
           :modules="[Autoplay, Pagination, Navigation]"
-          :slides-per-view="3"
+          :slides-per-view="1.5"
           :space-between="10"
           :autoplay="{
             delay: 2500,
@@ -18,6 +18,20 @@
             prevEl: '.swiper-button-prev',
           }"
           :loop="true"
+           :breakpoints="{
+               450: {
+                slidesPerView: 2.2,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 10,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 10,
+              },
+            }"
         >
           <swiper-slide>
             <img src="/images/pje/welcomeEvent.png" alt="slide" />
@@ -74,9 +88,19 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 }
 .event-swiper {
   position: relative;
-  .swiper-slide{
-  border-radius: 20px;
-  overflow: hidden;
+  .swiper-slide {
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  @media (max-width: 768px) {
+    .swiper-slide {
+      border-radius: 20px;
+    }
+  }
+  @media (max-width: 390px) {
+    .swiper-slide {
+      border-radius: 15px;
+    }
   }
 }
 </style>

@@ -23,6 +23,10 @@
             }"
             :loop="true"
             :breakpoints="{
+               600: {
+                slidesPerView: 3.3,
+                spaceBetween: 10,
+              },
               768: {
                 slidesPerView: 3.3,
                 spaceBetween: 10,
