@@ -95,11 +95,14 @@ onUnmounted(() => {
 @use "../assets/variables" as *;
 
 header {
+display: flex;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 15px 20px;
+  // max-width: 1000px;
+  // padding: 15px 20px;
+  padding: 15px 0;
   background-color: transparent;
   transition: all 0.3s;
   z-index: 999999;
@@ -146,7 +149,7 @@ header {
   }
 
   .inner {
-    max-width: 1280px;
+    max-width: 1000px;
     display: flex;
     margin: auto;
     justify-content: space-between;
@@ -160,7 +163,7 @@ header {
 
     .header-menu {
       display: flex;
-      gap: 50px;
+      gap: 35px;
       font-size: $notice-text-font;
     }
 
