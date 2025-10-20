@@ -64,8 +64,10 @@
   text-align: center;
   h2 {
     text-align: center;
+    font-family: "Cafe24Surround";
     margin-bottom: 50px;
     color: #a36031;
+    font-size:32px;
   }
   .notice_wrap {
     // display: flex;
@@ -76,6 +78,7 @@
     padding-bottom: 20px;
 
     h3 {
+  
       width: 100%;
       border: solid #ba8e5f;
       border-radius: 15px 15px 0 0;
@@ -111,7 +114,7 @@
       padding: 15%;
     }
   }
-  span {
+   span {
     color: #50311d;
     font-weight: bold;
     padding-top: 30px;
