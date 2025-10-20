@@ -8,20 +8,21 @@
             <div class="faq-question" @click="toggle(index)">
               <span class="faq-q">Q. {{ item.question }}</span>
             </div>
-            <transition
-              name="faq"
-              @before-enter="beforeEnter"
-              @enter="enter"
-              @after-enter="afterEnter"
-              @before-leave="beforeLeave"
-              @leave="leave"
-              @after-leave="afterLeave"
+            <div
+              class="faq-answer"
+              :ref="el => setAnswerRef(el, index)"
+              :style="{
+                maxHeight: openedIndex === index ? heights[index] + 'px' : '0',
+                opacity: openedIndex === index ? 1 : 0,
+                paddingTop: openedIndex === index ? '16px' : '0',
+                paddingBottom: openedIndex === index ? '16px' : '0',
+              }"
             >
-              <div v-show="openedIndex === index" class="faq-answer">
+              <div class="answer-content">
                 <p>{{ item.answer }}</p>
                 <p v-if="item.note" class="note">{{ item.note }}</p>
               </div>
-            </transition>
+            </div>
           </li>
         </ul>
       </div>
@@ -42,7 +43,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 
 const faqs = [
   {
@@ -87,71 +88,32 @@ const faqs = [
 ];
 
 const openedIndex = ref(null);
+const heights = ref({});
+const answerRefs = ref({});
+
+function setAnswerRef(el, index) {
+  if (el) {
+    answerRefs.value[index] = el;
+  }
+}
 
 function toggle(index) {
   openedIndex.value = openedIndex.value === index ? null : index;
 }
 
-// 트랜지션 함수들
-
-function beforeEnter(el) {
-  el.style.display = "block";
-  el.style.height = "0";
-  el.style.opacity = "0";
-  el.style.paddingTop = "0";
-  el.style.paddingBottom = "0";
-  el.style.marginTop = "0";
-  el.style.marginBottom = "0";
-  el.style.transition = "none";
-  el.style.willChange = "height, opacity";
-}
-
-function enter(el) {
-  void el.offsetHeight;
-
-  el.style.transition = "height 0.28s ease, opacity 0.2s ease";
-  el.style.height = el.scrollHeight + "px";
-  el.style.opacity = "1";
-  el.style.paddingTop = "";
-  el.style.paddingBottom = "";
-  el.style.marginTop = "";
-  el.style.marginBottom = "";
-}
-
-function afterEnter(el) {
-  el.style.height = "auto";
-  el.style.transition = "";
-  el.style.willChange = "";
-}
-
-function beforeLeave(el) {
-  el.style.height = el.scrollHeight + "px";
-  el.style.opacity = "1";
-}
-
-function leave(el) {
-  void el.offsetHeight;
-
-  el.style.transition = "height 0.28s ease, opacity 0.2s ease";
-  el.style.height = "0";
-  el.style.opacity = "0";
-  el.style.paddingTop = "0";
-  el.style.paddingBottom = "0";
-  el.style.marginTop = "0";
-  el.style.marginBottom = "0";
-}
-
-function afterLeave(el) {
-  el.style.display = "none";
-  el.style.height = "";
-  el.style.opacity = "";
-  el.style.transition = "";
-  el.style.willChange = "";
-  el.style.paddingTop = "";
-  el.style.paddingBottom = "";
-  el.style.marginTop = "";
-  el.style.marginBottom = "";
-}
+onMounted(async () => {
+  await nextTick();
+  // 각 답변의 실제 높이를 계산
+  Object.keys(answerRefs.value).forEach((key) => {
+    const el = answerRefs.value[key];
+    if (el) {
+      const content = el.querySelector('.answer-content');
+      if (content) {
+        heights.value[key] = content.scrollHeight + 32; // padding 포함
+      }
+    }
+  });
+});
 </script>
 
 <style lang="scss" scoped>
@@ -179,22 +141,25 @@ function afterLeave(el) {
     justify-content: center;
     align-items: flex-start;
     gap: 5%;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: auto;
+    
     @media screen and (max-width: 768px) {
       flex-direction: column;
       align-items: stretch;
       gap: 50px;
     }
+    
     .question {
       width: 50%;
       max-width: none;
-      cursor: pointer;
+      
       @media screen and (max-width: 768px) {
         width: 70%;
         align-items: center;
         align-self: center;
       }
+      
       .faq-list {
         list-style: none;
         padding: 0;
@@ -206,9 +171,9 @@ function afterLeave(el) {
         min-width: 250px;
         margin-bottom: 12px;
         border-radius: 12px;
-        overflow: hidden;
         box-shadow: 0 2px 2px rgba(80, 49, 29, 0.1);
         background-color: #fff;
+        overflow: hidden;
 
         .faq-question {
           background-color: $main-color;
@@ -218,20 +183,38 @@ function afterLeave(el) {
           font-size: $desc-text-font;
           color: $font-color;
           cursor: pointer;
+          user-select: none;
+          
+          &:hover {
+            background-color: darken($main-color, 3%);
+          }
         }
 
         .faq-answer {
           background-color: #fff;
-          padding: 16px;
+          padding-left: 16px;
+          padding-right: 16px;
           font-family: "SpokaHanSansNeo";
           font-size: $desc-text-font;
           color: #333;
           overflow: hidden;
+          transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                      opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                      padding 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+          will-change: max-height, opacity, padding;
 
-          .note {
-            margin-top: 8px;
-            font-size: 13px;
-            color: #666;
+          .answer-content {
+            p {
+              margin: 0;
+              white-space: pre-line;
+              line-height: 1.6;
+            }
+
+            .note {
+              margin-top: 8px;
+              font-size: 13px;
+              color: #666;
+            }
           }
         }
       }
@@ -244,12 +227,17 @@ function afterLeave(el) {
       flex-direction: column;
       align-items: center;
       align-self: center;
+      
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
 
       .img-cht {
         max-width: 210px;
 
         img {
           width: 100%;
+          display: block;
         }
       }
 
@@ -268,35 +256,11 @@ function afterLeave(el) {
             font-weight: 500;
             font-family: "SpokaHanSansNeo";
             font-size: $desc-text-font;
+            margin: 0;
           }
         }
       }
     }
   }
 }
-
-/* 반응형 */
-// @media screen and (max-width: 768px) {
-//   .faqinner {
-//     flex-direction: column;
-//     align-items: stretch;
-
-//     .question,
-//     .chat {
-//       width: 100%;
-//       max-width: 100%;
-//     }
-//     .question {
-//       text-align: left;
-//       display: flex;
-//       flex-direction: column;
-//       align-items: center;
-//       align-self: center;
-//     }
-//     .chat {
-//       margin-top: 30px;
-//       align-self: stretch;
-//     }
-//   }
-// }
 </style>
