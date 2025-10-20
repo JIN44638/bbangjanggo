@@ -119,4 +119,26 @@ import { RouterLink } from "vue-router";
     }
   }
 }
+@media (max-width: 768px) {
+  .visual {
+    .visual-txt {
+      h1 {
+        font-size: 30px;
+      }
+    }
+  }
+
+  .reserBtn {
+    flex-direction: column;
+  }
+}
+@media (max-width: 390px) {
+  .visual {
+    .visual-txt {
+      h1 {
+        font-size: $mobile-title-font;
+      }
+    }
+  }
+}
 </style>
