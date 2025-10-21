@@ -5,7 +5,7 @@
       <div class="review-container">
         <!-- 왼쪽 화살표 -->
         <div class="swiper-button-prev"></div>
-        
+
         <div class="review-swiper">
           <!-- Swiper 컴포넌트 -->
           <swiper
@@ -23,12 +23,12 @@
             }"
             :loop="true"
             :breakpoints="{
-               600: {
-                slidesPerView: 3.3,
+              550: {
+                slidesPerView: 3,
                 spaceBetween: 10,
               },
               768: {
-                slidesPerView: 3.3,
+                slidesPerView: 4,
                 spaceBetween: 10,
               },
               1024: {
@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
 
@@ -76,52 +76,52 @@ import { Autoplay, Navigation } from "swiper/modules";
 const reviews = ref([
   {
     id: 1,
-    image: '/images/pjs/review1.png',
-    alt: '리뷰 이미지 1',
+    image: "/images/pjs/review1.png",
+    alt: "리뷰 이미지 1",
     rating: 5,
-    text: '빵이 정말 맛있어요! 매일 사먹고 싶어요.',
-    author: 'apo****'
+    text: "빵이 정말 맛있어요! 매일 사먹고 싶어요.",
+    author: "apo****",
   },
   {
     id: 2,
-    image: '/images/pjs/review2.png',
-    alt: '리뷰 이미지 2',
+    image: "/images/pjs/review2.png",
+    alt: "리뷰 이미지 2",
     rating: 4,
-    text: '아침마다 빵냄새가 5분도 안 걸려 다 퍼지더라구요. 맛이 너무 좋았어요.',
-    author: 'ros****'
+    text: "아침마다 빵냄새가 5분도 안 걸려 다 퍼지더라구요. 맛최고!!.",
+    author: "ros****",
   },
   {
     id: 3,
-    image: '/images/pjs/review3.png',
-    alt: '리뷰 이미지 3',
+    image: "/images/pjs/review3.png",
+    alt: "리뷰 이미지 3",
     rating: 5,
-    text: '갓 구워진 수제빵이라 맛과 향이 일품입니다. 좋아요!',
-    author: 'liy****'
+    text: "갓 구워진 수제빵이라 맛과 향이 일품입니다. 좋아요!",
+    author: "liy****",
   },
   {
     id: 4,
-    image: '/images/pjs/review4.png',
-    alt: '리뷰 이미지 4',
+    image: "/images/pjs/review4.png",
+    alt: "리뷰 이미지 4",
     rating: 5,
-    text: '빵이 부드럽고 맛있어서 자주 이용합니다.',
-    author: 'kim****'
+    text: "빵이 부드럽고 맛있어서 자주 이용합니다.",
+    author: "kim****",
   },
   {
     id: 5,
-    image: '/images/pjs/review5.png',
-    alt: '리뷰 이미지 5',
+    image: "/images/pjs/review5.png",
+    alt: "리뷰 이미지 5",
     rating: 4,
-    text: '가격 대비 퀄리티가 훌륭합니다.',
-    author: 'lee****'
+    text: "가격 대비 퀄리티가 훌륭합니다.",
+    author: "lee****",
   },
   {
     id: 6,
-    image: '/images/pjs/review6.png',
-    alt: '리뷰 이미지 6',
+    image: "/images/pjs/review6.png",
+    alt: "리뷰 이미지 6",
     rating: 5,
-    text: '동네 최고의 베이커리입니다!',
-    author: 'park****'
-  }
+    text: "동네 최고의 베이커리입니다!",
+    author: "park****",
+  },
 ]);
 </script>
 
@@ -131,6 +131,29 @@ const reviews = ref([
   padding-top: 100px;
   padding-bottom: 100px;
   background-color: $bg-color;
+}
+@media (max-width: 768px) {
+  .review {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+}
+@media (max-width: 390px) {
+  .review {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
+.reviewinner {
+  position: relative;
+  margin: auto;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 60px;
+
+  @media (max-width: 1023px) {
+    padding: 0 20px;
+  }
   h3 {
     text-align: center;
     font-size: $title-font;
@@ -138,17 +161,16 @@ const reviews = ref([
     color: $point-color;
     padding-bottom: 50px;
   }
-}
-
-.reviewinner {
-  position: relative;
-  margin: auto;
-  max-width: 1200px;
-  width: 100%;
-  padding: 0 60px;
-  
-  @media (max-width: 1023px) {
-    padding: 0 20px;
+  @media (max-width: 768px) {
+    h3 {
+      padding-bottom: 40px;
+    }
+  }
+  @media (max-width: 390px) {
+    h3 {
+      font-size: $f-a-q-text-font;
+      padding-bottom: 30px;
+    }
   }
 }
 
@@ -157,7 +179,7 @@ const reviews = ref([
   align-items: center;
   gap: 15px;
   position: relative;
-  
+
   @media (max-width: 1023px) {
     gap: 10px;
   }
@@ -169,6 +191,7 @@ const reviews = ref([
   overflow: hidden;
   padding: 10px 5px 20px 5px;
 }
+
 
 .reviewSwiper {
   overflow: visible;
@@ -187,7 +210,7 @@ const reviews = ref([
   height: 350px;
   display: flex;
   flex-direction: column;
-  
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
@@ -199,7 +222,7 @@ const reviews = ref([
   height: 200px;
   overflow: hidden;
   flex-shrink: 0;
-  
+
   img {
     width: 100%;
     height: 100%;
@@ -220,9 +243,9 @@ const reviews = ref([
 .review-rating {
   display: flex;
   gap: 2px;
-  
+
   .star {
-    color: #FFD700;
+    color: #ffd700;
     font-size: 18px;
   }
 }
@@ -271,36 +294,66 @@ const reviews = ref([
   cursor: not-allowed;
 }
 
+/* 550px 이하에서 간격 조정 */
+@media (max-width: 550px) {
+  .review-content {
+    padding: 5px;
+    gap: 2px;
+  }
+
+  .review-text {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .review-rating .star {
+    font-size: 14px;
+  }
+
+  .review-author {
+    font-size: 11px;
+  }
+}
+
 /* 모바일에서 화살표 숨기기 */
 @media (max-width: 767px) {
   .swiper-button-prev,
   .swiper-button-next {
     display: none;
   }
-  
+
   .review-container {
     gap: 0;
   }
-  
+
   .review-card {
     height: 300px;
   }
-  
+
   .review-image {
     height: 170px;
   }
-  
+
   .review-content {
     padding: 12px;
     gap: 6px;
   }
-  
+
   .review-text {
     font-size: 12px;
   }
-  
+
   .review-rating .star {
     font-size: 16px;
+  }
+}
+@media (max-width: 390px) {
+  .review-author {
+    font-size: 10px;
+  }
+
+  .review-text {
+    font-size: 11px;
   }
 }
 </style>

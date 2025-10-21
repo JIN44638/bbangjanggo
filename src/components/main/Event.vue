@@ -18,20 +18,20 @@
             prevEl: '.swiper-button-prev',
           }"
           :loop="true"
-           :breakpoints="{
-               450: {
-                slidesPerView: 2.2,
-                spaceBetween: 10,
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 10,
-              },
-              1024: {
-                slidesPerView: 3,
-                spaceBetween: 10,
-              },
-            }"
+          :breakpoints="{
+            450: {
+              slidesPerView: 2.2,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 10,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 10,
+            },
+          }"
         >
           <swiper-slide>
             <img src="/images/pje/welcomeEvent.png" alt="slide" />
@@ -66,7 +66,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 <style lang="scss" scoped>
 @use "/src/assets/variables" as *;
 .event {
-  padding-top: 50px;
+  padding-top: 100px;
   padding-bottom: 100px;
   background-color: $sub-color;
   h3 {
@@ -74,14 +74,30 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
     font-size: $title-font;
     font-family: "Cafe24Surround";
     color: #fff;
-    padding-bottom: 70px;
+    padding-bottom: 50px;
+  }
+  @media (max-width: 768px) {
+    h3 {
+      padding-bottom: 40px;
+    }
+  }
+  @media (max-width: 390px) {
+    h3 {
+      font-size: $f-a-q-text-font;
+       padding-bottom: 30px;
+    }
   }
   img {
     width: 100%;
     display: block;
   }
 }
-
+@media (max-width: 768px) {
+  .event {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+}
 .inner {
   position: relative;
   margin: auto;

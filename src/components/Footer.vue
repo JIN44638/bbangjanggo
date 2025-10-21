@@ -4,30 +4,31 @@
       <div class="logo">
         <img src="/images/pjs/logo_white(hor.).png" alt="logo" />
       </div>
+      <div class="footer-right">
+        <div class="footer-text">
+          <p class="footer-text-title">주식회사 빵장고</p>
+          <p>대구 중구 중앙대로 394 TEL.053-568-5857</p>
+          <p>사업자등록번호 : 504-85-25999</p>
+          <div class="copy-wrap">
+            <span class="copy">&copy; 빵장고 2025 All Rights Reserved.</span>
+            <span class="copy created">Created by PJS PJE KMS and KMJ.</span>
+          </div>
+        </div>
 
-      <div class="footer-text">
-        <p class="footer-text-title">주식회사 빵장고</p>
-        <p>대구 중구 중앙대로 394 TEL.053-568-5857</p>
-        <p>사업자등록번호 : 504-85-25999</p>
-        <div class="copy-wrap">
-          <span class="copy">&copy; 빵장고 2025 All Rights Reserved.</span>
-          <span class="copy created">Created by PJS PJE KMS and KMJ.</span>
-        </div>
-      </div>
-
-      <div class="footer-icon">
-        <div class="android icon">
-          <img src="/images/pjs/googleplay.png" alt="안드로이드" />
-          <p>Android 전용</p>
-        </div>
-        <div class="iso icon">
-          <img src="/images/pjs/apple.png" alt="iso" />
-          <p>iso 전용</p>
-        </div>
-        <div class="sns">
-          <img src="/images/pjs/twiter.png" alt="sns" />
-          <img src="/images/pjs/facebook.png" alt="sns" />
-          <img src="/images/pjs/instagram.png" alt="sns" />
+        <div class="footer-icon">
+          <div class="android icon">
+            <img src="/images/pjs/googleplay.png" alt="안드로이드" />
+            <p>Android 전용</p>
+          </div>
+          <div class="iso icon">
+            <img src="/images/pjs/apple.png" alt="iso" />
+            <p>iso 전용</p>
+          </div>
+          <div class="sns">
+            <img src="/images/pjs/twiter.png" alt="sns" />
+            <img src="/images/pjs/facebook.png" alt="sns" />
+            <img src="/images/pjs/instagram.png" alt="sns" />
+          </div>
         </div>
       </div>
     </div>
@@ -41,15 +42,18 @@
 
 footer {
   background-color: $point-color;
-  padding: 1% 0;
-
+  padding: 15px 0;
+  @media (max-width: 390px) {
+  padding-left: 20px;
+  }
+ 
   .foot-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 3%;
     flex-wrap: wrap;
-
+    width: 85%;
     .logo {
       width: 15%;
       min-width: 150px;
@@ -57,72 +61,90 @@ footer {
         width: 100%;
       }
     }
-
-    .footer-text {
-      color: #fff;
-      font-family: "SpokaHanSansNeo";
-      font-size: $mobile-notice-font;
-      font-weight: 300;
-  
-      p {
-        padding-bottom: 5px;
-      }
-
-      .footer-text-title {
-        font-weight: 500;
-        padding-bottom: 5px;
-      }
-
-      .copy-wrap {
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 10px;
-
-        .copy {
-          font-size: $mobile-notice-font;
-        }
-      }
-    }
-
-    .footer-icon {
-      .sns {
-        width: 100%;
-        display: flex;
-        gap: 15px;
-        align-items: center;
-        justify-content: center;
-        padding: 3% 5%;
-        img {
-          height: clamp(16px, 2.6vw, 24px);
-          width: auto;
-          flex: 0 1 auto;
-        }
-      }
-    }
-
-    .icon {
-      width: 110px;
-      background-color: $sub-color;
+    .footer-right {
       display: flex;
-      padding: 3px 5px;
-      border-radius: 7px;
-      align-items: center;
-      gap: 5px;
-
-      img:first-child {
-        width: 20px;
-      }
-
-      p {
+      flex-grow: 1;
+      justify-content: space-between;
+      .footer-text {
         color: #fff;
         font-family: "SpokaHanSansNeo";
         font-size: $mobile-notice-font;
-        font-weight: 100;
-      }
-    }
+        font-weight: 300;
 
-    .icon:first-child {
-      margin-bottom: 5px;
+        p {
+          padding-bottom: 5px;
+        }
+
+        .footer-text-title {
+          font-weight: 500;
+          padding-bottom: 5px;
+        }
+
+        .copy-wrap {
+          display: flex;
+          flex-wrap: nowrap;
+          gap: 10px;
+
+          .copy {
+            font-size: $mobile-notice-font;
+          }
+          @media (max-width: 390px) {
+            .copy {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+      @media (max-width: 390px) {
+        .footer-text {
+          font-size: 10px;
+        }
+      }
+      .footer-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        .sns {
+          width: 100px;
+          display: flex;
+          gap: 5px;
+          align-items: center;
+          justify-content: flex-start;
+          padding: 5px;
+          img {
+            height: 20px;
+            // height: clamp(16px, 2.6vw, 24px);
+            width: auto;
+            flex: 0 1 auto;
+          }
+        }
+      }
+
+      .icon {
+        width: 110px;
+        background-color: $sub-color;
+        display: flex;
+        padding: 3px 5px;
+        border-radius: 7px;
+        align-items: center;
+        gap: 5px;
+
+        img:first-child {
+          width: 20px;
+        }
+
+        p {
+          color: #fff;
+          font-family: "SpokaHanSansNeo";
+          font-size: $mobile-notice-font;
+          font-weight: 100;
+        }
+      }
+
+      .icon:first-child {
+        margin-bottom: 5px;
+      }
     }
   }
 }
@@ -144,6 +166,24 @@ footer {
 @media screen and (max-width: 560px) {
   .footer-text {
     padding: 20px 0;
+  }
+}
+@media screen and (max-width: 400px) {
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    .footer-icon {
+      // align-items: flex-end;
+      align-items: flex-start;
+      .sns {
+        width: 110px !important;
+        gap: 5px !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        padding: 0 !important;
+        padding-top: 10px !important;
+      }
+    }
   }
 }
 </style>
