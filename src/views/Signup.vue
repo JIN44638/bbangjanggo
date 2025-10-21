@@ -1,4 +1,5 @@
 <template>
+  <FlowAd/>
   <!-- 회원가입 전체 -->
   <div class="signup">
     <div class="signup-inner">
@@ -23,26 +24,27 @@
         </div>
         <div class="infoBox">
           <p>이메일</p>
-          <input type="text" placeholder="you@email.com" />
+          <input type="email" placeholder="you@email.com" />
         </div>
         <div class="infoBox">
           <p>비밀번호</p>
-          <input type="text" placeholder="8자 이상, 영문자 + 숫자 포함" />
+          <input type="password" placeholder="8자 이상, 영문자 + 숫자 포함" />
         </div>
         <div class="infoBox">
           <p>비밀번호 확인</p>
-          <input type="text" placeholder="비밀번호를 재입력해주세요" />
+          <input type="password" placeholder="비밀번호를 재입력해주세요" />
         </div>
       </div>
 
       <SignupTerms />
 
       <!-- 회원가입 버튼 -->
-      <button class="signupBtn">회원 가입</button>
+      <router-link to="/login"><button class="signupBtn">회원 가입</button></router-link>
     </div>
   </div>
 </template>
 <script setup>
+import FlowAd from '@/components/FlowAd.vue';
 import SignupTerms from '@/components/SignupTerms.vue';
 
 
@@ -78,7 +80,9 @@ import SignupTerms from '@/components/SignupTerms.vue';
         }
         input {
           width: 100%;
-          background-color: $bg-color;
+          background-color: #fff;
+          border: none;
+          box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
           border-radius: 8px;
           padding: 20px 30px;
           margin-bottom: 20px;
@@ -97,7 +101,9 @@ import SignupTerms from '@/components/SignupTerms.vue';
           gap: 10px;
           input {
             width: 70%;
-            background-color: $bg-color;
+            background-color: #fff;
+border: none;
+box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
             border-radius: 8px;
             padding: 20px 30px;
           }
