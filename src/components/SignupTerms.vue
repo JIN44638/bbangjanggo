@@ -239,7 +239,7 @@ const toggleTerms = () => {
 
   //   ✅약관 전체 동의 박스
   .checkAll-box {
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
     background-color: #fff;
     border-radius: 15px;
     padding: 30px;
@@ -252,6 +252,7 @@ const toggleTerms = () => {
       .checkAll-label {
         display: flex;
         label {
+          margin-left: 15px;
           p {
             font-family: "Cafe24Surround";
             color: $font-color;
@@ -263,6 +264,7 @@ const toggleTerms = () => {
   }
 
   //   ✅개별 이용약관 모음
+
   .terms-box {
     display: flex;
     flex-direction: column;
@@ -279,6 +281,7 @@ const toggleTerms = () => {
     .check-box {
       input {
         margin-bottom: 25px;
+        background-color: #fff;
       }
       label {
         font-family: "Cafe24Surround";

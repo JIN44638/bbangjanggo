@@ -1,8 +1,7 @@
 <template>
   <header :class="[{ scrolled: isScrolled }, { dark: isDark }, { 'not-home': !isHome }]">
     <div class="inner">
-      <RouterLink to="/" class="header-logo">
-        <!-- <img src="/images/pje/favicon_square.png" alt="빵장고 로고" /> -->
+      <RouterLink to="/" class="header-logo" @click.prevent="handleLogoClick">
         <img src="/images/pje/logo_white.png" alt="빵장고 로고" class="logo" />
       </RouterLink>
       <div class="user-buttons">
@@ -20,10 +19,10 @@
       </div>
       <nav class="header-menu">
         <RouterLink to="/reservation">예약하기</RouterLink>
-        <a href="#">지점안내</a>
-        <a href="#">이용방법</a>
-        <a href="#">요금안내</a>
-        <a href="#">FAQ|문의</a>
+        <a href="#location" @click.prevent="goToSection('location')">지점안내</a>
+        <a href="#howto" @click.prevent="goToSection('howto')">이용방법</a>
+        <a href="#price" @click.prevent="goToSection('price')">요금안내</a>
+        <a href="#faq" @click.prevent="goToSection('faq')">FAQ|문의</a>
       </nav>
       <div class="header-loginMenu">
         <RouterLink to="/login">로그인</RouterLink>
@@ -35,10 +34,10 @@
     <div class="mobile-menu" :class="{ open: isMenuOpen }">
       <nav class="mobile-nav">
         <RouterLink to="/reservation" @click="closeMenu">예약하기</RouterLink>
-        <a href="#" @click="closeMenu">지점안내</a>
-        <a href="#" @click="closeMenu">이용방법</a>
-        <a href="#" @click="closeMenu">요금안내</a>
-        <a href="#" @click="closeMenu">FAQ|문의</a>
+        <a href="#location" @click.prevent="goToSection('location')">지점안내</a>
+        <a href="#howto" @click.prevent="goToSection('howto')">이용방법</a>
+        <a href="#price" @click.prevent="goToSection('price')">요금안내</a>
+        <a href="#faq" @click.prevent="goToSection('faq')">FAQ|문의</a>
       </nav>
       <div class="mobile-login">
         <RouterLink to="/login" @click="closeMenu">로그인</RouterLink>
@@ -50,12 +49,13 @@
 </template>
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 // 스크롤 상태 저장
 const isScrolled = ref(false);
 
 // 현재 라우트 감지
+const router = useRouter()
 const route = useRoute();
 const isHome = computed(() => route.path === "/");
 
@@ -69,6 +69,8 @@ const closeMenu = () => {
   isMenuOpen.value = false;
   document.body.style.overflow = "";
 };
+
+
 
 // 스크롤 이벤트 핸들러
 const handleScroll = () => {
@@ -89,17 +91,73 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
+
+// 스크롤이동 적용하기
+const scrollToSection = (sectionId) => {
+  const element = document.getElementById(sectionId);
+  const header = document.querySelector('header'); // header 요소를 직접 참조
+  
+  if (element) {
+    const headerOffset = header.offsetHeight;
+    // const headerOffset = 90;  // 헤더 높이에 맞게 조정 (현재 header padding 감안해서 70~90px 정도)
+
+    // 요소의 위치 계산
+    const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+    // 최종 스크롤 위치
+    const offsetPosition = elementPosition - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  }
+};
+
+// 로고를 눌렀을 때 처음 화면으로 돌아가기
+const handleLogoClick = () => {
+  if (window.location.pathname === "/") {
+    // 이미 메인페이지인 경우
+    if (window.scrollY > 0) {
+      // 스크롤이 0이 아닐 때만 부드럽게 맨 위로 이동
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  } else {
+    // 다른 페이지에서는 홈으로 이동
+    window.location.href = "/";
+  }
+};
+
+// path이동 및 스크롤 이동
+// 다른페이지에서 클릭 시 메인페이지 이동 후 해당 섹션으로 이동.
+
+const goToSection = async (sectionId) => {
+  closeMenu();
+
+  if (route.path !== "/") {
+    await router.push({ path: "/", hash: `#${sectionId}` });
+    setTimeout(() => {
+      scrollToSection(sectionId);
+    }, 300);
+  } else {
+    scrollToSection(sectionId);
+  }
+};
+
 </script>
 
 <style lang="scss" scoped>
 @use "../assets/variables" as *;
 
 header {
-display: flex;
+  display: flex;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  height: 90;
   // max-width: 1000px;
   // padding: 15px 20px;
   padding: 15px 0;
@@ -149,6 +207,7 @@ display: flex;
   }
 
   .inner {
+    width: 85%;
     max-width: 1000px;
     display: flex;
     margin: auto;

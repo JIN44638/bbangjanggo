@@ -1,4 +1,5 @@
 <template>
+  <FlowAd/>
   <div class="searchId">
     <div class="searchId-inner">
       <h2>비밀번호 찾기</h2>
@@ -17,21 +18,26 @@
         <p>인증번호 입력</p>
         <input type="text" placeholder="인증번호 6자리 입력" />
       </div>
-      <button>다음</button>
+      <router-link to="/login"><button class="submitBtn">다음</button></router-link>
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import FlowAd from '@/components/FlowAd.vue';
+
+</script>
 <style scoped lang="scss">
 @use "/src/assets/variables" as *;
 @use "/src/assets/btn" as *;
 
 .searchId {
+  background-color: $bg-color;
+  height: 100vh;
   .searchId-inner {
-    max-width: 500px;
-    width: 90%;
+    max-width: 400px;
+    width: 85%;
+    padding: 50px 0;
     margin: auto;
-    margin-top: 50px;
     h2 {
       font-family: "Cafe24Surround";
       color: $point-color;
@@ -47,7 +53,9 @@
       }
       input {
         width: 100%;
-        background-color: $bg-color;
+        background-color: #fff;
+        border: none;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
         padding: 20px 30px;
         margin-bottom: 20px;
@@ -66,7 +74,9 @@
         gap: 10px;
         input {
           width: 70%;
-          background-color: $bg-color;
+          background-color: #fff;
+        border: none;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
           border-radius: 8px;
           padding: 20px 30px;
         }
@@ -80,5 +90,8 @@
       height: 59px;
     }
   }
+}
+.submitBtn{
+  margin: 20px 0 0 0;
 }
 </style>
