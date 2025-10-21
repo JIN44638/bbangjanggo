@@ -4,30 +4,32 @@
       <!-- 지도 선택 -->
       <div class="map_selection">
         <img v-if="selectStore" :src="selectedImage" alt="대구 지도" />
-        <div class="pins pins--kyeongdae" v-show="selectedStoreName === '경대병원역점'">
-          <h3>경대병원역점</h3>
-          <p>대구 중구 달구벌대로 2190</p>
-          <p>운영시간 : 11:00 ~ 20:00</p>
-        </div>
-        <div class="pins pins--banwoldang" v-show="selectedStoreName === '반월당역점'">
-          <h3>반월당역점</h3>
-          <p>대구 중구 달구벌대로 2100</p>
-          <p>운영시간 : 11:00 ~ 20:00</p>
-        </div>
-        <div class="pins pins--dongdaegu" v-show="selectedStoreName === '동대구역점'">
-          <h3>동대구역점</h3>
-          <p>대구 동구 동대구로 550</p>
-          <p>운영시간 : 11:00 ~ 20:00</p>
-        </div>
-        <div class="pins pins--seodaegu" v-show="selectedStoreName === '서대구역점'">
-          <h3>서대구역점</h3>
-          <p>대구 서구 와룡로 527</p>
-          <p>운영시간 : 11:00 ~ 20:00</p>
-        </div>
-        <div class="pins pins--airport" v-show="selectedStoreName === '대구국제공항점'">
-          <h3>대구국제공항점</h3>
-          <p>대구 동구 공항로 221</p>
-          <p>운영시간 : 11:00 ~ 20:00</p>
+        <div v-if="showPins" class="pins_list">
+          <div class="pins pins--kyeongdae" v-show="selectedStoreName === '경대병원역점'">
+            <h3>경대병원역점</h3>
+            <p>대구 중구 달구벌대로 2190</p>
+            <p>운영시간 : 11:00 ~ 20:00</p>
+          </div>
+          <div class="pins pins--banwoldang" v-show="selectedStoreName === '반월당역점'">
+            <h3>반월당역점</h3>
+            <p>대구 중구 달구벌대로 2100</p>
+            <p>운영시간 : 11:00 ~ 20:00</p>
+          </div>
+          <div class="pins pins--dongdaegu" v-show="selectedStoreName === '동대구역점'">
+            <h3>동대구역점</h3>
+            <p>대구 동구 동대구로 550</p>
+            <p>운영시간 : 11:00 ~ 20:00</p>
+          </div>
+          <div class="pins pins--seodaegu" v-show="selectedStoreName === '서대구역점'">
+            <h3>서대구역점</h3>
+            <p>대구 서구 와룡로 527</p>
+            <p>운영시간 : 11:00 ~ 20:00</p>
+          </div>
+          <div class="pins pins--airport" v-show="selectedStoreName === '대구국제공항점'">
+            <h3>대구국제공항점</h3>
+            <p>대구 동구 공항로 221</p>
+            <p>운영시간 : 11:00 ~ 20:00</p>
+          </div>
         </div>
       </div>
       <!-- 텍스트 선택 -->
@@ -74,6 +76,11 @@
 </template>
 <script setup>
 import { ref } from "vue";
+
+// ✅ props 추가
+const props = defineProps({
+  showPins: { type: Boolean, default: true }, // 기본은 핀 표시
+});
 
 // emit 정의
 const emit = defineEmits(["location-selected"]);
@@ -136,6 +143,7 @@ defineExpose({
 @use "/src/assets/variables" as *;
 // 지점 선택
 .store_select {
+  min-width: 310px;
   .map_selection {
     position: relative;
     img {
@@ -152,7 +160,7 @@ defineExpose({
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       white-space: nowrap;
       z-index: 10;
-      opacity: 0;
+      // opacity: 0;
       transition: opacity 0.3s ease;
       // display: none;
       h3 {
@@ -186,9 +194,6 @@ defineExpose({
         top: 10.5%;
         left: 81%;
       }
-      // &:hover {
-      //   opacity: 1;
-      // }
     }
   }
   // @media (max-width: 629px) {

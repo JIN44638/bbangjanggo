@@ -6,7 +6,7 @@
         <!-- 지점 선택 -->
         <div class="location">
           <h2>지점 선택</h2>
-          <Location ref="locationRef" @location-selected="handleLocationSelect" />
+          <Location ref="locationRef" @location-selected="handleLocationSelect" :showPins="false" />
         </div>
         <!-- 날짜 선택 -->
         <div class="calendar">
@@ -67,7 +67,7 @@
         <!-- 부가 서비스 -->
         <div class="extra_service">
           <h2>부가서비스</h2>
-          <p>접수 방법</p>
+          <p>부가서비스</p>
           <div class="service_option">
             <p
               class="opt_btn"
@@ -199,7 +199,7 @@
           <p>락커 256<span>/300</span></p>
         </div>
         <p class="store locker_notice">락커 사이즈 : 35*35*55cm (종이백 2개 / 케이크(1단) 1박스 보관 가능)</p>
-        <div class="time_selection">
+        <!-- <div class="time_selection">
           <p class="store">방문 시간 (기본 4시간 적용)</p>
           <swiper
             class="timeSwiper"
@@ -222,7 +222,7 @@
               {{ time }}
             </swiper-slide>
           </swiper>
-        </div>
+        </div> -->
       </div>
 
       <!-- 선택한 옵션 목록 (옵션이 있을 때만 표시) -->
@@ -338,12 +338,11 @@ const isAllRequiredSelected = computed(() => {
     selectedDate.value &&
     selectedTemp.value &&
     selectedMethod.value &&
-    selectedService.value &&
-    selectedTime.value;
+    selectedService.value;
 
-  // 기사님께 맡길게요를 선택한 경우 베이커리도 필수
+  // 기사님께 맡길게요를 선택한 경우 베이커리, 시간 필수
   if (selectedMethod.value === "기사님께 맡길게요") {
-    return basicRequired && selectedBakeryName.value;
+    return basicRequired && selectedBakeryName.value && selectedTime.value;
   }
 
   return basicRequired;
@@ -540,7 +539,6 @@ h2 {
   font-family: "SpokaHanSansNeo";
   color: $font-color;
   padding: 0 0 20px;
-  // margin-bottom: 15px;
 }
 p {
   font-family: "SpokaHanSansNeo";
@@ -557,16 +555,107 @@ p {
     font-size: 35px;
     padding: 50px 0;
   }
+  // @media (max-width: 875px) {
+  //   .extra_service {
+  //     > p {
+  //       display: none;
+  //       visibility: hidden;
+  //     }
+  //   }
+  // }
+  @media (max-width: 614px) {
+    .components_wrap {
+      gap: 40px;
+    }
+  }
+  @media (max-width: 537px) {
+    .storage_extra {
+      flex-direction: column;
+    }
+    .option_list {
+      width: 100%;
+      flex-direction: column;
+      // gap: 20px;
+
+      .temp_option,
+      .method_option {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+
+        .opt_btn {
+          flex: 1 1 45%;
+          text-align: center;
+          padding: 12px 0;
+          border-radius: 10px;
+          font-size: $notice-text-font;
+          min-width: 130px;
+          // max-width: 160px;
+        }
+      }
+    }
+
+    .extra_service {
+      width: 100%;
+      justify-content: center;
+      // > p {
+      //   display: none;
+      //   visibility: hidden;
+      // }
+      .service_option {
+        display: flex;
+        // flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+
+        .opt_btn {
+          flex: 1;
+          text-align: center;
+          padding: 12px 0;
+          border-radius: 10px;
+          font-size: $notice-text-font;
+          // min-width: 130px;
+          // max-width: 160px;
+        }
+      }
+    }
+  }
+  @media (max-width: 390px) {
+    h1 {
+      font-size: 30px;
+    }
+    h2 {
+      font-size: $f-a-q-text-font;
+    }
+    p {
+      font-size: $notice-text-font;
+    }
+    .method_title {
+      p {
+        font-size: $notice-text-font;
+        font-weight: 500;
+      }
+    }
+    .store {
+      font-size: $notice-text-font !important;
+    }
+    .timeSwiper {
+      font-size: $notice-text-font;
+    }
+    .locker_notice {
+      font-size: $mobile-notice-font !important;
+    }
+  }
 }
 
-// h1을 제외한 내용
+// 컴포넌트 (지점 선택 / 달력)
 .components_wrap {
   width: 100%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 15px;
-  // 지도, 달력
   .location,
   .calendar {
     flex: 1 1 45%; /* basis를 45%로 주면 여유 생김 */
@@ -613,7 +702,7 @@ p {
   p {
     font-size: $desc-text-font;
     color: $font-color;
-    padding: 20px 0;
+    padding: 0 0 20px;
     font-weight: 600;
   }
 }
@@ -644,74 +733,9 @@ p {
     // margin-bottom: 15px;
   }
   > p {
-    color: transparent;
+    color: $font-color;
     padding-bottom: 20px;
-  }
-}
-@media (max-width: 875px) {
-  .extra_service {
-    > p {
-      display: none;
-      visibility: hidden;
-    }
-  }
-}
-@media (max-width: 614px) {
-  .components_wrap {
-    gap: 40px;
-  }
-}
-@media (max-width: 537px) {
-  .storage_extra {
-    flex-direction: column;
-  }
-  .option_list {
-    width: 100%;
-    flex-direction: column;
-    // gap: 20px;
-
-    .temp_option,
-    .method_option {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-
-      .opt_btn {
-        flex: 1 1 45%;
-        text-align: center;
-        padding: 12px 0;
-        border-radius: 10px;
-        font-size: $mobile-notice-font;
-        min-width: 130px;
-        // max-width: 160px;
-      }
-    }
-  }
-
-  .extra_service {
-    width: 100%;
-    justify-content: center;
-    > p {
-      display: none;
-      visibility: hidden;
-    }
-    .service_option {
-      display: flex;
-      // flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-
-      .opt_btn {
-        flex: 1;
-        text-align: center;
-        padding: 12px 0;
-        border-radius: 10px;
-        font-size: $mobile-notice-font;
-        min-width: 130px;
-        // max-width: 160px;
-      }
-    }
+    font-weight: 500;
   }
 }
 
@@ -863,7 +887,7 @@ p {
     }
   }
   .locker_notice {
-    padding-top: 20px;
+    padding: 20px 0;
     font-size: $notice-text-font;
   }
 }
@@ -958,27 +982,5 @@ p {
       }
     }
   }
-
-  // .total_summary {
-  //   background-color: $font-color;
-  //   color: white;
-  //   padding: 20px;
-  //   border-radius: 10px;
-  //   display: flex;
-  //   justify-content: space-between;
-  //   align-items: center;
-  //   margin-top: 20px;
-
-  //   h3 {
-  //     font-size: $sub-font;
-  //     font-family: "SpokaHanSansNeo";
-  //   }
-
-  //   .total_amount {
-  //     font-size: 28px;
-  //     font-weight: bold;
-  //     font-family: "SpokaHanSansNeo";
-  //   }
-  // }
 }
 </style>

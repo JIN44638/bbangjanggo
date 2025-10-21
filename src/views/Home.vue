@@ -1,9 +1,10 @@
 <template>
   <div class="home">
+
     <section id="visual" class="section"><Visual /></section>
     <section id="location" class="section">
       <h1>지점 안내</h1>
-      <Location />
+      <Location :showPins="true" />
     </section>
     <section id="howto" class="section"><Howto /></section>
     <section id="price" class="section">
@@ -24,4 +25,17 @@ import Review from "@/components/main/Review.vue";
 import Faq from "@/components/main/Faq.vue";
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use "/src/assets/variables" as *;
+
+.location {
+  h1 {
+    text-align: center;
+    font-size: $title-font;
+    font-family: "Cafe24Surround";
+    color: $point-color;
+    padding-bottom: 50px;
+  }
+  padding: 100px 0;
+}
+</style>
