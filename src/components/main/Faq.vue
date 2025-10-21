@@ -1,5 +1,5 @@
 <template>
-  <div class="faq">
+  <div class="faq" id="faq">
     <h3>FAQ/문의하기</h3>
     <div class="inner faqinner">
       <div class="question">
@@ -10,7 +10,7 @@
             </div>
             <div
               class="faq-answer"
-              :ref="el => setAnswerRef(el, index)"
+              :ref="(el) => setAnswerRef(el, index)"
               :style="{
                 maxHeight: openedIndex === index ? heights[index] + 'px' : '0',
                 opacity: openedIndex === index ? 1 : 0,
@@ -107,7 +107,7 @@ onMounted(async () => {
   Object.keys(answerRefs.value).forEach((key) => {
     const el = answerRefs.value[key];
     if (el) {
-      const content = el.querySelector('.answer-content');
+      const content = el.querySelector(".answer-content");
       if (content) {
         heights.value[key] = content.scrollHeight + 32; // padding 포함
       }
@@ -122,20 +122,39 @@ onMounted(async () => {
 .faq {
   padding: 100px 20px;
   background-color: $bg-color;
-
+  @media (max-width: 768px) {
+    .faq {
+      padding: 70px 20px;
+    }
+  }
+  @media (max-width: 390px) {
+    .faq {
+      padding: 50px 20px;
+    }
+  }
   h3 {
     position: sticky;
     top: 60px;
     z-index: 5;
     background: linear-gradient(180deg, $bg-color 70%, transparent 100%);
     text-align: center;
-    font-size: clamp(20px, 4.5vw, $title-font);
+    font-size: $title-font;
     font-family: "Cafe24Surround";
     color: $point-color;
-    padding: 10px 0 40px;
+    padding: 10px 0 50px;
     margin: 0;
   }
-
+  @media (max-width: 768px) {
+    h3 {
+      padding-bottom: 40px;
+    }
+  }
+  @media (max-width: 390px) {
+    h3 {
+      font-size: $f-a-q-text-font;
+      padding-bottom: 30px;
+    }
+  }
   .faqinner {
     display: flex;
     justify-content: center;
@@ -143,23 +162,23 @@ onMounted(async () => {
     gap: 5%;
     max-width: 1000px;
     margin: auto;
-    
+
     @media screen and (max-width: 768px) {
       flex-direction: column;
       align-items: stretch;
       gap: 50px;
     }
-    
+
     .question {
       width: 50%;
       max-width: none;
-      
+
       @media screen and (max-width: 768px) {
         width: 70%;
         align-items: center;
         align-self: center;
       }
-      
+
       .faq-list {
         list-style: none;
         padding: 0;
@@ -184,12 +203,16 @@ onMounted(async () => {
           color: $font-color;
           cursor: pointer;
           user-select: none;
-          
+
           &:hover {
             background-color: darken($main-color, 3%);
           }
         }
-
+        @media (max-width: 390px) {
+          .faq-question {
+            font-size: $mobile-notice-font;
+          }
+        }
         .faq-answer {
           background-color: #fff;
           padding-left: 16px;
@@ -198,9 +221,8 @@ onMounted(async () => {
           font-size: $desc-text-font;
           color: #333;
           overflow: hidden;
-          transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-                      opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-                      padding 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+            padding 0.45s cubic-bezier(0.4, 0, 0.2, 1);
           will-change: max-height, opacity, padding;
 
           .answer-content {
@@ -217,6 +239,11 @@ onMounted(async () => {
             }
           }
         }
+        @media (max-width: 390px) {
+          .faq-answer {
+            font-size: $mobile-notice-font;
+          }
+        }
       }
     }
 
@@ -227,13 +254,13 @@ onMounted(async () => {
       flex-direction: column;
       align-items: center;
       align-self: center;
-      
+
       @media screen and (max-width: 768px) {
         width: 100%;
       }
 
       .img-cht {
-        max-width: 210px;
+        max-width: 170px;
 
         img {
           width: 100%;
@@ -257,6 +284,12 @@ onMounted(async () => {
             font-family: "SpokaHanSansNeo";
             font-size: $desc-text-font;
             margin: 0;
+          }
+          @media (max-width: 390px) {
+            p,
+            h6 {
+              font-size: $mobile-notice-font;
+            }
           }
         }
       }

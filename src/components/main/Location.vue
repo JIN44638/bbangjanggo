@@ -1,5 +1,5 @@
 <template>
-  <div class="inner">
+  <div class="inner" id="location">
     <div class="store_select">
       <!-- 지도 선택 -->
       <div class="map_selection">
