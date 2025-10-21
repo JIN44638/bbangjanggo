@@ -38,10 +38,11 @@
 
   h1 {
     padding-top: 50px;
+     padding-bottom:50px;
     text-align: center;
     color: #fff;
-    margin-bottom: 60px;
-    
+    ;
+
   } // width: 1000px;
 }
 /* 기본: PC 이미지만 보이게 */
@@ -51,9 +52,18 @@
   justify-content: center;
   padding-bottom: 50px;
 }
-ul li img {
-  width: 200px;
+
+ul
+{width: 100%;
+  max-width: 1000px;
+img {
+  width: 100%;
+  display: block;
 }
+ padding-top:100px;
+  padding-bottom:100px;
+}
+
 .mobile {
   display: none;
 }
@@ -61,9 +71,28 @@ ul li img {
 /* 모바일 화면일 때 토글 */
 @media (max-width: 768px) {
   .web {
+    padding-top: 70px;
+    padding-bottom: 70px;
     display: none;
   } /* PC 이미지 숨김 */
   .mobile {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    img {
+      width: 100%;
+    }
+    display: block;
+    padding-bottom: 80px;
+  } /* 모바일 이미지 보여줌 */
+}
+@media (max-width: 390px) {
+  .web {
+    display: none;
+  } /* PC 이미지 숨김 */
+  .mobile {
+    h2 {
+      font-size: 12px;
+    }
     img {
       width: 100%;
     }

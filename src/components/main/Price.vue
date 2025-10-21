@@ -67,18 +67,17 @@
     font-family: "Cafe24Surround";
     margin-bottom: 50px;
     color: #a36031;
-    font-size:32px;
+    font-size: 32px;
   }
   .notice_wrap {
     // display: flex;
     display: grid;
-    grid-template-columns: repeat(auto-fit , minmax(200px , 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     // flex-wrap: wrap;
     gap: 40px;
     padding-bottom: 20px;
 
     h3 {
-  
       width: 100%;
       border: solid #ba8e5f;
       border-radius: 15px 15px 0 0;
@@ -96,7 +95,6 @@
       justify-content: space-between;
     }
     .notice {
-     
       /* height: 170px; */
       background-color: #ffffff;
 
@@ -114,13 +112,41 @@
       padding: 15%;
     }
   }
-   span {
+  span {
     color: #50311d;
     font-weight: bold;
     padding-top: 30px;
 
     text-align: center;
     font-size: 16px;
+  }
+} /* 모바일 화면일 때 토글 */
+@media (max-width: 768px) {
+  .mobile {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    img {
+      width: 100%;
+    }
+    display: block;
+    padding-bottom: 80px;
+    h2 {
+      font-size: 20px;
+    }
+  } /* 모바일 이미지 보여줌 */
+}
+@media (max-width: 390px) {
+  .mobile {
+    img {
+      width: 100%;
+    }
+    display: block;
+    padding-bottom: 80px;
+  } /* 모바일 이미지 보여줌 */
+  h2 {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-size: 12px;
   }
 }
 </style>

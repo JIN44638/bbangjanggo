@@ -64,12 +64,13 @@
 
 .mypage {
   padding: 100px 0;
-  height: calc(100vh - 290px);
+  // height: calc(100vh - 290px);
   background-color: $bg-color;
 }
 h1 {
   text-align: center;
-  padding-bottom: 50px;
+  padding-top:100px;
+  padding-bottom:100px;
   font-family: "Cafe24Surround";
   color: $point-color;
 }
@@ -81,7 +82,7 @@ h1 {
 .mypage-box {
   display: flex;
   justify-content: space-between;
-  gap: 3%;
+  gap: 74px;
 }
 .reservation {
   color: $font-color;
@@ -137,7 +138,7 @@ h1 {
 }
 h4 {
   text-align: left;
-  width: 30%;
+  width: 40%;
 }
 .methodlocker p {
   margin-right: 10px;
@@ -166,16 +167,53 @@ button.stemp,button.review
   font-weight: bold;
 }
 button.reser_change {
-border: none;
-background-color: #fff;
-margin-left: 146px;
-cursor: pointer;
-text-decoration: underline;
+  margin-right: -50px;
+  border: none;
+  background-color: #fff;
+  margin-left: 120px;
+  cursor: pointer;
+  text-decoration: underline;
+  width: 50%;
 }
-@media screen and (max-width: 768px)
-{
-  button.stemp,button.review{
-    font-size: $f-a-q-text-font;
+@media screen and (max-width: 768px) {
+  h1 {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  h3 {
+    // padding-bottom: 50px;
+  }
+  .mypage-box {
+    flex-wrap: wrap;
+  }
+  .reser-txt {
+    width: 100%;
+  }
+  .reser-info {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 390px) {
+  h1 {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-size: 20px;
+  }
+  h3 {
+    padding-left: 20px;
+    font-size: 20px;
+  }
+  .mypage-box {
+    flex-wrap: wrap;
+    font-size: 15px;
+  }
+  .reser-txt {
+    width: 100%;
+  }
+
+  .reser-info {
+    width: 100%;
   }
 }
 </style>
