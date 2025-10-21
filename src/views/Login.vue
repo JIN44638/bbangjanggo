@@ -1,12 +1,6 @@
 <template>
   <div class="login-wrap">
-    <div class="flow-txt">
-      <div class="flowNotice">
-        <div class="flowNotice-wrap">
-          <p>WELCOM EVENTS 웰컴이벤트 참여시 쿠폰증정</p>
-        </div>
-      </div>
-    </div>
+    <FlowAd />
     <div class="login-info-wrap">
       <h2>로그인</h2>
       <div class="login-input">
@@ -15,7 +9,7 @@
       </div>
       <div class="login-box">
         <div class="logBtn">
-          <div class="login-btn">로그인</div>
+          <router-link to="/" class="login-btn">로그인</router-link>
           <router-link to="/signup" class="login-btn">회원가입</router-link>
         </div>
 
@@ -44,6 +38,7 @@
   </div>
 </template>
 <script setup>
+import FlowAd from "@/components/FlowAd.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -54,35 +49,14 @@ const router = useRouter();
 @use "/src/assets/btn" as *;
 
 .login-wrap {
-  .flow-txt {
-    .flowNotice {
-      width: 100%;
-      overflow: hidden;
-      background: $font-color;
-      padding: 20px;
-      margin-bottom: 50px;
-      color: $bg-color;
-      font-size: $notice-text-font;
-      p {
-        display: inline-block;
-        white-space: nowrap;
-        padding-left: 100%;
-        animation: marquee 15s linear infinite;
-      }
-    }
-    @keyframes marquee {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-100%);
-      } /* 왼쪽 끝까지 이동 */
-    }
-  }
+  background-color: $bg-color;
+
+
+
   .login-info-wrap {
     width: 100%;
     max-width: 1000px;
-    margin: auto;
+    margin: auto;  padding: 50px 0;
     h2 {
       font-family: "Cafe24Surround";
       color: $point-color;
@@ -97,10 +71,12 @@ const router = useRouter();
       max-width: 400px;
 
       input {
-        background-color: $bg-color;
+        background-color: #fff;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+        border: none;
         border-radius: 8px;
         padding: 20px 30px;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
       }
     }
     .login-box {
@@ -123,7 +99,6 @@ const router = useRouter();
         margin: auto;
         max-width: 400px;
         gap: 20px;
-        margin-bottom: 30px;
         .sns-icon {
           width: 100%;
           display: flex;

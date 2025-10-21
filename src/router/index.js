@@ -16,8 +16,8 @@ const routes = [
   { path: "/payment", component: Payment },
   { path: "/reservation", component: Reservation },
   { path: "/signup", component: Signup },
-  { path: "/searchid", component: SearchId },
-  { path: "/searchPass", component: SearchPassword },
+  { path: "/searchid", component: SearchId, meta :{hideFooter:true} },
+  { path: "/searchPass", component: SearchPassword, meta :{hideFooter:true} },
 ];
 
 const router = createRouter({

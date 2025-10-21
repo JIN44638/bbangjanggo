@@ -1,12 +1,18 @@
 <template>
   <div class="home">
-    <Visual />
-    <Location :showPins="true" class="location" />
-    <Howto />
-    <Price />
-    <Event />
-    <Review />
-    <Faq />
+
+    <section id="visual" class="section"><Visual /></section>
+    <section id="location" class="section">
+      <h1>지점 안내</h1>
+      <Location :showPins="true" />
+    </section>
+    <section id="howto" class="section"><Howto /></section>
+    <section id="price" class="section">
+      <Price />
+    </section>
+    <section id="event" class="section"><Event /></section>
+    <section id="review" class="section"><Review /></section>
+    <section id="faq" class="section"><Faq /></section>
   </div>
 </template>
 <script setup>

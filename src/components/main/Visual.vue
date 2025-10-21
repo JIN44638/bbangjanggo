@@ -42,6 +42,9 @@ import { RouterLink } from "vue-router";
     align-items: flex-start;
     justify-content: flex-end;
     margin: auto;
+    @media (max-width:768px){
+      max-width: 500px;
+    }
     h1 {
       font-family: "Cafe24Surround";
       color: white;
@@ -54,6 +57,9 @@ import { RouterLink } from "vue-router";
       gap: 20px;
       margin-top: 180px;
       margin-bottom: 18%;
+      @media (max-width:768px){
+        margin-top: 100px;
+      }
 
       .btn {
         // width: 300px
@@ -70,23 +76,29 @@ import { RouterLink } from "vue-router";
           // transform: translateY(-2px);
           box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
           background-color: darken($color: $sub-color, $amount: 10);
-          .btn-content {
-            .btn-image {
-              transform: scale(1.02);
-              width: 150px;
-              height: 150px;
-            }
-          }
+          // .btn-content {
+          //   .btn-image {
+          //     transform: scale(1.02);
+          //     width: 150px;
+          //     height: 150px;
+          //   }
+          // }
         }
         //
 
         .btn-content {
+          // position: relative;
           display: flex;
           align-items: center;
           width: 100%;
-          height: 100%;
+          height: 170px;
           padding: 0 50px;
-
+          @media (max-width: 980px) {
+            padding: 0 30px;
+          }
+          @media (max-width: 390px) {
+            padding: 0 20px;
+          }
           .btn-text {
             font-family: "Cafe24Surround";
             color: $bg-color;
@@ -94,9 +106,16 @@ import { RouterLink } from "vue-router";
             font-weight: bold;
             line-height: 1.2;
             flex: 1;
+            @media (max-width: 390px) {
+              font-size: $f-a-q-text-font;
+            }
           }
 
           .btn-image {
+            // position: absolute;
+            // top: 50%;
+            // right: 50px;
+            // transform: translateY(-50%);
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             width: 140px;
             height: 140px;
@@ -140,5 +159,9 @@ import { RouterLink } from "vue-router";
       }
     }
   }
+
+  // :deep(.btn-content).btn-image {
+  //   right: 10px;
+  // }
 }
 </style>
