@@ -25,9 +25,9 @@
             <p>iso 전용</p>
           </div>
           <div class="sns">
-            <img src="/images/pjs/twiter.png" alt="sns" />
+            <!-- <img src="/images/pjs/twiter.png" alt="sns" /> -->
             <img src="/images/pjs/facebook.png" alt="sns" />
-            <img src="/images/pjs/instagram.png" alt="sns" />
+            <img src="/images/pjs/instagram.png" alt="sns" class="sns1" />
           </div>
         </div>
       </div>
@@ -44,9 +44,9 @@ footer {
   background-color: $point-color;
   padding: 15px 0;
   @media (max-width: 390px) {
-  padding-left: 20px;
+    padding-left: 20px;
   }
- 
+
   .foot-inner {
     display: flex;
     justify-content: space-between;
@@ -106,12 +106,14 @@ footer {
         justify-content: center;
         text-align: center;
         .sns {
-          width: 100px;
+          width: 100%;
           display: flex;
-          gap: 5px;
+          gap: 10px;
           align-items: center;
           justify-content: flex-start;
-          padding: 5px;
+          padding-top: 8px;
+          // padding-top: 5px;
+
           img {
             height: 20px;
             // height: clamp(16px, 2.6vw, 24px);

@@ -1,8 +1,7 @@
 <template>
   <div class="home">
-
     <section id="visual" class="section"><Visual /></section>
-    <section id="location" class="section">
+    <section id="location" class="location">
       <h1>지점 안내</h1>
       <Location :showPins="true" />
     </section>
@@ -29,6 +28,7 @@ import Faq from "@/components/main/Faq.vue";
 @use "/src/assets/variables" as *;
 
 .location {
+  padding: 50px 0;
   h1 {
     text-align: center;
     font-size: $title-font;
@@ -36,6 +36,26 @@ import Faq from "@/components/main/Faq.vue";
     color: $point-color;
     padding-bottom: 50px;
   }
-  padding: 100px 0;
+  @media (max-width: 768px) {
+    h1 {
+      padding-bottom: 40px;
+    }
+  }
+  @media (max-width: 390px) {
+    h1 {
+      padding-bottom: 30px;
+      font-size: $f-a-q-text-font;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .location {
+    padding: 40px 0;
+  }
+}
+@media (max-width: 390px) {
+  .location {
+    padding: 30px 0;
+  }
 }
 </style>

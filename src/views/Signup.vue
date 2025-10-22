@@ -57,7 +57,7 @@ import SignupTerms from '@/components/SignupTerms.vue';
 .signup {
   background-color: $bg-color;
   .signup-inner {
-    width: 100%;
+    width: 85%;
     max-width: 500px;
     margin: auto;
     padding-top: 50px;

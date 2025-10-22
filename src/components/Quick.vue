@@ -187,8 +187,8 @@ const goToSection = async (sectionId) => {
 
   a {
     position: relative;
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
     font-size: 20px;
     cursor: pointer;
     border: none;
