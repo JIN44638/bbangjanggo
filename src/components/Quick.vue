@@ -12,6 +12,10 @@
       </a>
 
       <!-- 나머지 버튼 3개 -->
+      <!-- <a class="sub-btn" @click="goPage('/mypage')">
+        <img src="/images/pjs/reservation.png" alt="reservation" />
+        <span>예약하기</span>
+      </a> -->
       <a class="sub-btn" @click="goPage('/mypage')">
         <img src="/images/pjs/confirm.png" alt="confirm" />
         <span>예약확인</span>
