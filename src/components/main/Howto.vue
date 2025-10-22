@@ -7,23 +7,23 @@
       <div class="step1_2_3_4">
         <ul class="web">
           <li>
-            <img src="/public/images/kmj/2.png" alt="" />
+            <img src="/images/kmj/2.png" alt="" />
           </li>
           <li>
-            <img src="/public/images/kmj/1.png" alt="" />
+            <img src="/images/kmj/1.png" alt="" />
           </li>
           <li>
-            <img src="/public/images/kmj/3.png" alt="" />
+            <img src="/images/kmj/3.png" alt="" />
           </li>
           <li>
-            <img src="/public/images/kmj/4.png" alt="" />
+            <img src="/images/kmj/4.png" alt="" />
           </li>
         </ul>
       </div>
       <!-- 모바일 -->
       <div class="step1_2_3_4">
         <ul class="mobile">
-          <img src="/public/images/kmj/howto-mobile.png" alt="모바일 이용방법" />
+          <img src="/images/kmj/howto-mobile.png" alt="모바일 이용방법" />
         </ul>
       </div>
     </div>
@@ -76,16 +76,17 @@
     padding-bottom: 40px;
     display: none;
   } /* PC 이미지 숨김 */
+  .howto h1 {
+      padding-top: 40px !important;
+      padding-bottom: 40px !important;
+    }
   .mobile {
     padding-bottom: 40px !important;
     .price {
       padding-top: 70px;
     }
 
-    h1 {
-      padding-top: 40px;
-      padding-bottom: 40px;
-    }
+   
     img {
       width: 100%;
       // padding-bottom: 40px;
@@ -99,7 +100,9 @@
     display: none;
   } /* PC 이미지 숨김 */
   .howto h1 {
+    font-size: 20px;
     padding-top: 30px !important;
+    padding-bottom: 30px !important; 
   }
   .mobile {
     img {

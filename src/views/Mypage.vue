@@ -60,7 +60,7 @@
     <h1 class="mine">마이페이지</h1>
     <h3>안녕하세요 ○○○님!</h3>
     <div class="box_bo">
-      <div >
+      <div>
         <div class="reservation_">예약내역</div>
         <p class="ban">반월당역점</p>
         <p>상온보관 / 기사님께 맡길게요</p>
@@ -98,13 +98,12 @@ h1 {
   color: $point-color;
   font-size: 24px;
 }
-.hello {
+h3 {
   font-size: 16px;
-  padding-bottom: 50px;
+  padding-left: 30px;
+  padding-bottom: 40px;
 }
-.box_bo{
-  background-color: #ffffff;
-}
+
 .mypage-box {
   display: flex;
   justify-content: space-between;
@@ -204,13 +203,33 @@ button.reser_change {
   width: 50%;
 }
 @media screen and (max-width: 768px) {
-  h1 {
-    padding-top: 50px;
-    padding-bottom: 50px;
+  .mypage {
+    display: none;
   }
-
+  .mobile_390 {
+    background-color: $bg-color;
+    te
+    .sub_list12 {
+      display: flex;
+      
+    }
+  }
+  h1.mine {
+    font-size: 20px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 40px;
+  }
+  .box_bo {
+    background-color: #fff;
+    border-radius: 18px;
+    padding-left: 29px;
+    width: 329px;
+  }
   h3 {
-    // padding-bottom: 50px;
+    padding-left: 30px;
+    font-size: 16px;
+    padding-bottom: 40px;
   }
   .mypage-box {
     flex-wrap: wrap;
@@ -230,15 +249,15 @@ button.reser_change {
     width: 1000px;
     display: block;
     padding-left: 10px;
-}
   }
-.mine{
+}
+.mine {
   text-align: left;
   padding-left: 100px;
   h3 {
     font-size: 16px;
   }
-  .box_{
+  .box_ {
   }
   .reservation_ {
     // border: #ffebc2;
@@ -252,9 +271,6 @@ button.reser_change {
   }
   .sub_list12 {
     display: flex;
-    width: 370px;
-    margin: 0;
-    justify-content: flex-start;
 
     .sub_list1 {
       width: calc(100% / 2);

@@ -68,8 +68,12 @@
     margin-bottom: 50px;
     color: #a36031;
     font-size: 32px;
+     @media (max-width: 768px) {
+      margin-bottom: 40px;
+    }
     @media (max-width: 390px) {
       font-size: 20px;
+       margin-bottom: 30px;
     }
   }
   .notice_wrap {
@@ -143,5 +147,14 @@
       font-weight: normal;
     }
   }
+}  
+@media (max-width: 768px) {
+  .price {
+ 
+  padding-bottom: 40px;
+  padding-top: 40px;
+  
 }
+}
+
 </style>
