@@ -627,7 +627,10 @@ p {
       }
     }
   }
-  @media (max-width: 390px) {
+  @media (max-width: 430px) {
+    & {
+      padding: 0 0 30px !important;
+    }
     h1 {
       font-size: 30px;
       padding: 30px 0;
@@ -643,6 +646,10 @@ p {
         font-size: $notice-text-font;
         font-weight: 500;
       }
+    }
+    .delivery,
+    .in_person {
+      padding: 25px;
     }
     .store {
       font-size: $notice-text-font !important;
@@ -670,6 +677,9 @@ p {
       .option {
         padding: 8px 12px !important;
       }
+    }
+    .reserve_btn {
+      margin-top: 30px;
     }
   }
 }

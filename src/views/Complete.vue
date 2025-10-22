@@ -157,8 +157,17 @@ p {
       width: 100%;
     }
   }
-  @media (max-width: 390px) {
+  @media (max-width: 490px) {
+    .reserved_options_list {
+      display: block;
+    }
+  }
+  @media (max-width: 430px) {
+    & {
+      padding: 0 0 30px;
+    }
     .complete_title {
+      padding: 30px 0 0;
       h1 {
         font-size: 30px !important;
       }
@@ -174,7 +183,9 @@ p {
     p {
       font-size: $mobile-notice-font;
     }
-
+    .reserve_complete {
+      padding: 25px;
+    }
     .reserved_options_list {
       display: block;
       .reserved_option {

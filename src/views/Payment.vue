@@ -245,7 +245,12 @@ p {
       }
     }
   }
-  @media (max-width: 390px) {
+  @media (max-width: 490px) {
+    .reserved_options_list {
+      display: block;
+    }
+  }
+  @media (max-width: 430px) {
     h1 {
       font-size: 30px;
       padding: 30px 0;
@@ -256,7 +261,12 @@ p {
     p {
       font-size: $mobile-notice-font;
     }
-
+    & {
+      padding: 0 0 30px;
+    }
+    .reserve_confirm {
+      padding: 25px;
+    }
     .reserve_notice {
       h3 {
         font-size: $desc-text-font;
@@ -267,7 +277,6 @@ p {
       }
     }
     .reserved_options_list {
-      display: block;
       .reserved_option {
         h3 {
           font-size: $notice-text-font !important;
@@ -287,7 +296,7 @@ p {
     .pay_offline {
       gap: 10px !important;
       p {
-        font-size: $notice-text-font !important;
+        font-size: 13px !important;
         font-weight: 500 !important;
         &:last-child {
           font-size: 11px !important;
