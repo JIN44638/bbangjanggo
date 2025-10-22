@@ -1,16 +1,16 @@
 <template>
   <div class="login-wrap">
     <FlowAd />
-    <div class="login-info-wrap">
+    <form @submit.prevent="login" class="login-info-wrap">
       <h2>로그인</h2>
       <div class="login-input">
-        <input type="text" placeholder="아이디 입력" />
-        <input type="text" placeholder="비밀번호 입력" />
+        <input v-model="usermail" type="email" placeholder="아이디 입력" />
+        <input v-model="password" type="text" placeholder="비밀번호 입력" minlength="8" maxlength="12" />
       </div>
       <div class="login-box">
         <div class="logBtn">
-          <router-link to="/" class="login-btn">로그인</router-link>
-          <router-link to="/signup" class="login-btn">회원가입</router-link>
+          <button class="login-btn" type="submit">로그인</button>
+          <router-link to="/signup" class="login-btn" type="button">회원가입</router-link>
         </div>
 
         <div class="login-help">
@@ -34,14 +34,36 @@
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 <script setup>
 import FlowAd from "@/components/FlowAd.vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
+
+const usermail = ref("");
+const password = ref("");
+
+const login = () => {
+  const saved = localStorage.getItem("user");
+  if (!saved) {
+    alert("✨회원가입을 먼저 해주세요.");
+    router.push("/signup");
+    return;
+  }
+  const user = JSON.parse(saved);
+  if (usermail.value === user.usermail && password.value === user.password) {
+    alert("로그인 성공!");
+    // 로그인 성공 했을 때 저장용 (로그인/로그아웃 제어)
+    localStorage.setItem("loggedInUser", usermail.value);
+    router.push("/");
+  } else {
+    alert("❌ 아이디 또는 비밀번호가 틀렸습니다.");
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -51,12 +73,11 @@ const router = useRouter();
 .login-wrap {
   background-color: $bg-color;
 
-
-
   .login-info-wrap {
     width: 100%;
     max-width: 1000px;
-    margin: auto;  padding: 50px 0;
+    margin: auto;
+    padding: 50px 0;
     h2 {
       font-family: "Cafe24Surround";
       color: $point-color;
