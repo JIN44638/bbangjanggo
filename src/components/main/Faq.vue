@@ -120,16 +120,16 @@ onMounted(async () => {
 @use "/src/assets/variables" as *;
 
 .faq {
-  padding: 100px 20px;
+  padding: 50px 20px;
   background-color: $bg-color;
   @media (max-width: 768px) {
     .faq {
-      padding: 70px 20px;
+      padding: 40px 20px;
     }
   }
   @media (max-width: 390px) {
     .faq {
-      padding: 50px 20px;
+      padding: 30px 20px;
     }
   }
   h3 {
@@ -174,10 +174,13 @@ onMounted(async () => {
       max-width: none;
 
       @media screen and (max-width: 768px) {
-        width: 70%;
+        width: 80%;
         align-items: center;
         align-self: center;
       }
+      @media screen and (max-width: 500px) {
+        width: 90%;
+            }
 
       .faq-list {
         list-style: none;
@@ -195,6 +198,7 @@ onMounted(async () => {
         overflow: hidden;
 
         .faq-question {
+          // background-color: #fff;
           background-color: $main-color;
           padding: 14px 16px;
           font-weight: 500;
@@ -206,6 +210,11 @@ onMounted(async () => {
 
           &:hover {
             background-color: darken($main-color, 3%);
+          }
+        }
+        @media (max-width: 768px) {
+          .faq-question {
+            font-size: $notice-text-font;
           }
         }
         @media (max-width: 390px) {
@@ -237,6 +246,11 @@ onMounted(async () => {
               font-size: 13px;
               color: #666;
             }
+          }
+        }
+         @media (max-width: 768px) {
+          .faq-answer {
+            font-size: $notice-text-font;
           }
         }
         @media (max-width: 390px) {

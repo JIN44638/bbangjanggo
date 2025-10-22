@@ -128,20 +128,20 @@ const reviews = ref([
 <style lang="scss" scoped>
 @use "/src/assets/variables" as *;
 .review {
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: 50px;
+  padding-bottom: 50px;
   background-color: $bg-color;
 }
 @media (max-width: 768px) {
   .review {
-    padding-top: 70px;
-    padding-bottom: 70px;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 }
 @media (max-width: 390px) {
   .review {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
 }
 .reviewinner {

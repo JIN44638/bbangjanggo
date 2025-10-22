@@ -66,8 +66,8 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 <style lang="scss" scoped>
 @use "/src/assets/variables" as *;
 .event {
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: 50px;
+  padding-bottom: 50px;
   background-color: $sub-color;
   h3 {
     text-align: center;
@@ -94,8 +94,14 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 }
 @media (max-width: 768px) {
   .event {
-    padding-top: 70px;
-    padding-bottom: 70px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+@media (max-width: 390px) {
+  .event {
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
 }
 .inner {
