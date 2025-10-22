@@ -270,11 +270,9 @@ const toggleTerms = () => {
     flex-direction: column;
     gap: 25px;
     position: relative;
-    width: 100%;
     height: 0;
     overflow: hidden;
     transition: all 0.3s;
-    margin-top: 25px;
     &.expended {
       height: auto;
     }
@@ -295,12 +293,17 @@ const toggleTerms = () => {
         padding: 30px;
         background-color: #fff;
         box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-        border-radius: 15px;
+        border-radius: 10px;
         span {
           .strongTxt {
             margin-bottom: 20px;
           }
         }
+
+        max-height: 200px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: $sub-color transparent;
       }
     }
   }
