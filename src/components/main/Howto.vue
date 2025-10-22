@@ -33,35 +33,36 @@
 
 <style lang="scss" scoped>
 .howto {
+  font-family: "Cafe24Surround";
   display: grid;
   background-color: #ba8e5f;
-
+  img {
+    width: 100%;
+  }
   h1 {
+    font-size: 30px;
     padding-top: 50px;
-     padding-bottom:50px;
+    padding-bottom: 50px;
     text-align: center;
-    color: #fff;
-    ;
 
+    color: #fff;
   } // width: 1000px;
 }
 /* 기본: PC 이미지만 보이게 */
 .web {
   display: flex;
   gap: 20px; /* 칸 사이 간격 */
+
   justify-content: center;
   padding-bottom: 50px;
-}
+  ul {
+    width: 100%;
 
-ul
-{width: 100%;
-  max-width: 1000px;
-img {
-  width: 100%;
-  display: block;
-}
- padding-top:100px;
-  padding-bottom:100px;
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
 }
 
 .mobile {
@@ -72,14 +73,22 @@ img {
 @media (max-width: 768px) {
   .web {
     padding-top: 70px;
-    padding-bottom: 70px;
+    padding-bottom: 40px;
     display: none;
   } /* PC 이미지 숨김 */
   .mobile {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 40px !important;
+    .price {
+      padding-top: 70px;
+    }
+
+    h1 {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
     img {
       width: 100%;
+      // padding-bottom: 40px;
     }
     display: block;
     padding-bottom: 80px;
@@ -89,15 +98,15 @@ img {
   .web {
     display: none;
   } /* PC 이미지 숨김 */
+  .howto h1 {
+    padding-top: 30px !important;
+  }
   .mobile {
-    h2 {
-      font-size: 12px;
-    }
     img {
       width: 100%;
     }
     display: block;
-    padding-bottom: 80px;
+    padding-bottom: 30px !important;
   } /* 모바일 이미지 보여줌 */
 }
 </style>

@@ -38,6 +38,7 @@
               <button class="reser_change">예약 변경 및 취소</button>
             </ul>
           </div>
+
           <div class="btn">
             <button class="stemp">스탬프</button>
             <button class="review">리뷰관리</button>
@@ -55,6 +56,29 @@
       </div>
     </div>
   </div>
+  <div class="mobile_390">
+    <h1 class="mine">마이페이지</h1>
+    <h3>안녕하세요 ○○○님!</h3>
+    <div class="box_bo">
+      <div >
+        <div class="reservation_">예약내역</div>
+        <p class="ban">반월당역점</p>
+        <p>상온보관 / 기사님께 맡길게요</p>
+        <div class="sub_list12">
+          <div class="sub_list1">
+            <h4>방문일시</h4>
+            <h4>방문빵집</h4>
+            <h4>부가서비스</h4>
+          </div>
+          <div class="sub_list2">
+            <p>25.09.23[11:00~11:30]</p>
+            <p>빵순이네</p>
+            <p>선택안함</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup></script>
@@ -63,22 +87,24 @@
 @use "/src/assets/variables" as *;
 
 .mypage {
-  padding: 100px 0;
+  padding-bottom: 50px;
   // height: calc(100vh - 290px);
   background-color: $bg-color;
 }
 h1 {
   text-align: center;
-  padding-top:100px;
-  padding-bottom:100px;
+  padding-top: 50px;
   font-family: "Cafe24Surround";
   color: $point-color;
+  font-size: 24px;
 }
 .hello {
-  font-size: 28px;
-  margin-bottom: 50px;
+  font-size: 16px;
+  padding-bottom: 50px;
 }
-
+.box_bo{
+  background-color: #ffffff;
+}
 .mypage-box {
   display: flex;
   justify-content: space-between;
@@ -86,7 +112,7 @@ h1 {
 }
 .reservation {
   color: $font-color;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: bold;
   padding-top: 20px;
   padding-left: 20px;
@@ -100,6 +126,7 @@ h1 {
 }
 .reser-info {
   width: 40%;
+  font-size: 12px;
   background-color: #fff;
   border-radius: 15px;
   padding-top: 40px;
@@ -117,6 +144,7 @@ h1 {
   display: flex;
   padding-top: 40px;
   justify-content: space-between;
+  font-size: 12px;
   gap: 5%;
 }
 .boso ul {
@@ -151,7 +179,7 @@ h4 {
 }
 .btn button {
   background-color: #ffebc2;
-  font-size: 24px;
+
   width: 100%; /* 부모 폭에 맞추기 */
   border: none;
   font-family: "SpokaHanSansNeo";
@@ -165,12 +193,12 @@ button.stemp,button.review
   font-family: "SpokaHanSansNeo";
   font-size: $f-a-q-text-font;
   font-weight: bold;
+  cursor: pointer;
 }
 button.reser_change {
-  margin-right: -50px;
   border: none;
   background-color: #fff;
-  margin-left: 120px;
+  margin-left: 40px;
   cursor: pointer;
   text-decoration: underline;
   width: 50%;
@@ -195,25 +223,42 @@ button.reser_change {
   }
 }
 @media screen and (max-width: 390px) {
-  h1 {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    font-size: 20px;
+  .mypage {
+    display: none;
   }
+  .mobile_390 {
+    width: 1000px;
+    display: block;
+    padding-left: 10px;
+}
+  }
+.mine{
+  text-align: left;
+  padding-left: 100px;
   h3 {
-    padding-left: 20px;
+    font-size: 16px;
+  }
+  .box_{
+  }
+  .reservation_ {
+    // border: #ffebc2;
+    // width:329px;
+    background-color: #ffffff;
+    font-size: 16px;
+  }
+  .ban {
     font-size: 20px;
+    font-weight: bold;
   }
-  .mypage-box {
-    flex-wrap: wrap;
-    font-size: 15px;
-  }
-  .reser-txt {
-    width: 100%;
-  }
+  .sub_list12 {
+    display: flex;
+    width: 370px;
+    margin: 0;
+    justify-content: flex-start;
 
-  .reser-info {
-    width: 100%;
+    .sub_list1 {
+      width: calc(100% / 2);
+    }
   }
 }
 </style>
