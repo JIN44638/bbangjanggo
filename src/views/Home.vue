@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-
     <section id="visual" class="section"><Visual /></section>
     <section id="location" class="section">
       <h1>지점 안내</h1>

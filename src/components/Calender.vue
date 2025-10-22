@@ -262,6 +262,7 @@ defineExpose({
 <style lang="scss" scoped>
 @use "../assets/variables" as *;
 
+
 .calendar {
   // width: 350px;
   width: 100%;

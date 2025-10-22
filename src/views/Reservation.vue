@@ -182,12 +182,13 @@
               v-for="time in timeSlots"
               :key="time"
               class="opt_btn"
-              :class="{ clicked: isSelected('time', time) }"
+              :class="{ clicked: isSelected('time', time), highlight: isHighlightTime(time) }"
               @click="toggleOption('time', time)"
             >
               {{ time }}
             </swiper-slide>
           </swiper>
+          <p>*Bread Time 할인 적용 (11시 , 15시)</p>
         </div>
       </div>
 
@@ -199,35 +200,11 @@
           <p>락커 256<span>/300</span></p>
         </div>
         <p class="store locker_notice">락커 사이즈 : 35*35*55cm (종이백 2개 / 케이크(1단) 1박스 보관 가능)</p>
-        <!-- <div class="time_selection">
-          <p class="store">방문 시간 (기본 4시간 적용)</p>
-          <swiper
-            class="timeSwiper"
-            :slides-per-view="6.7"
-            :space-between="10"
-            :breakpoints="{
-              320: { slidesPerView: 2.3, spaceBetween: 8 },
-              390: { slidesPerView: 3.3, spaceBetween: 8 },
-              768: { slidesPerView: 5.3, spaceBetween: 10 },
-              1020: { slidesPerView: 6.7, spaceBetween: 10 },
-            }"
-          >
-            <swiper-slide
-              v-for="time in timeSlots"
-              :key="time"
-              class="opt_btn"
-              :class="{ clicked: isSelected('time', time) }"
-              @click="toggleOption('time', time)"
-            >
-              {{ time }}
-            </swiper-slide>
-          </swiper>
-        </div> -->
       </div>
 
       <!-- 선택한 옵션 목록 (옵션이 있을 때만 표시) -->
-      <div class="reserved_options_list" v-if="reservedOptions.length > 0">
-        <h2>선택한 옵션</h2>
+      <div class="reserved_options_list">
+        <h2 v-if="reservedOptions.length > 0">선택한 옵션</h2>
         <div v-for="(option, index) in reservedOptions" :key="index" class="reserved_option">
           <button class="remove_btn" @click="removeOption(index)">✕</button>
           <div class="selected_options">
@@ -249,7 +226,9 @@
           </div>
           <button class="remove_btn" @click="removeOption(index)">✕</button>
         </div>
-        <button class="reserve_btn" v-if="reservedOptions.length > 0" @click="goPayment">예약하기</button>
+        <button class="reserve_btn" :class="{ disabled: reservedOptions.length === 0 }" @click="goPayment">
+          예약하기
+        </button>
       </div>
     </div>
   </div>
@@ -289,6 +268,11 @@ const timeSlots = ref([
   "19:00 ~ 19:30",
   "19:30 ~ 20:00",
 ]);
+
+// 특정 시간대인지 확인하는 함수
+const isHighlightTime = (time) => {
+  return time === "11:00 ~ 11:30" || time === "15:00 ~ 15:30";
+};
 
 // 현재 선택 중인 옵션 (임시)
 const selectedTemp = ref("");
@@ -349,13 +333,18 @@ const isAllRequiredSelected = computed(() => {
 });
 
 // 모든 필수 항목 선택 시 자동으로 옵션 추가
-watch(selectedTime, (newTime) => {
-  if (newTime && isAllRequiredSelected.value) {
+watch(selectedService, (newservice) => {
+  if (newservice && isAllRequiredSelected.value) {
     addOption();
   }
 });
 
-// 기사 선택 시 베이커리 선택 후에도 체크
+// 기사 선택 시 베이커리,시간 선택 후에도 체크
+watch(selectedTime, (newTime) => {
+  if (newTime && selectedMethod.value === "기사님께 맡길게요" && isAllRequiredSelected.value) {
+    addOption();
+  }
+});
 watch(selectedBakeryName, (newBakery) => {
   if (newBakery && selectedMethod.value === "기사님께 맡길게요" && isAllRequiredSelected.value) {
     addOption();
@@ -369,7 +358,7 @@ const addOption = () => {
     temp: selectedTemp.value,
     method: selectedMethod.value,
     date: selectedDate.value,
-    time: selectedTime.value,
+    time: selectedMethod.value === "직접 맡길게요" ? "자율" : selectedTime.value,
     bakery: selectedBakeryName.value || "",
     service: selectedService.value,
     quantity: 1,
@@ -522,10 +511,13 @@ onMounted(() => {
 
 // 예약하기 클릭시
 const goPayment = () => {
+  if (reservedOptions.value.length === 0) {
+    alert("예약 옵션을 모두 선택해주세요");
+    return;
+  }
+  reservedOptions.value.length === 0;
   if (confirm("이대로 예약을 진행하시겠습니까?")) {
     router.push("/payment");
-  } else {
-    router.push("/reservation");
   }
 };
 </script>
@@ -563,6 +555,20 @@ p {
   //     }
   //   }
   // }
+  @media (max-width: 940px) {
+    .components_wrap {
+      flex-direction: column;
+      align-items: center; // 중앙 정렬
+      gap: 40px;
+
+      .location,
+      .calendar {
+        flex: none; // 기존 flex-basis 무시
+        width: 100%; // 부모 폭 가득
+        // max-width: 500px;
+      }
+    }
+  }
   @media (max-width: 614px) {
     .components_wrap {
       gap: 40px;
@@ -582,7 +588,7 @@ p {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
+        gap: 6px;
 
         .opt_btn {
           flex: 1 1 45%;
@@ -607,7 +613,7 @@ p {
         display: flex;
         // flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
+        gap: 6px;
 
         .opt_btn {
           flex: 1;
@@ -624,6 +630,7 @@ p {
   @media (max-width: 390px) {
     h1 {
       font-size: 30px;
+      padding: 30px 0;
     }
     h2 {
       font-size: $f-a-q-text-font;
@@ -646,6 +653,24 @@ p {
     .locker_notice {
       font-size: $mobile-notice-font !important;
     }
+    .select-trigger {
+      padding: 8px 12px !important;
+      &::after {
+        width: 10px !important;
+        height: 10px !important;
+        right: 14px !important;
+        margin-top: -4px !important;
+      }
+      .label {
+        gap: 2px !important;
+        font-size: $notice-text-font !important;
+      }
+    }
+    .select-options {
+      .option {
+        padding: 8px 12px !important;
+      }
+    }
   }
 }
 
@@ -660,6 +685,16 @@ p {
   .calendar {
     flex: 1 1 45%; /* basis를 45%로 주면 여유 생김 */
     min-width: 300px; /* 이 폭 이하로 줄어들면 wrap 작동 */
+  }
+  .calendar {
+    h2 {
+      padding-left: 23px;
+    }
+    @media (max-width: 390px) {
+      h2 {
+        padding-left: 0;
+      }
+    }
   }
 }
 
@@ -758,6 +793,17 @@ p {
     margin-top: 20px;
     .timeSwiper {
       text-align: center;
+
+      .swiper-slide {
+        &.highlight {
+          color: $point-color;
+        }
+      }
+    }
+    p:last-child {
+      padding: 8px 0 0;
+      font-size: $mobile-notice-font;
+      color: $point-color;
     }
   }
 }
