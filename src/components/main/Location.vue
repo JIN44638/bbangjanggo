@@ -4,7 +4,7 @@
       <!-- 지도 선택 -->
       <div class="map_selection">
         <img v-if="selectStore" :src="selectedImage" alt="대구 지도" />
-        <div v-if="showPins" class="pins_list">
+        <!-- <div v-if="showPins" class="pins_list">
           <div class="pins pins--kyeongdae" v-show="selectedStoreName === '경대병원역점'">
             <h3>경대병원역점</h3>
             <p>대구 중구 달구벌대로 2190</p>
@@ -30,7 +30,7 @@
             <p>대구 동구 공항로 221</p>
             <p>운영시간 : 11:00 ~ 20:00</p>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- 텍스트 선택 -->
       <div class="text_selection">
@@ -141,6 +141,10 @@ defineExpose({
 
 <style lang="scss" scoped>
 @use "/src/assets/variables" as *;
+
+.inner {
+  width: 100%;
+}
 // 지점 선택
 .store_select {
   min-width: 310px;
@@ -161,6 +165,7 @@ defineExpose({
       white-space: nowrap;
       z-index: 10;
       // opacity: 0;
+      // visibility: hidden;
       transition: opacity 0.3s ease;
       // display: none;
       h3 {
@@ -194,6 +199,15 @@ defineExpose({
         top: 10.5%;
         left: 81%;
       }
+      @media (max-width: 390px) {
+        padding: 10px 12px;
+        h3 {
+          font-size: $mobile-notice-font;
+        }
+        p {
+          font-size: 11px;
+        }
+      }
     }
   }
   // @media (max-width: 629px) {
@@ -206,6 +220,29 @@ defineExpose({
     label {
       font-size: $desc-text-font;
       color: $font-color;
+    }
+  }
+  @media (max-width: 390px) {
+    p {
+      font-size: $notice-text-font;
+    }
+    .select-trigger {
+      padding: 8px 12px !important;
+      &::after {
+        width: 10px !important;
+        height: 10px !important;
+        right: 14px !important;
+        margin-top: -4px !important;
+      }
+      .label {
+        gap: 2px !important;
+        font-size: $notice-text-font;
+      }
+    }
+    .select-options {
+      .option {
+        padding: 8px 12px !important;
+      }
     }
   }
 }

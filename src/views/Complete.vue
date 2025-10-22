@@ -157,6 +157,42 @@ p {
       width: 100%;
     }
   }
+  @media (max-width: 390px) {
+    .complete_title {
+      h1 {
+        font-size: 30px !important;
+      }
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    h2 {
+      font-size: $f-a-q-text-font;
+    }
+    p {
+      font-size: $mobile-notice-font;
+    }
+
+    .reserved_options_list {
+      display: block;
+      .reserved_option {
+        h3 {
+          font-size: $notice-text-font !important;
+        }
+      }
+    }
+
+    .total_price {
+      p {
+        font-size: 18px !important;
+        span {
+          font-size: $mobile-notice-font !important;
+        }
+      }
+    }
+  }
 }
 .reserve_info {
   border-top: 1px solid rgba(186, 142, 95, 0.3);

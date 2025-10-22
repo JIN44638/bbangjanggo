@@ -155,7 +155,7 @@ h2 {
   font-size: $sub-font;
   font-family: "SpokaHanSansNeo";
   color: $font-color;
-  padding: 0 0 20px;
+  padding: 0 0 30px;
 }
 p {
   font-family: "SpokaHanSansNeo";
@@ -243,6 +243,60 @@ p {
           color: #949494;
         }
       }
+    }
+  }
+  @media (max-width: 390px) {
+    h1 {
+      font-size: 30px;
+      padding: 30px 0;
+    }
+    h2 {
+      font-size: $f-a-q-text-font;
+    }
+    p {
+      font-size: $mobile-notice-font;
+    }
+
+    .reserve_notice {
+      h3 {
+        font-size: $desc-text-font;
+        padding: 0 0 5px !important;
+      }
+      li {
+        font-size: $mobile-notice-font;
+      }
+    }
+    .reserved_options_list {
+      display: block;
+      .reserved_option {
+        h3 {
+          font-size: $notice-text-font !important;
+        }
+      }
+    }
+
+    .total_price {
+      p {
+        font-size: 18px !important;
+        span {
+          font-size: $mobile-notice-font !important;
+        }
+      }
+    }
+    .pay_online,
+    .pay_offline {
+      gap: 10px !important;
+      p {
+        font-size: $notice-text-font !important;
+        font-weight: 500 !important;
+        &:last-child {
+          font-size: 11px !important;
+          font-weight: 400 !important;
+        }
+      }
+    }
+    .pay_btn {
+      margin-top: 30px;
     }
   }
 }

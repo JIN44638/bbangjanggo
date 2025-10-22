@@ -17,6 +17,9 @@
     // darken(색상, 어느 정도로 어둡게 할 것인지) ➡ Sass 함수
     background-color: darken($font-color, 3%);
   }
+  @media (max-width: 390px) {
+    font-size: $notice-text-font;
+  }
 }
 
 @mixin option-btn {
