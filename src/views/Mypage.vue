@@ -68,7 +68,7 @@
               <div class="sub_list1">
                 <h4 class="visit">방문일시</h4>
                 <h4>방문빵집</h4>
-                <h4>부가서비스</h4>
+                <h4 class="call">부가서비스</h4>
               </div>
               <div class="sub_list2">
                 <p>25.09.23[11:00~11:30]</p>
@@ -79,6 +79,18 @@
           </div>
         </div>
       </div>
+       <div class="btn">
+              <button class="stemp">스탬프</button>
+              <button class="review">리뷰관리</button>
+            </div>
+       <ul class="reser-info">
+            <li>회원정보</li>
+            <li>이벤트</li>
+            <li>공지사항</li>
+            <li>자주묻는질문</li>
+            <li>고객센터</li>
+            <li>약관 및 정책</li>
+          </ul>
     </div>
   </div>
 </template>
@@ -261,7 +273,7 @@ button.reser_change {
   .mobile_390 {
     // width: 500px;
     display: block;
-    padding-left: 10px;
+    
   }
   .mine {
     text-align: left;
@@ -281,20 +293,32 @@ button.reser_change {
   }
   .sub_list1 h4 {
     padding-bottom: 10px;
-    padding-top: 50px;
+    // padding-top: 50px;
   }
   .sub_list2 p {
     padding-bottom: 10px;
-    padding-top: 50px;
+    // padding-top: 50px;
   }
   .reservation_ {
-    // border: #ffebc2;
-    // width:329px;
     background-color: #ffffff;
     font-size: 16px;
     padding-bottom: 30px;
-    color:$font-color;
+    color: $font-color;
     font-weight: bold;
+
+  } 
+  
+  h4.call {
+      padding-bottom: 50px;
+    
+    }
   }
+  .reservation_:first-child {
+    padding-top: 50px; // border: #ffebc2;
+      // width:329px;
+}
+ul.reser-info{
+
+  margin-top: 30px;
 }
 </style>
