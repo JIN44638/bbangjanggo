@@ -4,7 +4,7 @@
       <!-- 지도 선택 -->
       <div class="map_selection">
         <img v-if="selectStore" :src="selectedImage" alt="대구 지도" />
-        <!-- <div v-if="showPins" class="pins_list">
+        <div v-if="showPins" class="pins_list">
           <div class="pins pins--kyeongdae" v-show="selectedStoreName === '경대병원역점'">
             <h3>경대병원역점</h3>
             <p>대구 중구 달구벌대로 2190</p>
@@ -30,7 +30,7 @@
             <p>대구 동구 공항로 221</p>
             <p>운영시간 : 11:00 ~ 20:00</p>
           </div>
-        </div> -->
+        </div>
       </div>
       <!-- 텍스트 선택 -->
       <div class="text_selection">
@@ -142,9 +142,6 @@ defineExpose({
 <style lang="scss" scoped>
 @use "/src/assets/variables" as *;
 
-.inner {
-  width: 100%;
-}
 // 지점 선택
 .store_select {
   min-width: 310px;
@@ -199,22 +196,15 @@ defineExpose({
         top: 10.5%;
         left: 81%;
       }
-      @media (max-width: 390px) {
-        padding: 10px 12px;
-        h3 {
-          font-size: $mobile-notice-font;
-        }
-        p {
-          font-size: 11px;
-        }
+      @media (max-width: 1045px) {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(-9999px); // ← 화면 밖으로 강제 이동
+        position: absolute;
       }
     }
   }
-  // @media (max-width: 629px) {
-  //   .pins {
-  //     opacity: 1;
-  //   }
-  // }
   .text_selection {
     width: 100%;
     label {

@@ -157,7 +157,7 @@ p {
       width: 100%;
     }
   }
-  @media (max-width: 490px) {
+  @media (max-width: 520px) {
     .reserved_options_list {
       display: block;
     }
