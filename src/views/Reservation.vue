@@ -332,12 +332,16 @@ const isAllRequiredSelected = computed(() => {
   return basicRequired;
 });
 
-// 모든 필수 항목 선택 시 자동으로 옵션 추가
-watch(selectedService, (newservice) => {
-  if (newservice && isAllRequiredSelected.value) {
-    addOption();
-  }
-});
+// 모든 필수 항목이 선택되면 자동으로 옵션 추가 (순서 무관)
+watch(
+  [selectedLocation, selectedDate, selectedTemp, selectedMethod, selectedService, selectedTime, selectedBakeryName],
+  () => {
+    if (isAllRequiredSelected.value) {
+      addOption();
+    }
+  },
+  { deep: true }
+);
 
 // 기사 선택 시 베이커리,시간 선택 후에도 체크
 watch(selectedTime, (newTime) => {
@@ -700,7 +704,7 @@ p {
     h2 {
       padding-left: 23px;
     }
-    @media (max-width: 390px) {
+    @media (max-width: 940px) {
       h2 {
         padding-left: 0;
       }
@@ -774,9 +778,6 @@ p {
 
 // 부가서비스
 .extra_service {
-  h2 {
-    // margin-bottom: 15px;
-  }
   > p {
     color: $font-color;
     padding-bottom: 20px;
