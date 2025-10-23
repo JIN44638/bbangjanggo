@@ -5,7 +5,18 @@
         <img src="/images/pje/logo_white.png" alt="빵장고 로고" class="logo" />
       </RouterLink>
       <div class="user-buttons">
-        <router-link to="/login" class="loginIcon"><img src="/images/kms/login-icon.png" alt="" /></router-link>
+        <router-link
+          v-if="loggedInUser"
+          to="/login"
+          class="loginIcon"
+          :key="'logout-' + loggedInUser?.name"
+          @click.prevent="logout"
+          ><img src="/images/kms/logout-icon.png" alt=""
+        /></router-link>
+        <router-link v-else to="/login" key="login" class="logoutIcon"
+          ><img src="/images/kms/login-icon.png" alt=""
+        /></router-link>
+
         <router-link to="/mypage" class="mypageIcon"><img src="/images/kms/mypage-icon.png" alt="" /></router-link>
         <button
           class="hamburger"
@@ -25,9 +36,14 @@
         <a href="#faq" @click.prevent="goToSection('faq')">FAQ|문의</a>
       </nav>
       <div class="header-loginMenu">
-        <RouterLink to="/login">로그인</RouterLink>
-        <RouterLink to="/signup">회원가입</RouterLink>
-        <RouterLink to="/mypage">마이페이지</RouterLink>
+        <div v-if="loggedInUser" class="loginIcon" :key="'logout-' + loggedInUser?.name" @click.prevent="logout">
+          <RouterLink to="/login">로그아웃</RouterLink>
+        </div>
+        <div class="user-logform-logout" v-else to="/login" key="login" >
+          <RouterLink to="/login">로그인</RouterLink>
+          <RouterLink to="/signup">회원가입</RouterLink>
+        </div>
+        <RouterLink to="/login"  @click="goMyPage">마이페이지</RouterLink>
       </div>
     </div>
     <div class="backdrop" :class="{ open: isMenuOpen }" @click="closeMenu"></div>
@@ -48,14 +64,40 @@
   </header>
 </template>
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from "vue";
+import { ref, onMounted, onUnmounted, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+
+
+const loggedInUser = ref(null);
+
+// 로그인 상태 체크
+const checkedLogin = () => {
+  const user = localStorage.getItem("loggedInUser");
+  loggedInUser.value = user ? JSON.parse(user) : null;
+};
+
+onMounted(() => {
+  checkedLogin();
+
+  // 다른 탭이나 페이지에서 로그인 상태가 바뀌면 감지
+  window.addEventListener("storage", checkedLogin);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("storage", checkedLogin);
+});
+
+// ✅ 로그인/로그아웃 후에도 즉시 반영되도록 watch 추가
+watch(
+  () => localStorage.getItem("loggedInUser"),
+  () => checkedLogin()
+);
 
 // 스크롤 상태 저장
 const isScrolled = ref(false);
 
 // 현재 라우트 감지
-const router = useRouter()
+const router = useRouter();
 const route = useRoute();
 const isHome = computed(() => route.path === "/");
 
@@ -69,8 +111,6 @@ const closeMenu = () => {
   isMenuOpen.value = false;
   document.body.style.overflow = "";
 };
-
-
 
 // 스크롤 이벤트 핸들러
 const handleScroll = () => {
@@ -95,8 +135,8 @@ onUnmounted(() => {
 // 스크롤이동 적용하기
 const scrollToSection = (sectionId) => {
   const element = document.getElementById(sectionId);
-  const header = document.querySelector('header'); // header 요소를 직접 참조
-  
+  const header = document.querySelector("header"); // header 요소를 직접 참조
+
   if (element) {
     const headerOffset = header.offsetHeight;
     // const headerOffset = 90;  // 헤더 높이에 맞게 조정 (현재 header padding 감안해서 70~90px 정도)
@@ -146,6 +186,31 @@ const goToSection = async (sectionId) => {
   }
 };
 
+const goMyPage = () => {
+  if (auth.isLoggedIn) {
+    // ✅ 로그인 상태면 마이페이지로 이동
+    router.push('/mypage')
+  } else {
+    // ❌ 로그아웃 상태면 알림 띄우고 로그인 페이지로 이동
+    alert('로그인이 필요한 서비스입니다.')
+    router.push('/login')
+  }
+}
+
+// ✅ 로그인/로그아웃 직접 수행 시 바로 반영되도록 함수 수정
+const login = () => {
+  // 실제 로그인 로직 대신 예시용 (테스트용 더미)
+  localStorage.setItem("loggedInUser", JSON.stringify({ name: "user" }));
+  checkedLogin(); // 즉시 반영
+};
+
+// logout
+const logout = () => {
+  localStorage.removeItem("loggedInUser");
+    window.dispatchEvent(new Event("storage"));
+  checkedLogin(); // 즉시 반영
+  alert("로그아웃 되었습니다!");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -234,6 +299,10 @@ header {
     a {
       color: #fff;
     }
+    .user-logform-logout {
+      display: flex;
+      gap: 25px;
+    }
   }
 
   // 모바일 레이아웃
@@ -263,6 +332,9 @@ header {
       img {
         width: 100%;
       }
+    }
+    .logoutIcon {
+      margin: 0 10px;
     }
   }
   .hamburger {

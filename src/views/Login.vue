@@ -58,7 +58,11 @@ const login = () => {
   if (usermail.value === user.usermail && password.value === user.password) {
     alert("로그인 성공!");
     // 로그인 성공 했을 때 저장용 (로그인/로그아웃 제어)
-    localStorage.setItem("loggedInUser", usermail.value);
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+    // ✅ 헤더가 같은 탭에서도 로그인 상태 변화를 감지할 수 있도록 이벤트 발송
+    window.dispatchEvent(new Event("storage"));
+
     router.push("/");
   } else {
     alert("❌ 아이디 또는 비밀번호가 틀렸습니다.");
