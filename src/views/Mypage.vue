@@ -1,79 +1,81 @@
 <template>
   <div class="mypage">
     <div class="inner">
-      <h1>마이페이지</h1>
-      <h3 class="hello">안녕하세요 ○○○님!</h3>
-      <div class="mypage-box">
-        <div class="reser-txt">
-          <div class="reservation">예약내역</div>
-          <div class="boso">
-            <ul class="locker">
-              <li class="sub_list">
-                <h4>보관소</h4>
-                <p class="store">반월당역점</p>
-              </li>
-              <li class="sub_list">
-                <h4>방문일시</h4>
-                <p>25.09.23[11:00~11:30]</p>
-              </li>
-              <li class="sub_list">
-                <h4>방문빵집</h4>
-                <p class="bread">빵순이네</p>
-              </li>
-            </ul>
-            <ul class="methodlocker">
-              <li class="sub_list">
-                <h4>보관방법</h4>
-                <p class="store">기사님께 맡길게요</p>
-              </li>
-              <li class="sub_list">
-                <h4>온도</h4>
-                <p>상온보관</p>
-              </li>
+      <div class="web_page">
+        <h1>마이페이지</h1>
+        <h3 class="hello">안녕하세요 ○○○님!</h3>
+        <div class="mypage-box">
+          <div class="reser-txt">
+            <div class="reservation">예약내역</div>
+            <div class="boso">
+              <ul class="locker">
+                <li class="sub_list">
+                  <h4>보관소</h4>
+                  <p class="store">반월당역점</p>
+                </li>
+                <li class="sub_list">
+                  <h4>방문일시</h4>
+                  <p>25.09.23[11:00~11:30]</p>
+                </li>
+                <li class="sub_list">
+                  <h4>방문빵집</h4>
+                  <p class="bread">빵순이네</p>
+                </li>
+              </ul>
+              <ul class="methodlocker">
+                <li class="sub_list">
+                  <h4>보관방법</h4>
+                  <p class="store">기사님께 맡길게요</p>
+                </li>
+                <li class="sub_list">
+                  <h4>온도</h4>
+                  <p>상온보관</p>
+                </li>
 
-              <li class="sub_list">
-                <h4>부가서비스</h4>
-                <p class="bread">선택안함</p>
-              </li>
-              <button class="reser_change">예약 변경 및 취소</button>
-            </ul>
+                <li class="sub_list">
+                  <h4>부가서비스</h4>
+                  <p class="bread">선택안함</p>
+                </li>
+                <button class="reser_change">예약 변경 및 취소</button>
+              </ul>
+            </div>
+
+            <div class="btn">
+              <button class="stemp">스탬프</button>
+              <button class="review">리뷰관리</button>
+            </div>
           </div>
 
-          <div class="btn">
-            <button class="stemp">스탬프</button>
-            <button class="review">리뷰관리</button>
-          </div>
+          <ul class="reser-info">
+            <li>회원정보</li>
+            <li>이벤트</li>
+            <li>공지사항</li>
+            <li>자주묻는질문</li>
+            <li>고객센터</li>
+            <li>약관 및 정책</li>
+          </ul>
         </div>
-
-        <ul class="reser-info">
-          <li>회원정보</li>
-          <li>이벤트</li>
-          <li>공지사항</li>
-          <li>자주묻는질문</li>
-          <li>고객센터</li>
-          <li>약관 및 정책</li>
-        </ul>
       </div>
-    </div>
-  </div>
-  <div class="mobile_390">
-    <h1 class="mine">마이페이지</h1>
-    <h3>안녕하세요 ○○○님!</h3>
-    <div class="box_bo">
-      <div>
-        <div class="reservation_">예약내역</div>
-        <p class="ban">반월당역점</p>
-        <p>상온보관 / 기사님께 맡길게요</p>
-        <div class="sub_list12">
-          <div class="sub_list1">
-            <h4>방문일시</h4>
-            <h4>방문빵집</h4>
-            <h4>부가서비스</h4>
-          </div>
-          <div class="sub_list2">
-            <p>25.09.23[11:00~11:30]</p>
-            <p>빵순이네</p>
-            <p>선택안함</p>
+      <div class="mobile_390">
+        <h1 class="mine">마이페이지</h1>
+        <h3>안녕하세요 ○○○님!</h3>
+        <div class="box_bo">
+          <div class="reser_t">
+            <div class="reservation_">예약내역</div>
+            <p class="ban">반월당역점</p>
+            <p>상온보관 / 기사님께 맡길게요</p>
+            <div class="sub_list12">
+              <div class="sub_list1">
+                <h4 class="visit">방문일시</h4>
+                <h4>방문빵집</h4>
+                <h4>부가서비스</h4>
+              </div>
+              <div class="sub_list2">
+                <p>25.09.23[11:00~11:30]</p>
+                <p>빵순이네</p>
+                <p>선택안함</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -87,8 +89,9 @@
 @use "/src/assets/variables" as *;
 
 .mypage {
-  padding-bottom: 50px;
-  // height: calc(100vh - 290px);
+  padding: 50px 0;
+  height: calc(100vh - 290px);
+  height: 100vh;
   background-color: $bg-color;
 }
 h1 {
@@ -155,6 +158,7 @@ h3 {
 .boso ul li span {
   padding-right: 0;
 }
+
 .sub_list {
   display: flex;
   gap: 5px;
@@ -167,8 +171,10 @@ h4 {
   text-align: left;
   width: 40%;
 }
+
 .methodlocker p {
   margin-right: 10px;
+  // font-size: 16px;
 }
 
 .btn {
@@ -196,23 +202,20 @@ button.stemp,button.review
 }
 button.reser_change {
   border: none;
-  background-color: #fff;
-  margin-left: 40px;
+
+  background-color: #ffffff;
+  text-align: end;
   cursor: pointer;
+  font-size: 11px;
   text-decoration: underline;
-  width: 50%;
+  width: 100%;
+}
+.mobile_390 {
+  display: none;
 }
 @media screen and (max-width: 768px) {
   .mypage {
-    display: none;
-  }
-  .mobile_390 {
-    background-color: $bg-color;
-    te
-    .sub_list12 {
-      display: flex;
-      
-    }
+    height: auto;
   }
   h1.mine {
     font-size: 20px;
@@ -220,17 +223,18 @@ button.reser_change {
     padding-top: 50px;
     padding-bottom: 40px;
   }
-  .box_bo {
-    background-color: #fff;
-    border-radius: 18px;
-    padding-left: 29px;
-    width: 329px;
-  }
   h3 {
     padding-left: 30px;
     font-size: 16px;
     padding-bottom: 40px;
   }
+  .box_bo {
+    background-color: #fff;
+    border-radius: 18px;
+    padding-left: 29px;
+    // width: 329px;
+  }
+
   .mypage-box {
     flex-wrap: wrap;
   }
@@ -240,41 +244,57 @@ button.reser_change {
   .reser-info {
     width: 100%;
   }
+  .sub_list12 {
+    display: flex;
+  }
+  .sub_list1 {
+    width: 100%;
+  }
+  .sub_list1 h4 {
+    width: 100%;
+  }
 }
 @media screen and (max-width: 390px) {
-  .mypage {
+  .web_page {
     display: none;
   }
   .mobile_390 {
-    width: 1000px;
+    // width: 500px;
     display: block;
     padding-left: 10px;
   }
-}
-.mine {
-  text-align: left;
-  padding-left: 100px;
-  h3 {
-    font-size: 16px;
+  .mine {
+    text-align: left;
+    padding-left: 100px;
+    h3 {
+      font-size: 16px;
+    }
+
+    .sub_list1 {
+      width: calc(100% / 2);
+    }
   }
-  .box_ {
+  p.ban {
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 5px;
+  }
+  .sub_list1 h4 {
+    padding-bottom: 10px;
+    padding-top: 50px;
+  }
+  .sub_list2 p {
+    padding-bottom: 10px;
+    padding-top: 50px;
   }
   .reservation_ {
     // border: #ffebc2;
     // width:329px;
     background-color: #ffffff;
     font-size: 16px;
-  }
-  .ban {
-    font-size: 20px;
+    padding-bottom: 30px;
+    color:$font-color;
     font-weight: bold;
-  }
-  .sub_list12 {
-    display: flex;
-
-    .sub_list1 {
-      width: calc(100% / 2);
-    }
   }
 }
 </style>
