@@ -34,7 +34,7 @@ const router = useRouter();
 .flow-txt {
   .flowNotice {
     width: 100%;
-    white-space: nowrap;
+
     overflow: hidden;
 
     background: $font-color;
@@ -44,9 +44,16 @@ const router = useRouter();
     .flowNotice-wrap {
       display: flex;
       gap: 100px;
+      white-space: nowrap;
+      flex-wrap: nowrap;
+      
+      /* 텍스트를 두 번 반복해서 연결 */
+      &::after {
+        content: "";
+      }
+
       animation: marquee 12s linear infinite;
 
-      flex-wrap: nowrap;
       will-change: transform;
       p {
         flex-shrink: 0;
