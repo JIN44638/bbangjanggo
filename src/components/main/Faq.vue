@@ -180,7 +180,7 @@ onMounted(async () => {
       }
       @media screen and (max-width: 500px) {
         width: 90%;
-            }
+      }
 
       .faq-list {
         list-style: none;
@@ -248,7 +248,7 @@ onMounted(async () => {
             }
           }
         }
-         @media (max-width: 768px) {
+        @media (max-width: 768px) {
           .faq-answer {
             font-size: $notice-text-font;
           }
@@ -271,14 +271,23 @@ onMounted(async () => {
 
       @media screen and (max-width: 768px) {
         width: 100%;
+        flex-direction: row;
+        justify-content: center;
       }
 
       .img-cht {
         max-width: 170px;
-
+        a{
+          display: block;
+        }
+        @media (max-width: 390px) {
+        width: 90%;
+        min-width: 108px;
+        }
         img {
           width: 100%;
           display: block;
+          
         }
       }
 
@@ -290,7 +299,9 @@ onMounted(async () => {
           flex-direction: column;
           gap: 5px;
           text-decoration: none;
-
+          @media (max-width: 390px) {
+            min-width: 145px;
+          }
           p,
           h6 {
             color: $font-color;
