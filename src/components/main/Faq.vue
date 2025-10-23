@@ -14,8 +14,8 @@
               :style="{
                 maxHeight: openedIndex === index ? heights[index] + 'px' : '0',
                 opacity: openedIndex === index ? 1 : 0,
-                paddingTop: openedIndex === index ? '16px' : '0',
-                paddingBottom: openedIndex === index ? '16px' : '0',
+                paddingTop: openedIndex === index ? '12px' : '0',
+                paddingBottom: openedIndex === index ? '12px' : '0',
               }"
             >
               <div class="answer-content">
@@ -79,7 +79,7 @@ const faqs = [
 단, 음식물 보관 및 기타 안전에 저해 요소가 있는 제품군은 보관이 제한됩니다. 예) 위험성이 큰 폭죽이나 휘발유 등.`,
   },
   {
-    question: "보관할 수 있는 짐 크기는 얼마나 되나요?",
+    question: "보관 가능한 짐 크기는 얼마나 되나요?",
     answer: `한 칸의 보관함 사이즈는 기준 한 짐까지 가능합니다.
 과하게 큰 짐은 보관이 어려울 수 있으니
 가급적 일반 캐리어 짐 기준으로 가져와 주세요.
@@ -183,6 +183,7 @@ onMounted(async () => {
       }
 
       .faq-list {
+        width: 100%;
         list-style: none;
         padding: 0;
         margin: 0;
@@ -190,7 +191,7 @@ onMounted(async () => {
 
       .faq-item {
         width: 100%;
-        min-width: 250px;
+        // min-width: 250px;
         margin-bottom: 12px;
         border-radius: 12px;
         box-shadow: 0 2px 2px rgba(80, 49, 29, 0.1);
@@ -220,12 +221,12 @@ onMounted(async () => {
         @media (max-width: 390px) {
           .faq-question {
             font-size: $mobile-notice-font;
+            padding: 10px;
           }
         }
         .faq-answer {
           background-color: #fff;
-          padding-left: 16px;
-          padding-right: 16px;
+          padding: 12px;
           font-family: "SpokaHanSansNeo";
           font-size: $desc-text-font;
           color: #333;
@@ -239,6 +240,9 @@ onMounted(async () => {
               margin: 0;
               white-space: pre-line;
               line-height: 1.6;
+              @media (max-width: 450px) {
+                line-height: 1.2;
+              }
             }
 
             .note {
@@ -246,6 +250,11 @@ onMounted(async () => {
               font-size: 13px;
               color: #666;
             }
+          }
+        }
+        @media (max-width: 1005px) {
+          .faq-answer {
+            font-size: $notice-text-font;
           }
         }
         @media (max-width: 768px) {
@@ -277,17 +286,16 @@ onMounted(async () => {
 
       .img-cht {
         max-width: 170px;
-        a{
+        a {
           display: block;
         }
         @media (max-width: 390px) {
-        width: 90%;
-        min-width: 108px;
+          width: 90%;
+          // min-width: 108px;
         }
         img {
           width: 100%;
           display: block;
-          
         }
       }
 
@@ -299,6 +307,12 @@ onMounted(async () => {
           flex-direction: column;
           gap: 5px;
           text-decoration: none;
+          @media (max-width: 768px) {
+            margin-left: 20px;
+          }
+          @media (max-width: 405px) {
+            margin-left: 0;
+          }
           @media (max-width: 390px) {
             min-width: 145px;
           }
@@ -310,6 +324,13 @@ onMounted(async () => {
             font-size: $desc-text-font;
             margin: 0;
           }
+          @media (max-width: 768px) {
+            p,
+            h6 {
+              font-size: $notice-text-font;
+            }
+          }
+
           @media (max-width: 390px) {
             p,
             h6 {
