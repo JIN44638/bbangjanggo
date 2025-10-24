@@ -42,7 +42,7 @@ import { RouterLink } from "vue-router";
     align-items: flex-start;
     justify-content: flex-end;
     margin: auto;
-    @media (max-width:768px){
+    @media (max-width:830px){
       max-width: 500px;
     }
     h1 {
@@ -57,7 +57,7 @@ import { RouterLink } from "vue-router";
       gap: 20px;
       margin-top: 180px;
       margin-bottom: 18%;
-      @media (max-width:768px){
+      @media (max-width:830px){
         margin-top: 100px;
       }
 
@@ -117,7 +117,7 @@ import { RouterLink } from "vue-router";
             // right: 50px;
             // transform: translateY(-50%);
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            width: 140px;
+            width: 160px;
             height: 140px;
             flex-shrink: 0;
           }
@@ -138,7 +138,7 @@ import { RouterLink } from "vue-router";
     }
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 830px) {
   .visual {
     .visual-txt {
       h1 {

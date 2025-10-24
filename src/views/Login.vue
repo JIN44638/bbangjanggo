@@ -124,6 +124,12 @@ const login = () => {
         margin: auto;
         max-width: 400px;
         gap: 20px;
+        @media (max-width: 768px) {
+          p {
+            font-size: $notice-text-font;
+          }
+        }
+
         .sns-icon {
           width: 100%;
           display: flex;
@@ -159,16 +165,21 @@ const login = () => {
         width: 90%;
         max-width: 400px;
         align-items: center;
+      }
+      .login-btn {
+        @include btn-style;
+        max-width: 500px;
+        text-align: center;
+        padding: 20px 30px;
+        margin: 20px 0 0 0;
+        &:nth-child(2) {
+          background-color: $main-color;
+          color: $font-color;
+        }
+      }
+      @media (max-width: 768px) {
         .login-btn {
-          @include btn-style;
-          max-width: 500px;
-          text-align: center;
-          padding: 20px 30px;
-          margin: 20px 0 0 0;
-          &:nth-child(2) {
-            background-color: $main-color;
-            color: $font-color;
-          }
+          font-size: $notice-text-font;
         }
       }
     }
