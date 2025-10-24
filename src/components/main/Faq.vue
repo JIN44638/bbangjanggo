@@ -243,7 +243,7 @@ onMounted(async () => {
               @media (max-width: 450px) {
                 line-height: 1.2;
               }
-            }
+            }  
 
             .note {
               margin-top: 8px;
