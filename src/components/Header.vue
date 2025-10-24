@@ -107,7 +107,7 @@ const checkedLogin = () => {
   loggedInUser.value = user ? JSON.parse(user) : null;
 };
 
-onMounted(() => {d:\Students\박진성\bbangjanggo
+onMounted(() => {
   checkedLogin();
 
   // 다른 탭이나 페이지에서 로그인 상태가 바뀌면 감지
@@ -115,7 +115,6 @@ onMounted(() => {d:\Students\박진성\bbangjanggo
   // ✅ 페이지 이동 후 항상 메뉴 닫기
   router.afterEach(() => {
     closeMenu();
-    s;
   });
 });
 
