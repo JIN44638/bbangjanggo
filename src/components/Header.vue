@@ -1,10 +1,14 @@
 <template>
   <header :class="[{ scrolled: isScrolled }, { dark: isDark }, { 'not-home': !isHome }]">
     <div class="inner">
+      <!-- 로고 -->
       <RouterLink to="/" class="header-logo" @click.prevent="handleLogoClick">
         <img src="/images/pje/logo_white.png" alt="빵장고 로고" class="logo" />
       </RouterLink>
+
+      <!-- 🔗유저 버튼 -->
       <div class="user-buttons">
+        <!-- 로그아웃버튼 -->
         <router-link
           v-if="loggedInUser"
           to="/login"
@@ -13,11 +17,16 @@
           @click.prevent="logout"
           ><img src="/images/kms/logout-icon.png" alt=""
         /></router-link>
+        <!-- 로그인 버튼 -->
         <router-link v-else to="/login" key="login" class="logoutIcon"
           ><img src="/images/kms/login-icon.png" alt=""
         /></router-link>
+        <!-- 마이페이지 버튼 -->
+        <router-link to="/login" @click.prevent="goMyPage" class="mypageIcon"
+          ><img src="/images/kms/mypage-icon.png" alt=""
+        /></router-link>
 
-        <router-link to="/mypage" class="mypageIcon"><img src="/images/kms/mypage-icon.png" alt="" /></router-link>
+        <!-- 햄버거 바 -->
         <button
           class="hamburger"
           :class="{ active: isMenuOpen }"
@@ -28,6 +37,8 @@
           <div class="line" v-for="n in 3" :key="n"></div>
         </button>
       </div>
+
+      <!-- 🔗헤더 메뉴 -->
       <nav class="header-menu">
         <RouterLink to="/reservation">예약하기</RouterLink>
         <a href="#location" @click.prevent="goToSection('location')">지점안내</a>
@@ -35,19 +46,27 @@
         <a href="#price" @click.prevent="goToSection('price')">요금안내</a>
         <a href="#faq" @click.prevent="goToSection('faq')">FAQ|문의</a>
       </nav>
+
+      <!-- 헤더 로그인 메뉴 -->
       <div class="header-loginMenu">
+        <!-- 로그인 상태 -->
         <div v-if="loggedInUser" class="loginIcon" :key="'logout-' + loggedInUser?.name" @click.prevent="logout">
           <RouterLink to="/login">로그아웃</RouterLink>
         </div>
-        <div class="user-logform-logout" v-else to="/login" key="login" >
+        <!-- 로그아웃 상태-->
+        <div class="user-logform-logout" v-else to="/login" key="login">
           <RouterLink to="/login">로그인</RouterLink>
           <RouterLink to="/signup">회원가입</RouterLink>
         </div>
-        <RouterLink to="/login"  @click="goMyPage">마이페이지</RouterLink>
+        <!-- 마이페이지 -->
+        <RouterLink to="/login" @click.prevent="goMyPage">마이페이지</RouterLink>
       </div>
     </div>
+
+    <!-- 햄버거 바 메뉴 -->
     <div class="backdrop" :class="{ open: isMenuOpen }" @click="closeMenu"></div>
     <div class="mobile-menu" :class="{ open: isMenuOpen }">
+      <!-- 서비스 메뉴 -->
       <nav class="mobile-nav">
         <RouterLink to="/reservation" @click="closeMenu">예약하기</RouterLink>
         <a href="#location" @click.prevent="goToSection('location')">지점안내</a>
@@ -55,10 +74,19 @@
         <a href="#price" @click.prevent="goToSection('price')">요금안내</a>
         <a href="#faq" @click.prevent="goToSection('faq')">FAQ|문의</a>
       </nav>
+      <!-- 로그인 메뉴 -->
       <div class="mobile-login">
-        <RouterLink to="/login" @click="closeMenu">로그인</RouterLink>
-        <RouterLink to="/signup" @click="closeMenu">회원가입</RouterLink>
-        <RouterLink to="/mypage" @click="closeMenu">마이페이지</RouterLink>
+        <!-- 로그인 상태 -->
+        <div v-if="loggedInUser" class="loginIcon" :key="'logout-' + loggedInUser?.name" @click.prevent="logout">
+          <RouterLink to="/login">로그아웃</RouterLink>
+        </div>
+        <!-- 로그아웃 상태-->
+        <div class="user-logform-logout" v-else to="/login" key="login">
+          <RouterLink to="/login">로그인</RouterLink>
+          <RouterLink to="/signup">회원가입</RouterLink>
+        </div>
+        <div v-if="loggedInUser" class="loginIcon" :key="'logout-' + loggedInUser?.name" @click="closeMenu"><RouterLink to="/mypage" >마이페이지</RouterLink></div>
+        <div v-else to="/login" key="login" @click.prevent="goMyPage"><RouterLink to="/login" >마이페이지</RouterLink></div>
       </div>
     </div>
   </header>
@@ -66,7 +94,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-
 
 const loggedInUser = ref(null);
 
@@ -186,16 +213,19 @@ const goToSection = async (sectionId) => {
   }
 };
 
+// 마이페이지 이동 (로그인 체크)
 const goMyPage = () => {
-  if (auth.isLoggedIn) {
+  closeMenu(); // 모바일 메뉴 닫기
+
+  if (loggedInUser.value) {
     // ✅ 로그인 상태면 마이페이지로 이동
-    router.push('/mypage')
+    router.push("/mypage");
   } else {
     // ❌ 로그아웃 상태면 알림 띄우고 로그인 페이지로 이동
-    alert('로그인이 필요한 서비스입니다.')
-    router.push('/login')
+    alert("로그인이 필요한 서비스입니다.");
+    router.push("/login");
   }
-}
+};
 
 // ✅ 로그인/로그아웃 직접 수행 시 바로 반영되도록 함수 수정
 const login = () => {
@@ -207,7 +237,7 @@ const login = () => {
 // logout
 const logout = () => {
   localStorage.removeItem("loggedInUser");
-    window.dispatchEvent(new Event("storage"));
+  window.dispatchEvent(new Event("storage"));
   checkedLogin(); // 즉시 반영
   alert("로그아웃 되었습니다!");
 };
@@ -392,7 +422,7 @@ header {
     }
     .mobile-login {
       display: flex;
-      gap: 16px;
+      // gap: 16px;
       a {
         color: $font-color;
         text-decoration: none;

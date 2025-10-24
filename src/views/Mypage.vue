@@ -1,9 +1,9 @@
 <template>
   <div class="mypage">
     <div class="inner">
+      <h1>마이페이지</h1>
+      <h3 class="hello">안녕하세요 김빵장님!</h3>
       <div class="web_page">
-        <h1>마이페이지</h1>
-        <h3 class="hello">안녕하세요 ○○○님!</h3>
         <div class="mypage-box">
           <div class="reser-txt">
             <div class="reservation">예약내역</div>
@@ -15,7 +15,7 @@
                 </li>
                 <li class="sub_list">
                   <h4>방문일시</h4>
-                  <p>25.09.23[11:00~11:30]</p>
+                  <p>25.09.23 [11:00~11:30]</p>
                 </li>
                 <li class="sub_list">
                   <h4>방문빵집</h4>
@@ -56,41 +56,6 @@
           </ul>
         </div>
       </div>
-      <div class="mobile_390">
-        <h1 class="mine">마이페이지</h1>
-        <h3>안녕하세요 ○○○님!</h3>
-        <div class="box_bo">
-          <div class="reser_t">
-            <div class="reservation_">예약내역</div>
-            <p class="ban">반월당역점</p>
-            <p>상온보관 / 기사님께 맡길게요</p>
-            <div class="sub_list12">
-              <div class="sub_list1">
-                <h4 class="visit">방문일시</h4>
-                <h4>방문빵집</h4>
-                <h4 class="call">부가서비스</h4>
-              </div>
-              <div class="sub_list2">
-                <p>25.09.23[11:00~11:30]</p>
-                <p>빵순이네</p>
-                <p>선택안함</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-       <div class="btn">
-              <button class="stemp">스탬프</button>
-              <button class="review">리뷰관리</button>
-            </div>
-       <ul class="reser-info">
-            <li>회원정보</li>
-            <li>이벤트</li>
-            <li>공지사항</li>
-            <li>자주묻는질문</li>
-            <li>고객센터</li>
-            <li>약관 및 정책</li>
-          </ul>
     </div>
   </div>
 </template>
@@ -101,62 +66,67 @@
 @use "/src/assets/variables" as *;
 
 .mypage {
-  padding: 50px 0;
   height: calc(100vh - 290px);
   height: 100vh;
   background-color: $bg-color;
+  padding-bottom: 50px;
 }
 h1 {
   text-align: center;
-  padding-top: 50px;
+  padding: 50px 0;
   font-family: "Cafe24Surround";
   color: $point-color;
-  font-size: 24px;
+  font-size: 35px;
 }
 h3 {
-  font-size: 16px;
-  padding-left: 30px;
-  padding-bottom: 40px;
+  font-size: $sub-font;
+  padding-bottom: 30px;
+  color:$font-color ;
 }
 
 .mypage-box {
   display: flex;
   justify-content: space-between;
-  gap: 74px;
+  gap: 30px;
 }
 .reservation {
   color: $font-color;
-  font-size: 16px;
+  font-size: $sub-font;
   font-weight: bold;
-  padding-top: 20px;
-  padding-left: 20px;
+  padding-bottom: 30px;
 }
 
 .reser-txt {
   width: 60%;
-  padding: 2%;
+  padding: 30px;
   background-color: #fff;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
 }
 .reser-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 40%;
   font-size: 12px;
   background-color: #fff;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
-  padding-top: 40px;
+  padding: 30px;
   font-family: "SpokaHanSansNeo";
 }
 .reser-info li {
-  padding-left: 40px;
-  padding-bottom: 30px;
+  // padding-bottom: 25px;
   font-family: "SpokaHanSansNeo";
   color: $font-color;
+  font-size: $desc-text-font;
+  &:last-child {
+    padding-bottom: 0;
+  }
 }
 .boso {
-  padding-left: 20px;
   width: 100%;
   display: flex;
-  padding-top: 40px;
   justify-content: space-between;
   font-size: 12px;
   gap: 5%;
@@ -174,12 +144,12 @@ h3 {
 .sub_list {
   display: flex;
   gap: 5px;
+  padding-bottom: 15px;
   font-family: "SpokaHanSansNeo";
 }
-.sub_list span {
-  padding-left: 10px;
-}
+
 h4 {
+  font-size: 14px;
   text-align: left;
   width: 40%;
 }
@@ -192,10 +162,11 @@ h4 {
 .btn {
   display: flex;
   gap: 25px;
-  margin-top: 5%;
+  margin-top: 30px;
 }
 .btn button {
   background-color: #ffebc2;
+  border-radius: 8px;
 
   width: 100%; /* 부모 폭에 맞추기 */
   border: none;
@@ -205,11 +176,10 @@ h4 {
 button.stemp,button.review
 /* {  width: 286px;
   height: 70px; */ {
-  border-radius: 15px;
   padding: 2%;
   font-family: "SpokaHanSansNeo";
-  font-size: $f-a-q-text-font;
-  font-weight: bold;
+  font-size: $desc-text-font;
+  font-weight: 600;
   cursor: pointer;
 }
 button.reser_change {
@@ -222,28 +192,16 @@ button.reser_change {
   text-decoration: underline;
   width: 100%;
 }
-.mobile_390 {
-  display: none;
-}
+
 @media screen and (max-width: 768px) {
   .mypage {
+    background-color: $bg-color;
     height: auto;
   }
-  h1.mine {
-    font-size: 20px;
-    text-align: center;
-    padding-top: 50px;
-    padding-bottom: 40px;
-  }
-  h3 {
-    padding-left: 30px;
-    font-size: 16px;
-    padding-bottom: 40px;
-  }
+
   .box_bo {
     background-color: #fff;
     border-radius: 18px;
-    padding-left: 29px;
     // width: 329px;
   }
 
@@ -254,71 +212,57 @@ button.reser_change {
     width: 100%;
   }
   .reser-info {
+    // margin-top: 30px;
     width: 100%;
-  }
-  .sub_list12 {
-    display: flex;
-  }
-  .sub_list1 {
-    width: 100%;
-  }
-  .sub_list1 h4 {
-    width: 100%;
+    gap: 25px;
   }
 }
 @media screen and (max-width: 390px) {
-  .web_page {
-    display: none;
-  }
-  .mobile_390 {
-    // width: 500px;
-    display: block;
-    
-  }
-  .mine {
-    text-align: left;
-    padding-left: 100px;
-    h3 {
-      font-size: 16px;
-    }
-
-    .sub_list1 {
-      width: calc(100% / 2);
-    }
-  }
-  p.ban {
-    font-size: 20px;
-    font-weight: bold;
-    padding-bottom: 5px;
-  }
-  .sub_list1 h4 {
-    padding-bottom: 10px;
-    // padding-top: 50px;
-  }
-  .sub_list2 p {
-    padding-bottom: 10px;
-    // padding-top: 50px;
-  }
-  .reservation_ {
-    background-color: #ffffff;
-    font-size: 16px;
+  .mypage {
     padding-bottom: 30px;
-    color: $font-color;
-    font-weight: bold;
+  }
+  .mypage-box {
+    gap: 25px;
+  }
+  h1 {
+    font-size: $title-font;
+    padding: 30px;
+  }
 
-  } 
-  
-  h4.call {
-      padding-bottom: 50px;
-    
+  h3,
+  .reservation {
+    font-size: $f-a-q-text-font;
+  }
+  // .boso {
+  //   gap: 5px;
+  // }
+  .reser-txt {
+    padding: 25px;
+  }
+  .sub_list {
+    display: flex;
+    align-items: center; /* h4와 p를 세로 중앙 정렬 */
+    gap: 8px;
+    width: 100%;
+    padding-bottom: 10px;
+    h4 {
+      flex: 0 0 70px;
+      font-size: $mobile-notice-font;
+      text-align: left;
+      // width: 70px;
+    }
+    p {
+      flex: 1;
+      font-size: 11px;
+      line-height: 1.4;
+      word-break: keep-all; /* 단어 단위로 줄바꿈 */
     }
   }
-  .reservation_:first-child {
-    padding-top: 50px; // border: #ffebc2;
-      // width:329px;
-}
-ul.reser-info{
-
-  margin-top: 30px;
+  .reser-info {
+    padding: 25px;
+    li {
+      font-size: $notice-text-font;
+    }
+  }
 }
 </style>
