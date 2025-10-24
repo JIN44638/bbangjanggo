@@ -42,7 +42,7 @@ import { RouterLink } from "vue-router";
     align-items: flex-start;
     justify-content: flex-end;
     margin: auto;
-    @media (max-width:830px){
+    @media (max-width: 830px) {
       max-width: 500px;
     }
     h1 {
@@ -57,7 +57,7 @@ import { RouterLink } from "vue-router";
       gap: 20px;
       margin-top: 180px;
       margin-bottom: 18%;
-      @media (max-width:830px){
+      @media (max-width: 830px) {
         margin-top: 100px;
       }
 
@@ -75,7 +75,8 @@ import { RouterLink } from "vue-router";
         &:hover {
           // transform: translateY(-2px);
           box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-          background-color: darken($color: $sub-color, $amount: 10);
+          // background-color: darken($color: $point-color, $amount: 10);
+          background-color: rgb(133, 99, 63);
           // .btn-content {
           //   .btn-image {
           //     transform: scale(1.02);

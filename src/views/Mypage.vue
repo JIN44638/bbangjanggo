@@ -1,6 +1,6 @@
 <template>
   <div class="mypage">
-    <div class="inner">
+    <div class="inner mypage_wrap">
       <h1>마이페이지</h1>
       <h3 class="hello">안녕하세요 김빵장님!</h3>
       <div class="web_page">
@@ -67,13 +67,20 @@
 
 .mypage {
   height: calc(100vh - 290px);
-  height: 100vh;
+  height: 79vh;
   background-color: $bg-color;
-  padding-bottom: 50px;
+  // padding-bottom: 50px;
+  position: relative;
+  .mypage_wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 h1 {
   text-align: center;
-  padding: 50px 0;
+  padding: 0 0 50px;
   font-family: "Cafe24Surround";
   color: $point-color;
   font-size: 35px;
@@ -81,7 +88,7 @@ h1 {
 h3 {
   font-size: $sub-font;
   padding-bottom: 30px;
-  color:$font-color ;
+  color: $font-color;
 }
 
 .mypage-box {
@@ -196,7 +203,7 @@ button.reser_change {
 @media screen and (max-width: 768px) {
   .mypage {
     background-color: $bg-color;
-    height: auto;
+    height: 102vh;
   }
 
   .box_bo {
@@ -219,14 +226,15 @@ button.reser_change {
 }
 @media screen and (max-width: 390px) {
   .mypage {
-    padding-bottom: 30px;
+    // padding-bottom: 30px;
+    height: 87vh;
   }
   .mypage-box {
     gap: 25px;
   }
   h1 {
     font-size: $title-font;
-    padding: 30px;
+    padding: 0 0 30px;
   }
 
   h3,
