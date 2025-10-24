@@ -37,4 +37,3 @@ npm run dev
 npm run build
 ```
 # bbangjanggo
-# bbangjanggo_b
