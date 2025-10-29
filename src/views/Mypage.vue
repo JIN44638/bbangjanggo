@@ -75,12 +75,12 @@
   // padding-bottom: 50px;
   position: relative;
 
-  .mypage_wrap {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+  // .mypage_wrap {
+  //   position: absolute;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  // }
 }
 h1 {
   text-align: center;
@@ -207,7 +207,8 @@ button.reser_change {
 @media screen and (max-width: 768px) {
   .mypage {
     background-color: $bg-color;
-    height: 102vh;
+    height: auto;
+    padding: 8% 0;
   }
 
   .box_bo {
@@ -229,10 +230,6 @@ button.reser_change {
   }
 }
 @media screen and (max-width: 390px) {
-  .mypage {
-    // padding-bottom: 30px;
-    height: 95vh;
-  }
   .mypage-box {
     gap: 25px;
   }
