@@ -32,9 +32,9 @@
         </div>
       </div>
     </div>
-    <div class="thum">
+    <!-- <div class="thum">
       <img src="/public/images/pjs/thum.jpg" alt="섬네일">
-    </div>
+    </div> -->
   </footer>
 </template>
 
