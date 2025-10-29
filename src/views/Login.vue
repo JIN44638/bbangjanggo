@@ -115,7 +115,7 @@ const login = () => {
         width: 100%;
         max-width: 400px;
         background-color: #ccc;
-        // margin: 20px 0 10px 0;
+        margin: 3.5px 0;
       }
       .sns-login {
         display: flex;
@@ -136,7 +136,7 @@ const login = () => {
           justify-content: space-between;
           img {
             display: block;
-            width: 100%;
+            width: 120px;
             padding: 0 30%;
           }
         }
