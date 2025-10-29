@@ -36,13 +36,14 @@ import { RouterLink } from "vue-router";
   .visual-txt {
     // background-color: red;
     width: 80%;
+    max-width: 1000px;
     position: absolute;
-    top: 30%;
+    top: 35%;
     left: 50%;
     transform: translateX(-50%);
-    @media (max-width: 830px) {
+    @media (max-width: 400px) {
       max-width: 500px;
-      top: 20%;
+      top: 25%;
     }
     h1 {
       font-family: "Cafe24Surround";
@@ -56,10 +57,11 @@ import { RouterLink } from "vue-router";
       width: 100%;
       display: flex;
       gap: 20px;
+      padding-top: 15%;
       // margin-top: 15%;
       // margin-bottom: 14%;
       @media (max-width: 830px) {
-        margin-top: 100px;
+        padding-top: 50px;
       }
 
       .btn {
