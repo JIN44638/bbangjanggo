@@ -66,8 +66,11 @@
 @use "/src/assets/variables" as *;
 
 .mypage {
-  height: calc(100vh - 290px);
+  // height: calc(100vh - 290px);
   height: calc(100vh - 89.77px - 115px);
+   @media (max-width: 650px){
+  height: auto;
+ }
   background-color: $bg-color;
   // padding-bottom: 50px;
   position: relative;
