@@ -71,6 +71,9 @@
   background-color: $bg-color;
   // padding-bottom: 50px;
   position: relative;
+  @media (max-width :600px){
+    height: calc(100vh - 89.77px - 320px);
+  }
   .mypage_wrap {
     position: absolute;
     top: 50%;
