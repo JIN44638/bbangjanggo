@@ -77,6 +77,9 @@ const login = () => {
 .login-wrap {
   background-color: $bg-color;
   height: calc(100vh - 89.77px - 115px);
+  @media (max-width: 650px) {
+    height: auto;
+  }
 
   .login-info-wrap {
     width: 100%;
