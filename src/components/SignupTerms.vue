@@ -17,7 +17,7 @@
     <!-- ✅개별 이용약관 모음 -->
     <div class="terms-box" :class="{ expended: isExpended }">
       <div class="check-box" v-for="term in terms" :key="term.id">
-        <input type="checkbox" :id="`term${terms.id}`" v-model="checkedTerms" :value="term.id" />
+        <input type="checkbox" :id="`term${term.id}`" v-model="checkedTerms" :value="term.id" />
         <label :for="`term${term.id}`">{{ term.label }}</label>
         <div class="check-box-txt">
           <span v-html="term.content"></span>

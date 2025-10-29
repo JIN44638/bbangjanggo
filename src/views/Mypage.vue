@@ -227,7 +227,7 @@ button.reser_change {
 @media screen and (max-width: 390px) {
   .mypage {
     // padding-bottom: 30px;
-    height: 87vh;
+    height: 95vh;
   }
   .mypage-box {
     gap: 25px;
@@ -240,6 +240,9 @@ button.reser_change {
   h3,
   .reservation {
     font-size: $f-a-q-text-font;
+  }
+  .btn {
+    gap: 10px;
   }
   // .boso {
   //   gap: 5px;

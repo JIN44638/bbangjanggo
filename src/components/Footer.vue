@@ -32,6 +32,9 @@
         </div>
       </div>
     </div>
+    <div class="thum">
+      <img src="/public/images/pjs/thum.jpg" alt="섬네일">
+    </div>
   </footer>
 </template>
 
@@ -43,9 +46,7 @@
 footer {
   background-color: $point-color;
   padding: 15px 0;
-  @media (max-width: 390px) {
-    padding-left: 20px;
-  }
+ 
 
   .foot-inner {
     display: flex;

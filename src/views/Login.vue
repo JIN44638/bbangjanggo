@@ -146,7 +146,7 @@ const login = () => {
         gap: 25px;
         align-items: center;
         justify-content: center;
-        width: 100%;
+        width: 100px;
         white-space: nowrap;
         .loginHelp-top {
           display: flex;

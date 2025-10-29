@@ -365,6 +365,16 @@ p {
         }
       }
     }
+    @media (max-width: 380px) {
+      .pay_text {
+        p {
+          font-size: 12px !important;
+          &:last-child {
+            font-size: 10px !important;
+          }
+        }
+      }
+    }
   }
 }
 // 결제하기 버튼

@@ -37,7 +37,13 @@
         </div>
         <div class="infoBox">
           <p>비밀번호</p>
-          <input v-model="password" type="password" placeholder="8자 이상, 영문자 + 숫자 포함" minlength="8" maxlength="12"/>
+          <input
+            v-model="password"
+            type="password"
+            placeholder="8자 이상, 영문자 + 숫자 포함"
+            minlength="8"
+            maxlength="12"
+          />
         </div>
         <div class="infoBox">
           <p>비밀번호 확인</p>
@@ -45,7 +51,9 @@
             v-model="passwordConfirm"
             @input="checkPasswordMatch"
             type="password"
-            placeholder="비밀번호를 재입력해주세요" minlength="8" maxlength="12"
+            placeholder="비밀번호를 재입력해주세요"
+            minlength="8"
+            maxlength="12"
           />
         </div>
         <p v-if="passwordMessage" :class="{ success: isPasswordMatch, error: !isPasswordMatch }">
@@ -210,6 +218,7 @@ const signup = () => {
           display: flex;
           margin-bottom: 20px;
           gap: 10px;
+
           input {
             width: 70%;
             background-color: #fff;
@@ -217,9 +226,16 @@ const signup = () => {
             box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             padding: 20px 30px;
+            @media (max-width: 390px) {
+              padding: 10px 20px;
+            }
           }
           button {
             width: 30%;
+            padding: 0 0;
+            @media (max-width: 390px) {
+              font-size: 12px !important;
+            }
           }
         }
       }

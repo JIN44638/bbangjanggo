@@ -7,7 +7,7 @@
       </a>
 
       <!-- ellipsis 버튼 -->
-      <a class="ellipsis" @click="toggleExpand">
+      <a class="ellipsis" @click="toggleExpand" >
         <img :src="currentEllipsis" alt="ellipsis" />
       </a>
 
