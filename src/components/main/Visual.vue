@@ -40,8 +40,9 @@ import { RouterLink } from "vue-router";
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-end;
+    justify-content: flex-start;
     margin: auto;
+
     @media (max-width: 830px) {
       max-width: 500px;
     }
@@ -50,6 +51,13 @@ import { RouterLink } from "vue-router";
       color: white;
       font-size: 48px;
       z-index: 1;
+      padding-top: 40%;
+      @media (max-width:768px){
+        padding-top: 60%;
+      }
+      @media (max-width:390px){
+        padding-top: 90%;
+      }
     }
     .reserBtn {
       width: 100%;

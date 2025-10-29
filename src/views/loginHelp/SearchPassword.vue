@@ -32,7 +32,7 @@ import FlowAd from '@/components/FlowAd.vue';
 
 .searchId {
   background-color: $bg-color;
-  height: 100vh;
+  height: calc(100vh - 115px);
   .searchId-inner {
     max-width: 400px;
     width: 85%;

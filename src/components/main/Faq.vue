@@ -210,7 +210,7 @@ onMounted(async () => {
           user-select: none;
 
           &:hover {
-            background-color: darken($main-color, 3%);
+            background-color:  rgb(228, 207, 166);
           }
         }
         @media (max-width: 768px) {
