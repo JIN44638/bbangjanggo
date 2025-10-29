@@ -5,7 +5,7 @@
       <h2>로그인</h2>
       <div class="login-input">
         <input v-model="usermail" type="email" placeholder="아이디 입력" />
-        <input v-model="password" type="text" placeholder="비밀번호 입력" minlength="8" maxlength="12" />
+        <input v-model="password" type="password" placeholder="비밀번호 입력" minlength="8" maxlength="12" />
       </div>
       <div class="login-box">
         <div class="logBtn">
@@ -172,6 +172,7 @@ const login = () => {
         text-align: center;
         padding: 20px 30px;
         margin: 20px 0 0 0;
+        font-size: 14px;
         &:nth-child(2) {
           background-color: $main-color;
           color: $font-color;

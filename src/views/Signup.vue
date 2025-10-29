@@ -9,7 +9,7 @@
       <form class="signupInfo" @submit.prevent="signup">
         <div class="infoBox">
           <p>성함</p>
-          <input v-model="username" type="text" placeholder="한글 또는 영어 이름을 입력해주세요" />
+          <input v-model="username" type="password" placeholder="한글 또는 영어 이름을 입력해주세요" />
         </div>
         <div class="infoBox-a">
           <p>휴대폰 번호</p>
@@ -37,13 +37,7 @@
         </div>
         <div class="infoBox">
           <p>비밀번호</p>
-          <input
-            v-model="password"
-            type="password"
-            placeholder="8자 이상, 영문자 + 숫자 포함"
-            minlength="8"
-            maxlength="12"
-          />
+          <input v-model="password" type="password" placeholder="8자 이상, 영문자 + 숫자 포함" minlength="8" maxlength="12"/>
         </div>
         <div class="infoBox">
           <p>비밀번호 확인</p>
@@ -51,15 +45,13 @@
             v-model="passwordConfirm"
             @input="checkPasswordMatch"
             type="password"
-            placeholder="비밀번호를 재입력해주세요"
-            minlength="8"
-            maxlength="12"
+            placeholder="비밀번호를 재입력해주세요" minlength="8" maxlength="12"
           />
         </div>
         <p v-if="passwordMessage" :class="{ success: isPasswordMatch, error: !isPasswordMatch }">
           {{ passwordMessage }}
         </p>
-        <SignupTerms />
+        <SignupTerms ref="termsRef"/>
 
         <!-- 회원가입 버튼 -->
         <button type="submit" class="signupBtn">회원 가입</button>
@@ -82,10 +74,13 @@ const usermail = ref(""); //이메일
 const usernumber = ref(""); //전화번호
 const authCode = ref(""); //인증코드
 
+// 약관 컴포넌트 ref
+const termsRef = ref(null);
+
 // 인증코드 관련 ref
 const timer = ref(0); //타이머 표시
 const isButtonDisabled = ref(false); //인증코드 버튼 가리기
-const isVerified = ref(false); //
+const isVerified = ref(false);
 const authMessage = ref(""); //인증코드 관련 알림창
 
 // 비밀번호 확인 관련
@@ -126,6 +121,12 @@ const checkPasswordMatch = () => {
 
 // ✨📲인증번호 전송 (요청 버튼 클릭 시)
 const sendAuthCode = () => {
+  // 전화번호 입력 확인
+  if (!usernumber.value || usernumber.value.replace(/[^0-9]/g, "").length !== 11) {
+    alert("올바른 전화번호를 입력해주세요.");
+    return;
+  }
+
   // 예: 서버에 전화번호 전송 후 인증번호 발송 API 요청
   console.log("인증번호 요청됨");
 
@@ -144,6 +145,11 @@ const sendAuthCode = () => {
 
 // ✅ 인증번호 검증
 const verifyAuthCode = () => {
+  if (!authCode.value) {
+    alert("인증번호를 입력해주세요.");
+    return;
+  }
+
   // 실제로는 서버 검증 API 호출
   if (authCode.value === "123456") {
     isVerified.value = true;
@@ -156,6 +162,20 @@ const verifyAuthCode = () => {
 
 // 회원가입 완료
 const signup = () => {
+
+  // 2️⃣ 비밀번호 일치 확인
+  if (!isPasswordMatch.value) {
+    alert("비밀번호가 일치하지 않습니다.");
+    return;
+  }
+
+  // 3️⃣ 필수 약관 동의 확인
+  if (!termsRef.value?.isRequiredTermsChecked) {
+    alert("필수 약관에 모두 동의해주세요.");
+    return;
+  }
+
+  // 4️⃣ 모든 검증 통과 시 회원가입 진행
   const user = {
     username: username.value,
     password: password.value,
@@ -218,7 +238,6 @@ const signup = () => {
           display: flex;
           margin-bottom: 20px;
           gap: 10px;
-
           input {
             width: 70%;
             background-color: #fff;
@@ -226,16 +245,9 @@ const signup = () => {
             box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             padding: 20px 30px;
-            @media (max-width: 390px) {
-              padding: 10px 20px;
-            }
           }
           button {
             width: 30%;
-            padding: 0 0;
-            @media (max-width: 390px) {
-              font-size: 12px !important;
-            }
           }
         }
       }
@@ -244,6 +256,7 @@ const signup = () => {
   button {
     @include btn-style;
     height: 59px;
+
   }
 }
 // 회원가입 버튼
