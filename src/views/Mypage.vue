@@ -67,7 +67,7 @@
 
 .mypage {
   height: calc(100vh - 290px);
-  height: 79vh;
+  height: 77.7vh;
   background-color: $bg-color;
   // padding-bottom: 50px;
   position: relative;
