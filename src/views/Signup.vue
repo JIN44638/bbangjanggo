@@ -9,7 +9,7 @@
       <form class="signupInfo" @submit.prevent="signup">
         <div class="infoBox">
           <p>성함</p>
-          <input v-model="username" type="password" placeholder="한글 또는 영어 이름을 입력해주세요" />
+          <input v-model="username" type="text" placeholder="한글 또는 영어 이름을 입력해주세요" />
         </div>
         <div class="infoBox-a">
           <p>휴대폰 번호</p>
