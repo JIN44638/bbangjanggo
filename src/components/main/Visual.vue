@@ -27,44 +27,37 @@ import { RouterLink } from "vue-router";
 @use "@/assets/variables" as *;
 
 .visual {
+  position: relative;
   width: 100%;
   height: 100vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("/public/images/kms/main-img.png") center/cover no-repeat;
 
   .visual-txt {
+    // background-color: red;
     width: 80%;
-    height: 100%;
-    max-width: 1000px;
-    min-width: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin: auto;
-
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
     @media (max-width: 830px) {
       max-width: 500px;
+      top: 20%;
     }
     h1 {
       font-family: "Cafe24Surround";
       color: white;
       font-size: 48px;
       z-index: 1;
-      padding-top: 40%;
-      @media (max-width:768px){
-        padding-top: 60%;
-      }
-      @media (max-width:390px){
-        padding-top: 90%;
-      }
+      // padding-top: 40%;
+    
     }
     .reserBtn {
       width: 100%;
       display: flex;
       gap: 20px;
-      margin-top: 180px;
-      margin-bottom: 18%;
+      // margin-top: 15%;
+      // margin-bottom: 14%;
       @media (max-width: 830px) {
         margin-top: 100px;
       }
