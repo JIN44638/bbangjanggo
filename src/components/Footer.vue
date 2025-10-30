@@ -33,7 +33,7 @@
       </div>
     </div>
     <!-- <div class="thum">
-      <img src="/public/images/pjs/thum.jpg" alt="섬네일">
+      <img src="/images/pjs/thum.jpg" alt="섬네일">
     </div> -->
   </footer>
 </template>

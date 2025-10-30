@@ -16,7 +16,7 @@
           <div class="info-txt-box">
             <input v-model="usernumber" @input="formatPhone" maxlength="13" type="text" placeholder="010-1234-5678" />
             <button :disabled="isButtonDisabled" @click="sendAuthCode" type="button">
-              {{ isButtonDisabled ? `재전송 (${timer}s)` : "인증번호 받기" }}
+              {{ isButtonDisabled ? `재전송 (${timer}s)` : `인증번호` }}
             </button>
           </div>
         </div>
@@ -238,6 +238,7 @@ const signup = () => {
           display: flex;
           margin-bottom: 20px;
           gap: 10px;
+          white-space: nowrap;
           input {
             width: 70%;
             background-color: #fff;
@@ -248,6 +249,7 @@ const signup = () => {
           }
           button {
             width: 30%;
+            
           }
         }
       }
