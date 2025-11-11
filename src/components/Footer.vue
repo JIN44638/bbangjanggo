@@ -20,9 +20,9 @@
             <img src="/images/pjs/googleplay.png" alt="안드로이드" />
             <p>Android 전용</p>
           </div>
-          <div class="iso icon">
+          <div class="ioS icon">
             <img src="/images/pjs/apple.png" alt="iso" />
-            <p>iso 전용</p>
+            <p>ios 전용</p>
           </div>
           <div class="sns">
             <!-- <img src="/images/pjs/twiter.png" alt="sns" /> -->
